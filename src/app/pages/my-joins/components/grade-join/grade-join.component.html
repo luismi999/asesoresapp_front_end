@@ -1,0 +1,94 @@
+<!-- Pantalla dee carga   -->
+<app-loading *ngIf="flag_loading"></app-loading>
+
+<!-- Notificación -->
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
+
+<!-- Nuevo modal para calificar un join -->
+<p-dialog asesoría="Calificar join" [(visible)]="flag" [modal]="true" [style]="{ width: '40vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
+    <div class="row">
+        <div class="col p-5">
+
+            <!-- Titulo -->
+            <div class="row">
+                <div class="col">
+                    <h5 class=" text-center">Vista para enviar retroalimentación</h5>
+                </div>
+            </div>
+
+            <!-- Linea horizontal -->
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="row">
+                <div class="col">
+                    <h6 class=" m-3">
+                        Hola {{join?.user?.first_name | uppercase}} {{join?.user?.last_name | uppercase}} esta es la culminación de tu asesoramiento con 
+                        {{consultation?.user?.first_name | uppercase}} {{consultation?.user?.last_name | uppercase}} quien te asesoró sobre la cátedra 
+                        titulada {{consultation?.subject?.name | uppercase}}. Selecciona una calificación como retroalimentación para tu asesor donde 
+                        "1" es pésimo y "10" es excelente.
+                    </h6>
+                </div>
+            </div>
+            
+            <!-- Seleccionar calificación -->
+            <div class="row">
+                <div class="col">        
+                    <form [formGroup]="form">
+                        <!-- Input  -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select " aria-label="Floating label select example" formControlName="grade">
+                              <option selected class="" value="0">Selecciona una calificación</option>
+                              <option *ngFor="let grade of grades" (value)="grade">{{grade}}</option>
+                            </select>
+                            <label for="floatingSelect" class="">Calificación seleccionada</label>
+                        </div>
+                        <!-- Descripción -->
+                        <div class="row">
+                            <div class="col">
+                                <h6 class=" m-3">
+                                    Es importante para nosotros que nos platiques un poco de tu experiencia con {{consultation?.user?.first_name | uppercase}} 
+                                    {{consultation?.user?.last_name | uppercase}} para que otros estudiantes puedan ver tu comentario ya sea positivo o negativo.
+                                </h6>
+                            </div>
+                        </div>
+                        <!-- Textarea  -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" formControlName="comment"></textarea>
+                                    <label for="floatingTextarea2">Comentario</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <!-- Linea horizontal  -->
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Botón para calificar -->
+            <div class="row">
+                <div class="col">
+                    <!-- Botón para calificar  -->
+                    <button class="btn btn-primary float-end" (click)="updateJoin()" [disabled]="form.invalid">
+                        <h6 class="my-2"> 
+                            Calificar
+                        </h6>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

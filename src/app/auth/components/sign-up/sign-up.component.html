@@ -1,0 +1,108 @@
+<!-- Pantalla de carga  -->
+<app-loading *ngIf="flag_loading"></app-loading>
+
+<!-- Notificación -->
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
+
+<!-- Modal  -->
+<p-dialog header="Nueva cuenta" [closable]="false" [(visible)]="flag_create_user" [modal]="true" [style]="{ width: '30vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" [closable]="true" (onHide)="closeModal()">
+    <!-- Formulario -->
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="form">
+                <!-- Código institucional -->
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="code" formControlName="institutional_code">
+                    <label for="floatingInput" class="text-table-font">Código institucional</label>
+                </div>
+                <!-- email institucional -->
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" placeholder="email" formControlName="institutional_email">
+                    <label for="floatingInput" class="text-table-font">Correo institucional</label>
+                    <span *ngIf="getError('institutional_email')" class="text-danger">Este campo es obligatorio y debe tener un correo válido.</span>
+                </div>
+                <!-- Role -->
+                <div class="form-floating mb-3">
+                    <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="role">
+                      <option value="student" selected>Estudiante</option>
+                      <option value="advisor">Asesor</option>
+                    </select>
+                    <label for="floatingSelect" class="text-table-font">Role seleccionado</label>
+                </div>
+                <!-- Nombre -->
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="fisrt_name" formControlName="first_name">
+                    <label for="floatingInput" class="text-table-font">Nombre(s)</label>
+                    <span *ngIf="getError('first_name')" class="text-danger">Este campo es obligatorio y debe tener un mínimo de 3 caracteres.</span>
+                </div>
+                <!-- Apellido -->
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="last_name" formControlName="last_name">
+                    <label for="floatingInput" class="text-table-font">Apellido(s)</label>
+                    <span *ngIf="getError('last_name')" class="text-danger">Este campo es obligatorio y debe tener un mínimo de 3 caracteres.</span>
+                </div>
+                <!-- numero de celular -->
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" placeholder="phone_number" formControlName="cellphone_number">
+                    <label for="floatingInput" class="text-table-font">Número de celular</label>
+                    <span *ngIf="getError('cellphone_number')" class="text-danger">Este campo es obligatorio.</span>
+                </div>
+                <!-- Contraseña -->
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" placeholder="password" formControlName="password">
+                    <label for="floatingInput" class="text-table-font">Password</label>
+                    <span *ngIf="getError('password')" class="text-danger">Este campo es obligatorio y debe tener un mínimo de 8 caracteres.</span>
+                </div>
+                <!-- Confirmar contraseña -->
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" placeholder="password" formControlName="password2">
+                    <label for="floatingInput" class="text-table-font">Confirmar password</label>
+                    <span *ngIf="getError('password2')" class="text-danger">Está contraseña debe coincidir con la primera.</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Linea horizontal  -->
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <!-- Botón de crear y cerrar-->
+    <div class="row">
+        <div class="col">
+            <!-- Botón para crear usuario nuevo  -->
+            <button class="btn btn-success float-end" data-bs-dismiss="modal" (click)="signUp()" [disabled]="form.invalid">
+                <h6 class="my-2">
+                    <!-- Icono de creación  -->
+                    <span class="text-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M16 19h6" />
+                            <path d="M19 16v6" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                        </svg>
+                    </span>
+                    Crear usuario
+                </h6>
+            </button>
+            <!-- Botón para cerrar el modal  -->
+            <button class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">
+                <h6 class="my-2">
+                    <!-- Icono de cancelar  -->
+                    <span class="text-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M18 6l-12 12" />
+                            <path d="M6 6l12 12" />
+                        </svg>
+                        Cancelar
+                    </span>
+                </h6>
+            </button>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,97 @@
+<!-- Pantalla de carga  -->
+<app-loading *ngIf="flag_loading"></app-loading>
+
+<!-- Notificación -->
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}"></p-toast>
+
+<!-- SingIn  -->
+<div class="container-fluid animate__animated animate__fadeIn" style="height: 100vh;">
+    <div class="row h-100">
+
+        <!-- Titulo -->
+        <div class="col-sm-12 col-md-8 col-lg-8 d-flex align-items-center justify-content-center title-container">
+            <div class="text-center">
+                <!-- <h1 class="text-center arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-planet" width="100" height="100" viewBox="0 0 25 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18.816 13.58c2.292 2.138 3.546 4 3.092 4.9c-.745 1.46 -5.783 -.259 -11.255 -3.838c-5.47 -3.579 -9.304 -7.664 -8.56 -9.123c.464 -.91 2.926 -.444 5.803 .805" />
+                        <path d="M12 12m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                    </svg>
+                </h1> -->
+                <h1 class="text-light text-table-font">
+                    AsesoresApp
+                </h1>
+            </div>
+        </div>
+
+        <!-- Inicio de sesión  -->
+        <div class="col-sm-12 col-md-4 col-lg-4 d-flex align-items-center justify-content-center">
+            <div class="w-75">
+                <!-- <figure class="text-center">
+                    <img style="height: 100px;" src="../../../assets/images/logo_udg.png" alt="Logo de la UDG">
+                    <img class="mt-3 ms-3" style="height: 50px;" src="../../../assets/images/logo_inni.png" alt="Logo de la INNI">
+                </figure> -->
+                <h4 class="text-table-font mb-3 text-center">Inicio de sesión</h4>
+                <!-- Formulario -->
+                <form [formGroup]="form">
+                    <!-- Código -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingEmail" placeholder="212121212" formControlName="institutional_code">
+                        <label for="floatingEmail">Código institucional</label>
+                    </div>
+                    <!-- Contraseña -->
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+                        <label for="floatingPassword">Contraseña</label>
+                    </div>
+                </form>
+                
+                <div class="row">
+                    <div class="col">
+                        <!-- Botón para acceder -->
+                        <p-button label="Acceder" styleClass="p-button-raised p-button-primary float-end" (onClick)="signIn()">
+                            <span class="me-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-door-enter" width="20" height="20" viewBox="0 0 15 30" stroke-width="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M13 12v.01" />
+                                    <path d="M3 21h18" />
+                                    <path d="M5 21v-16a2 2 0 0 1 2 -2h6m4 10.5v7.5" />
+                                    <path d="M21 7h-7m3 -3l-3 3l3 3" />
+                                </svg>
+                            </span>
+                        </p-button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <!-- Linea horizontal  -->
+                        <hr>
+                    </div>
+                </div>
+                    
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-muted">
+                            <strong>
+                                <span class="cursor-pointer" (click)="flag_show_create_user = true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="20" height="20" viewBox="0 0 15 30" stroke-width="2.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                        <path d="M16 19h6" />
+                                        <path d="M19 16v6" />
+                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                                    </svg>
+                                    Crear cuenta
+                                </span>
+                            </strong>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para crear una cuenta  -->
+<app-sign-up [flag_create_user]="flag_show_create_user" (flag_response)="flag_show_create_user = $event"></app-sign-up>

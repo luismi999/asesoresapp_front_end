@@ -1,0 +1,19 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.planet {
+    animation: upDown 5s ease-in-out infinite;
+}
+
+/* Definición de la animación */
+@keyframes leftToRight {
+    0%, 100% { transform: translateX(-20px); }
+    50% { transform: translateX(20px); }
+}
+
+/* Definición de la animación del planeta */
+@keyframes upDown {
+    0%, 100% { transform: translateY(-5px); }
+    50% { transform: translateY(5px); }
+}

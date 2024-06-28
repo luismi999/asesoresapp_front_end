@@ -1,0 +1,13 @@
+.bg-color-principal {
+    background-color: #1B2631;
+}
+
+.nave {
+    animation: upDown 10s ease-in-out infinite;
+}
+
+/* Definición de la animación del planeta */
+@keyframes upDown {
+    0%, 100% { transform: translateY(-5px); }
+    50% { transform: translateY(5px); }
+}

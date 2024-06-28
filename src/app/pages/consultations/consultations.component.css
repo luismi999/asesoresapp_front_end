@@ -1,0 +1,58 @@
+.title-container {
+    height: 100vh; 
+    background-color: #1B2631;
+}
+
+.content-container {
+    height: 100vh; 
+    background-color: #ffffff;
+}
+
+.bg-color-principal {
+    background-color: #1B2631;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.satelite {
+    animation: leftToRight 10s ease-in-out infinite;
+}
+
+.planet {
+    animation: upDown 10s ease-in-out infinite;
+}
+
+.advisor_name {
+    cursor: pointer;
+    color: black;
+}
+
+/* Definición de la animación */
+@keyframes leftToRight {
+    0%, 100% { transform: translateX(-20px); }
+    50% { transform: translateX(20px); }
+}
+
+/* Definición de la animación del planeta */
+@keyframes upDown {
+    0%, 100% { transform: translateY(-5px); }
+    50% { transform: translateY(5px); }
+}
+
+/* Estilos para pantallas más pequeñas, como teléfonos móviles */
+@media (max-width: 767px) {
+    .title-container {
+        margin-top: 50px;
+        height: 30vh; 
+        background-color: #1B2631;
+    }
+
+    .content-container {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        height: auto; 
+        background-color: #ffffff;
+    }
+}

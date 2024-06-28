@@ -1,0 +1,16 @@
+<!-- Loading  -->
+<app-loading *ngIf="flag_loading"></app-loading>
+
+<!-- Gráfica de asesor sobre los joins asignados en cada mes  -->
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <div class="card-header bg-color-principal">
+                <h6 class="text-center text-light">Estadísticas del usuario</h6>
+            </div>
+            <div class="card-body">
+                <p-chart type="line" [data]="data_chart_line" [options]="options_chart_line"></p-chart>
+            </div>
+        </div>
+    </div>
+</div>
