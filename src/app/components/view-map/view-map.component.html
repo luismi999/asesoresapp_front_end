@@ -1,0 +1,17 @@
+<!-- Nuevo modal para ver la asesoría (restructured)-->
+<p-dialog asesoría="Ubicación" [(visible)]="flag" [modal]="true" [style]="{ width: '50vw', height: '70vh' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
+
+    <!-- Titulo  -->
+    <div class="row">
+        <div class="col">
+            <h5 class="text-center"><strong>Vista de la ubicación</strong></h5>
+            <hr>
+        </div>
+    </div>
+    
+    <!-- Mapa -->
+    <div class="row">
+        <div class="col card shadow" id="map" style="height: 500px;"></div>
+    </div>
+    
+</p-dialog>

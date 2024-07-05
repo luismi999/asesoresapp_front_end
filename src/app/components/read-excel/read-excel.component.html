@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col">
+        <!-- Card  -->
+        <div class="card shadow">
+            <!-- Header  -->
+            <div class="card-header">
+                <h6>Carga de archivo EXCEL</h6>
+            </div>
+            <!-- Body -->
+            <div class="card-body">
+                <input type="file" (change)="handleFileInput($event)" />
+            </div>
+            <!-- Footer  -->
+            <div class="card-footer">
+                <div class="table">
+                    <table class="table table-centered table-nowrap table-hover mb-0">
+                        <tbody>
+                            <tr *ngFor="let alumno of alumnosArray">
+                                <!-- Nombre y código -->
+                                <td>
+                                    <h6 class="font-14 my-2 fw-normal">Nombre y código</h6>
+                                    <span class="font-13 text-muted">{{alumno.nombre}}</span>
+                                </td>
+                                <!-- Cátedras -->
+                                <td>
+                                    <h6 class="font-14 my-2 fw-normal">Cátedras</h6>
+                                    <span class="font-13 text-muted">{{alumno.materia}}</span>
+                                </td>
+                                <!-- Nombre -->
+                                <td>
+                                    <h6 class="font-14 my-2 fw-normal">Comentarios</h6>
+                                    <span class="font-13 text-muted">{{alumno.comentarios}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

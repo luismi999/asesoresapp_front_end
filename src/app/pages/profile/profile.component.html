@@ -1,0 +1,141 @@
+<!-- Loading  -->
+<app-loading *ngIf="flag_loading"></app-loading>
+
+<!-- Notificación -->
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
+
+<!-- Imagen y formulario  -->
+<div class="row my-5 animate__animated animate__fadeIn">
+
+    <!-- Formulario -->
+    <div class="col">
+        <!-- Titulo  -->
+        <h6 class="text-muted">
+            <!-- Icono -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 18">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+            Perfil
+        </h6>
+        <!-- Linea horizontal  -->
+        <hr>
+        <div class="card shadow">
+            <div class="card-body">
+                <form [formGroup]="my_form_for_update">
+                    <!-- Código institucional -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" placeholder="code" formControlName="institutional_code">
+                        <label class="text-table-font">Código institucional</label>
+                    </div>
+                    <!-- Email institucional -->
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" placeholder="email" formControlName="institutional_email">
+                        <label for="floatingInput" class="text-table-font">Correo institucional</label>
+                        <span *ngIf="getError('institutional_email')" class="text-danger">Este campo es obligatorio y debe ser un correo valido</span>
+                    </div>
+                    <!-- Role -->
+                    <div class="form-floating mb-3">
+                        <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="role">
+                            <option value="student" selected>Estudiante</option>
+                            <option value="advisor">Asesor</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                        <label for="floatingSelect" class="text-table-font">Rol</label>
+                        <span *ngIf="getError('role')" class="text-danger">Este campo es obligatorio y debes seleccionar un role</span>
+                    </div>
+                     <!-- Nombre -->
+                     <div class="form-floating mb-3" (change)="getError('first_name')">
+                        <input type="text" class="form-control" placeholder="first_name" formControlName="first_name">
+                        <label for="floatingInput" class="text-table-font">Nombre(s)</label>
+                        <span *ngIf="getError('first_name')" class="text-danger">Este campo es obligatorio y debe tener un mínimo de 3 caracteres</span>
+                    </div>
+                    <!-- Apellido -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" placeholder="last_name" formControlName="last_name">
+                        <label for="floatingInput" class="text-table-font">Apellido(s)</label>
+                        <span *ngIf="getError('last_name')" class="text-danger">Este campo es obligatorio y debe tener un mínimo de 3 caracteres</span>
+                    </div>
+                    <!-- teléfono -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" placeholder="cellphone_number" formControlName="cellphone_number">
+                        <label for="floatingInput" class="text-table-font">Número de celular</label>
+                        <span *ngIf="getError('phone')" class="text-danger">Este campo es obligatorio y debe tener un mínimo de 10 dígitos</span>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary float-end" (click)="updateUser()" [disabled]="my_form_for_update.invalid">
+                    <h6 class="my-2">
+                        <!-- Icono de actualizar  -->
+                        <span class="text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                <path d="M16 5l3 3" />
+                            </svg>
+                        </span>
+                        Actualizar
+                    </h6>
+                </button>
+            </div>
+        </div>
+    </div>  
+</div>
+
+<!-- Instrucciones -->
+<div class="row mt-3">
+    <div class="col">
+        <!-- Card -->
+        <div class="card shadow">
+            <!-- Card-header -->
+            <div class="card-header">
+                <!-- Titulo -->
+                <h6 class="text-center">
+                    <!-- Icono -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 18">
+                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                    </svg>
+                    Descripción del componente
+                </h6>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Descripción -->
+                <p>
+                    El componente PERFIL es la clave para personalizar y mantener actualizada la información personal en AsesoresApp. 
+                    Diseñado para brindar a los usuarios el control total sobre sus datos, este componente ofrece una experiencia intuitiva 
+                    y segura para gestionar su perfil en la plataforma.
+                </p>
+                <h6>Características clave.</h6>
+                <ul>
+                    <li>
+                        <h6>Edición personalizada:</h6>
+                        <p>
+                            Permite a los usuarios actualizar fácilmente su información personal, desde detalles de contacto hasta 
+                            preferencias de notificación. La interfaz intuitiva guía a los usuarios a través del proceso de edición 
+                            de manera eficiente.
+                        </p>
+                    </li>
+                    <li>
+                        <h6>Seguridad de datos:</h6>
+                        <p>
+                            Garantiza la seguridad de la información sensible al no permitir la actualización de datos críticos 
+                            como el "código" y "rol". Esto asegura que la integridad y la privacidad de la información 
+                            clave se mantengan protegidas.
+                        </p>
+                    </li>
+                    <li>
+                        <h6>Control de acceso:</h6>
+                        <p>
+                            Los usuarios pueden gestionar su información personal sin preocupaciones, ya que el componente 
+                            restringe la modificación de datos sensibles, proporcionando un equilibrio perfecto entre personalización 
+                            y seguridad.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

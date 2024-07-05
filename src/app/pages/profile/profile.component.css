@@ -1,0 +1,42 @@
+.title-container {
+    height: 100vh; 
+    background-color: #1B2631;
+}
+
+.content-container {
+    height: 100vh; 
+    background-color: #ffffff;
+}
+
+.tachado-personalizado {
+    text-decoration: line-through;
+    color: #810a3e;
+}
+
+.arrow {
+    animation: leftToRight 10s ease-in-out infinite;
+}
+
+/* Definición de la animación */
+@keyframes leftToRight {
+    0%, 100% { transform: translateX(-20px); }
+    50% { transform: translateX(20px); }
+}
+
+/* Estilos para pantallas más pequeñas, como teléfonos móviles */
+@media (max-width: 767px) {
+
+    .title-container {
+        margin-top: 50px;
+        height: 30vh; 
+        background-color: #1B2631;
+    }
+
+    .content-container {
+        margin-top: 50px;
+        margin-top: 50px;
+        height: auto; 
+        background-color: #ffffff;
+    }
+
+}

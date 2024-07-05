@@ -1,0 +1,20 @@
+
+.title-container {
+    background-image: url("../../../assets/images/login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.arrow {
+    animation: moveUpDown 3s ease-in-out infinite;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Definición de la animación */
+@keyframes moveUpDown {
+    0%, 100% { transform: translate(0); }
+    50% { transform: translateY(10px); }
+}

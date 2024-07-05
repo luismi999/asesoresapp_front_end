@@ -1,0 +1,84 @@
+<!-- Pantalla de carga  -->
+<app-loading *ngIf="flag_loading"></app-loading>
+
+<!-- Notificación -->
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
+
+<!-- Modal  -->
+<p-dialog asesoría="Joins" [(visible)]="flag" [modal]="true" [style]="{ width: '30vw', height: '70vh' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
+
+    <!-- Titulo  -->
+    <div class="row">
+        <div class="col">
+            <h5 class="text-center"><strong>Vista de asesorados</strong></h5>
+            <hr>
+        </div>
+    </div>
+
+    <!-- Asesorados -->
+    <div *ngFor="let join of joins" class="row mb-2">
+        <div class="col card bg-black">
+            <div class="card-body">
+                <!-- Fecha de unión y código institucional-->
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-light text-truncate mb-1">Fecha de que se unió:</h6>
+                        <p class="text-light text-truncate">{{join.date_creation}}</p>
+                    </div>
+                    <div class="col">
+                        <h6 class="text-light text-truncate mb-1">Código institucional:</h6>
+                        <p class="text-light text-truncate">{{join.user.institutional_code}}</p>
+                    </div>
+                </div>
+                <!-- Asesorado y correo institucional-->
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-light text-truncate mb-1">Asesorado:</h6>
+                        <p class="text-light text-truncate">{{join.user.first_name | titlecase }} {{join.user.last_name | titlecase}}</p>
+                    </div>
+                    <div class="col">
+                        <h6 class="text-light text-truncate mb-1">Correo institucional:</h6>
+                        <p class="text-light text-truncate">{{join.user.institutional_email}}</p>
+                    </div>
+                </div>
+                <!-- Paso y calificación-->
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-light text-truncate mb-1">Paso:</h6>
+                        <p class="text-light text-truncate">{{join.step}}</p>
+                    </div>
+                    <div class="col">
+                        <h6 class="text-light text-truncate mb-1">Calificación:</h6>
+                        <p class="text-light text-truncate">{{join.grade}}</p>
+                    </div>
+                </div>
+                <!-- IsActive y el botón -->
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-light text-truncate mb-1">Activo:</h6>
+                        <p class="text-light text-truncate">{{join.isActive}}</p>
+                    </div>
+                    <div class="col float-end">
+                        <!-- Botón  -->
+                        <button class="btn btn-primary" (click)="showConfirmation(join)" [disabled]="join.step != 'inProgress'">
+                            <h6 class="my-2">
+                                <!-- Icono de la palomita  -->
+                                <span class="text-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-check" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                                        <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                                        <path d="M9 14l2 2l4 -4" />
+                                    </svg>
+                                </span>
+                                Pasar a limbo
+                            </h6>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}"></p-confirmDialog>

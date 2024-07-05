@@ -1,0 +1,32 @@
+<p-dialog asesoría="" [(visible)]="flag" [modal]="true" [style]="{ width: '30vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" [resizable]="false" (onHide)="closeModal()">
+
+    <div class="row">
+        <div class="col">
+            <!-- Card  -->
+            <div class="card">
+                <!-- Card header  -->
+                <div class="d-flex card-header justify-content-between align-items-center bg-color-principal">
+                    <h6 class="mt-1 text-light">GUÍA - ASTRO</h6>
+                    <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <!-- Card body  -->
+                <div class="card-body">
+                    <span id="miTexto" style="font-family: monospace;"></span>
+                </div>
+                <!-- Card footer  -->
+                <div class="card-footer bg-color-principal">
+                    <!-- Selector  -->
+                    <div class="form-floating">
+                        <select class="form-select text-table-font cursor-pointer" aria-label="Floating label select example" (change)="makeQuestion($event)">
+                        <option selected class="text-table-font" value="noValue">Selecciona una pregunta</option>
+                        <option *ngFor="let instruction of instructions" [value]="instruction.answer">{{instruction.quest}}</option>
+                        </select>
+                        <label for="floatingSelect" class="text-table-font">Preguntar a Astro</label>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,120 @@
+<!-- Pantalla de carga  -->
+<app-loading *ngIf="flag_loading"></app-loading>
+
+<!-- Notificación -->
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
+
+<!-- Modal  -->
+<p-dialog asesoría="Nueva asesoría" [(visible)]="flag" [modal]="true" [style]="{ width: '50vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
+    <div class="row">
+
+        <!-- Detalles -->
+        <div class="col-12 col-lg-6 p-3">
+
+            <!-- Titulo  -->
+            <div class="row">
+                <div class="col">
+                    <h6 class="text-mueted text-center">
+                        Detalles
+                    </h6>
+                </div>
+            </div>
+            
+            <!-- Linea horizontal -->
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <div class="row">
+                <div class="col">
+                    <form [formGroup]="form">
+
+                        <!-- Cátedra -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="uuid_subject">
+                              <option *ngFor="let subject of subjects" [value]="subject.uuid">{{subject?.name | titlecase}}</option>
+                            </select>
+                            <label for="floatingSelect" class="text-table-font">Cátedra seleccionada</label>
+                        </div>
+
+                        <!-- Dia -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="day">
+                              <option *ngFor="let day of days" [value]="day">{{day | titlecase}}</option>
+                            </select>
+                            <label for="floatingSelect" class="text-table-font">Día seleccionado</label>
+                        </div>
+
+                        <!-- Inicia -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="start" (change)="getEndHours($event)">
+                              <option *ngFor="let hour of hours" [value]="hour">{{hour}}:00</option>
+                            </select>
+                            <label for="floatingSelect" class="text-table-font">Hora de inicio</label>
+                        </div>
+                        
+                        <!-- Termina -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="end">
+                              <option *ngFor="let hour of end_hours" [value]="hour">{{hour}}:00</option>
+                            </select>
+                            <label for="floatingSelect" class="text-table-font">Hora de fín</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="col-12 col-lg-6 p-3">
+
+            <!-- Titulo  -->
+            <div class="row">
+                <div class="col">
+                    <h6 class="text-muted text-center">Encuentro</h6>
+                </div>
+            </div>
+
+            <!-- Linea horizontal -->
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Mapa digital -->
+            <div class="row m-0">
+                <div id="mapForCreate" class="col card" style="height: 290px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Linea horizontal -->
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <!-- Botón para crear la asesoría -->
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-success float-end" (click)="createConsultation()" [disabled]="form.invalid">
+                <h6 class="my-2">
+                    <!-- Icono de creación  -->
+                    <span class="text-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 5l0 14" />
+                            <path d="M5 12l14 0" />
+                        </svg>
+                    </span>
+                    Crear asesoría
+                </h6>
+            </button>
+        </div>
+    </div>
+</p-dialog>

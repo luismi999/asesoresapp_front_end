@@ -1,0 +1,18 @@
+<header class="fixed-top">
+    <!-- Barra de navegación -->
+    <app-navbar-student class="animate__animated animate__fadeIn"></app-navbar-student> 
+</header>
+
+<!-- Cuerpo  -->
+<main class="container animate__animated animate__fadeIn" style="margin-top: 100px; margin-bottom: 50px;">
+    <!-- Tabla de rango (solo asesores)-->
+    <app-rank *ngIf="my_user?.role === 'advisor'"></app-rank>
+    <!-- Rutas  -->
+    <router-outlet></router-outlet>
+</main>
+
+<!-- Pie de pagina  -->
+<footer class="footer mt-auto py-3 bg-dark text-white">
+    <h6 class="text-light text-center">AsesoresApp 2023</h6>
+</footer>
+    
