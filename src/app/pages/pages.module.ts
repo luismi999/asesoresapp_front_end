@@ -47,7 +47,8 @@ import { SubjectChartComponent } from './admin-subjects/components/subject-chart
     ChartUsersComponent,
     ChartConsultationsComponent,
     CreateSubjectComponent,
-    SubjectChartComponent
+    SubjectChartComponent,
+    StatisticsComponent
   ],
   imports: [
     CommonModule,
