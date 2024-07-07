@@ -1,26 +1,14 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-
-// Componentes hijos 
-import { ChartAdvisorComponent } from '../chart-advisor/chart-advisor.component';
-import { RankComponent } from '../rank/rank.component';
-
-// Modelos 
-import { User } from 'src/app/model/user.model';
-import { Join } from 'src/app/model/join.model';
-
-// Servicios 
-import { UsersService } from 'src/app/services/users.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/model/user.model';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'app-view-user-advisor',
-  templateUrl: './view-user-advisor.component.html',
-  styleUrls: ['./view-user-advisor.component.css']
+  selector: 'app-view-user-student',
+  templateUrl: './view-user-student.component.html',
+  styleUrls: ['./view-user-student.component.css']
 })
-export class ViewUserAdvisorComponent {
-
-  @ViewChild(ChartAdvisorComponent) chartAdvisorComponent?: ChartAdvisorComponent;
-  @ViewChild(RankComponent) rankComponent?: RankComponent;
+export class ViewUserStudentComponent {
 
   // Inputs y outputs del componente 
   @Input() flag!: boolean;
@@ -29,7 +17,6 @@ export class ViewUserAdvisorComponent {
 
   // Propiedades 
   user ?: User;
-  joins: Join[] = [];
 
   // Banderas 
   flag_loading: boolean = false;
@@ -62,10 +49,6 @@ export class ViewUserAdvisorComponent {
       next: (resp: User) => {
         // Guardamos la respuesta en una variable 
         this.user = resp;
-        // Inicializamos el componente para la gráfica 
-        this.chartAdvisorComponent?.initComponent(resp.uuid || '');
-        // Inicializamos el componente para el rango
-        this.rankComponent?.initComponent(resp.uuid);
         // Bandera 
         this.flag_loading = false;
       },error: (error) => {

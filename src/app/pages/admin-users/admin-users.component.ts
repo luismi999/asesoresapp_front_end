@@ -14,6 +14,7 @@ import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/v
 import { Subscription } from 'rxjs';
 import { UpdateUserResponse } from 'src/app/model/updateUserResponse.interface';
 import { DeleteUserResponse } from 'src/app/model/deleteUserResponse.interface';
+import { ViewUserStudentComponent } from '../../components/view-user-student/view-user-student.component';
 
 @Component({
   selector: 'app-admin-users',
@@ -24,6 +25,7 @@ import { DeleteUserResponse } from 'src/app/model/deleteUserResponse.interface';
 export class AdminUsersComponent {
 
   @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent!: ViewUserAdvisorComponent;
+  @ViewChild(ViewUserStudentComponent) ViewUserStudentComponent!: ViewUserStudentComponent;
 
   // Propiedades
   my_user       ?: User;
@@ -35,9 +37,10 @@ export class AdminUsersComponent {
   form2         !: FormGroup;
   
   // Banderas
-  flag_show_delete_user: boolean = false;
-  flag_show_view_user  : boolean = false;
-  flag_loading         : boolean = false;
+  flag_show_delete_user        : boolean = false;
+  flag_show_view_user_advisor  : boolean = false;
+  flag_show_view_user_student  : boolean = false;
+  flag_loading                 : boolean = false;
 
   // Suscripciones 
   sub_user_find_one?: Subscription;
@@ -207,10 +210,18 @@ export class AdminUsersComponent {
 
   //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones para el modal de ver usuarios - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   showModalViewUser(user: User): void{
-    // Bandera 
-    this.flag_show_view_user = true;
     // Buscamos el usuario desde el componente hijo 
-    this.viewUserAdvisorComponent.findUser(user.uuid);
+    if(user.role == 'advisor'){
+      // Bandera 
+      this.flag_show_view_user_advisor = true;
+      this.viewUserAdvisorComponent.findUser(user.uuid);
+    }
+    else if(user.role == 'student' || user.role == 'admin'){
+      // Bandera 
+      this.flag_show_view_user_student = true;
+      this.ViewUserStudentComponent.findUser(user.uuid);
+    }
+      
   }
    // Mostrar confirmación 
    showConfirmation(user: User){

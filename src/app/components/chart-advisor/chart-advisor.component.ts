@@ -177,7 +177,7 @@ export class ChartAdvisorComponent {
     // Creamos las opciones de la gráfica 
     this.options_chart_line = {
         maintainAspectRatio: false,
-        aspectRatio: 0.8,
+        aspectRatio: 0.7,
         plugins: {
             legend: {
                 labels: {

@@ -45,14 +45,14 @@ export class SignUpComponent {
   // Inicializar formulario para la creación de un nuevo usuario
   initForm(): void{
     this.form = this.fb.group({
-      institutional_code : ['',[Validators.required]],
-      institutional_email: ['',[Validators.required, Validators.email]],
-      first_name         : ['',[Validators.required, Validators.minLength(3)]],
-      last_name          : ['',[Validators.required, Validators.minLength(3)]],
-      cellphone_number   : ['',[Validators.required, Validators.minLength(10)]],
+      institutional_code : ['200000001',[Validators.required]],
+      institutional_email: ['user1@gmail.com',[Validators.required, Validators.email]],
+      first_name         : ['user',[Validators.required, Validators.minLength(3)]],
+      last_name          : ['user',[Validators.required, Validators.minLength(3)]],
+      cellphone_number   : ['3333333333',[Validators.required, Validators.minLength(10)]],
       role               : ['student',[Validators.required]],
-      password  : ['',[Validators.required, Validators.minLength(8)]],
-      password2 : ['',[Validators.required, Validators.minLength(8)]]
+      password  : ['11111111',[Validators.required, Validators.minLength(8)]],
+      password2 : ['11111111',[Validators.required, Validators.minLength(8)]]
     },{
       validators: [this.samePasswords('password', 'password2')] 
     });
