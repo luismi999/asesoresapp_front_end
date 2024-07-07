@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 // Instrucciones 
 import { instruction_home } from 'src/app/instruction_chats/instructions';
@@ -9,17 +9,12 @@ import { User } from 'src/app/model/user.model';
 // Servicios 
 import { AuthService } from '../../services/auth.service';
 
-// Componentes hijos 
-import { ChatComponent } from './../../components/chat/chat.component';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
-  @ViewChild(ChatComponent) chatComponent!: ChatComponent;
 
   // Propiedades generales 
   my_user?: User;
@@ -34,15 +29,5 @@ export class HomeComponent {
   // Inicializado 
   ngOnInit() {
     this.my_user = this.authService.getUser();
-  }
-
-  // Mostramos el modal del chat 
-  showChat(){
-    // Bandera 
-    this.flag_show_chat = true;
-    // Iniciamos el componente 
-    setTimeout(() => {
-      this.chatComponent.initComponent();
-    }, 100);
   }
 }

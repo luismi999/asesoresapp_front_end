@@ -3,14 +3,12 @@
 <app-loading *ngIf="flag_loading"></app-loading>
 
 <!-- Notificación -->
-<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}"></p-toast>
 
-<!-- Tabla de cátedras  -->
-<div class="row my-4">
-    <div class="col-12">
+<div class="row">
+    <div class="col">
         <!-- Titulo  -->
-        <h6 class="text-muted">
-            <!-- Icono -->
+        <h6>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 18">
                 <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8"/>
                 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
@@ -18,265 +16,67 @@
             </svg>
             Cátedras
         </h6>
-        <!-- Linea horizontal  -->
-        <hr>
-        <!-- Card  -->
-        <div class="card shadow">
-            <!-- Card header  -->
-            <div class="d-flex card-header justify-content-between align-items-center">
-                <!-- Botón para crear una cátedra-->
-                <button class="btn btn-primary" (click)="showModalCreate()">
-                    <h6 class="my-2">
-                        <!-- Icono de creación  -->
-                        <span class="text-light">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M12 5l0 14" />
-                                <path d="M5 12l14 0" />
-                            </svg>
-                        </span>
-                        Crear nueva cátedra
-                    </h6>
-                </button>
-            </div>
-            <!-- Tabla  -->
-            <div class="card-body pt-0">
-                <div class="table-responsive table-responsive-height">
-                    <table *ngIf="subjects?.length != 0" class="table table-centered table-nowrap table-hover mb-0">
-                        <!-- Cabecera de tabla -->
-                        <thead>
-                            <tr>
-                                <!-- imagen -->
-                                <th scope="col"></th>
-                                <!-- lLAVE -->
-                                <th scope="col">
-                                    <!-- Icono -->
-                                    <span class="text-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 18">
-                                            <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-                                        </svg>
-                                    </span>
-                                    Llave
-                                </th>
-                                <!-- Cátedra -->
-                                <th scope="col">
-                                    <!-- Icono -->
-                                    <span class="text-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 18">
-                                            <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864z"/>
-                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
-                                        </svg>
-                                    </span>
-                                    Cátedra
-                                </th>
-                                <!-- CLave -->
-                                <th scope="col">
-                                    <!-- Icono -->
-                                    <span class="text-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-command" viewBox="0 0 16 18">
-                                            <path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3M6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5zm4 1v4H6V6zm1-1V3.5A1.5 1.5 0 1 1 12.5 5zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11z"/>
-                                        </svg>
-                                    </span>
-                                    Clave
-                                </th>
-                                <!-- Botón -->
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <!-- Cuerpo de la tabla  -->
-                        <tbody>
-                            <tr *ngFor="let subject of subjects">
-                                <!-- imagen del cuadrado negro-->
-                                <td class="">
-                                    <figure class="my-1" style="width: 50px; height: 50px; border-radius: 100%; margin-bottom: 0px; background-image: url(../../../assets/images/logo_subject.png); background-repeat: no-repeat; background-size: cover;"></figure>
-                                </td>
-                                <!-- uuid -->
-                                <td>
-                                    <p class="text-muted my-3">{{subject.uuid}}</p>
-                                </td>
-                                <!-- Cátedra -->
-                                <td>
-                                    <p class="text-muted my-3">{{subject.name | titlecase}}</p>
-                                </td>
-                                <!-- Código -->
-                                <td>
-                                    <p class="text-muted my-3">{{subject.code}}</p>
-                                </td>
-                                <!-- Botón de eliminación  -->
-                                <td>
-                                    <button class="btn btn-danger float-end" (click)="showConfirmation(subject)">
-                                        <h6 class="text-light my-2">
-                                            <!-- Icono de eliminación  -->
-                                            <span class="text-light">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M4 7l16 0" />
-                                                    <path d="M10 11l0 6" />
-                                                    <path d="M14 11l0 6" />
-                                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                                </svg>
-                                            </span>
-                                            Eliminar
-                                        </h6>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- No hay registros  -->
-                    <h6 *ngIf="subjects?.length == 0" class="text-center text-table-font" style="margin-top: 260px;">
-                        <p>No hay registros</p>
-                    </h6>
-                </div>
-            </div>  
-        </div>
     </div>
 </div>
 
-<!-- Nuevo modal para crear una cátedra (restructured)-->
-<p-dialog asesoría="Nueva cátedra" [(visible)]="flag_show_create_subject" [modal]="true" [style]="{ width: '30vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" [closable]="true">
-    <div class="row">
-
-        <!-- Detalles -->
-        <div class="col">
-
-            <!-- Titulo  -->
-            <div class="row">
-                <div class="col">
-                    <h6 class="text-muted text-center">
-                         <!-- Icono de detalles  -->
-                         <span class="text-dark">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M13 5h8" />
-                                <path d="M13 9h5" />
-                                <path d="M13 15h8" />
-                                <path d="M13 19h5" />
-                                <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                            </svg>
-                        </span>
-                        Detalles sobre la nueva cátedra
-                    </h6>
-                </div>
-            </div>
-            
-            <!-- Linea horizontal -->
-            <div class="row">
-                <div class="col">
-                    <hr>
-                </div>
-            </div>
-
-            <!-- Formulario -->
-            <div class="row">
-                <div class="col">
-                    <form [formGroup]="form">
-
-                        <!-- Código -->
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="code" formControlName="code">
-                            <label for="floatingInput" class="text-table-font">Código de la cátedra</label>
-                        </div>
-
-                        <!-- Código -->
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="name" formControlName="name">
-                            <label for="floatingInput" class="text-table-font">Nombre de la cátedra</label>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Linea horizontal -->
-    <div class="row">
-        <div class="col">
-            <hr>
-        </div>
-    </div>
-
-    <!-- Botón para crear la asesoría -->
-    <div class="row">
-        <div class="col">
-            <!-- Botón para crear una cátedra  -->
-            <button class="btn btn-success float-end" (click)="createSubject()" [disabled]="form.invalid">
-                <h6 class="my-2">
-                    <!-- Icono de crear  -->
-                    <span class="text-light">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M12 5l0 14" />
-                            <path d="M5 12l14 0" />
-                        </svg>
-                        Crear cátedra
-                    </span>
-                </h6>
-            </button>
-            <!-- Botón para cerrar el modal  -->
-            <button class="btn btn-danger" (click)="flag_show_create_subject= false">
-                <h6 class="my-2">
-                    <!-- Icono de cerrar  -->
-                    <span class="text-light">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M18 6l-12 12" />
-                            <path d="M6 6l12 12" />
-                        </svg>
-                    </span>
-                    Cancelar
-                </h6>
-            </button>
-        </div>
-    </div>
-</p-dialog>
-
-<!-- Instrucciones -->
-<div class="row mt-3">
+<div class="row">
     <div class="col">
-        <!-- Card -->
+        <!-- Linea horizontal -->
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
         <div class="card shadow">
-            <!-- Card-header -->
             <div class="card-header">
-                <!-- Titulo -->
-                <h6 class="text-center">
-                    <!-- Icono -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 18">
-                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
-                    </svg>
-                    Descripción del componente
-                </h6>
+                <!-- Botón para abrir el modal de crear una nueva cátedra -->
+                <button type="button" class="btn btn-dark my-2" (click)="showModalCreate()">Crear cátedra</button>
             </div>
-            <!-- Card body -->
-            <div class="card-body">
-                <!-- Descripción -->
-                <p>
-                    El componente CÁTEDRAS simplifica la gestión al permitir que el administrador 
-                    registre nuevas cátedras con solo dos detalles esenciales: el nombre de la cátedra 
-                    y su clave correspondiente. Esta información básica establece una estructura fundamental 
-                    para la creación de asesoramientos por parte de los asesores. La interfaz amigable 
-                    facilita el proceso, proporcionando una herramienta eficiente para la centralización 
-                    y organización de recursos clave en la plataforma.
-                </p>
+            <div *ngIf="subjects.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class=""><p>Código</p></th>
+                            <th scope="col" class=""><p>Nombre</p></th>
+                            <th scope="col" class=""><p></p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let subject of subjects">
+                            <td class=""><p class="my-2">{{subject.code | uppercase}}</p></td>
+                            <td class=""><p class="my-2">{{subject.name | titlecase}}</p></td>
+                            <td class="">
+                                <button type="button" class="btn btn-dark float-end" (click)="showConfirmation(subject)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="subjects.length == 0" class="card-body card-body-height table-responsive table-responsive-height">
+                <h6 class="text-center text-table-font">
+                    <p>No hay registros</p>
+                </h6>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col">
+        <!-- Linea horizontal -->
+        <hr>
+    </div>
+</div>
+
+<!-- Componente para crear cátedra -->
+<app-create-subject [flag_show_create_subject]="flag_show_create_subject" 
+                    (get_subjects_event)="getSubjects()" 
+                    (flag_response)="flag_show_create_subject = $event">
+</app-create-subject>
 
 <!-- Confirmación de eliminación de asesoría  -->
 <p-confirmDialog [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}"></p-confirmDialog>
 
-<!-- Botón de chat  --> 
-<div style="display: flex; position: fixed; right: 50px; bottom: 50px; z-index: 99;">
-    <button class="btn btn-dark" (click)="showChat()">
-        <div class="spinner-grow spinner-grow-sm text-danger me-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        ASTRO
-    </button>
-</div>
-
-<!-- Modal del chat  -->
-<app-chat [flag]="flag_show_chat" [instructions]="instructions" (flag_response)="flag_show_chat = $event"></app-chat>
+<!-- Componente de gráfica -->
+<app-subject-chart></app-subject-chart>

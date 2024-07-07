@@ -13,11 +13,9 @@ import { CreateSubjectResponse } from 'src/app/model/createSubjectResponse.inter
 // Interfaces 
 import { DeleteSubjectResponse } from 'src/app/model/deleteSubjectResponse.interface';
 
-// Componentes 
-import { ChatComponent } from 'src/app/components/chat/chat.component';
-
 // Instrucciones 
 import { instruction_subjects } from 'src/app/instruction_chats/instructions';
+import { CreateSubjectComponent } from './components/create-subject/create-subject.component';
 
 @Component({
   selector: 'app-admin-subjects',
@@ -27,7 +25,8 @@ import { instruction_subjects } from 'src/app/instruction_chats/instructions';
 })
 export class AdminSubjectsComponent {
 
-  @ViewChild(ChatComponent) chatComponent!: ChatComponent;
+  // @ViewChild(ChatComponent) chatComponent!: ChatComponent;
+  @ViewChild(CreateSubjectComponent) createSubjectComponent!: CreateSubjectComponent;
 
   // Propiedades 
   subjects: any[] = [];
@@ -132,7 +131,7 @@ export class AdminSubjectsComponent {
   showConfirmation(subject: Subject): void{
     // Creamos el contenido de la confirmación 
     this.confirmationService.confirm({
-      message: `¿Deseas eliminar la cátedra de ${subject.name.toUpperCase()}? Esto tendrá gran impacto sobre las asesorías y asesoramientos`,
+      message: `Estas apunto de eliminar la cátedra para ${subject.name.toUpperCase()}, ¿Deseas continuar?`,
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Si',
@@ -165,15 +164,5 @@ export class AdminSubjectsComponent {
         this.flag_loading = false;
       }
     });
-  }
-
-  // Mostramos el modal del chat 
-  showChat(){
-    // Bandera 
-    this.flag_show_chat = true;
-    // Iniciamos el componente 
-    setTimeout(() => {
-      this.chatComponent.initComponent();
-    }, 100);
   }
 }

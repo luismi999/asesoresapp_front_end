@@ -1,3 +1,11 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+card-body-height {
+    height: 500px;
+}
+
+.table-responsive-height {
+    height: 500px;
+}

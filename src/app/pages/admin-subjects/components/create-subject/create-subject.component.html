@@ -1,0 +1,60 @@
+<!-- Nuevo modal para crear una cátedra (restructured)-->
+<p-dialog asesoría="Nueva cátedra" [(visible)]="flag_show_create_subject" [modal]="true" [style]="{ width: '30vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" [closable]="true" (onHide)="closeModal()">
+    <div class="row">
+
+        <!-- Detalles -->
+        <div class="col">
+
+            <!-- Titulo  -->
+            <div class="row">
+                <div class="col">
+                    <h6 class="text-muted text-center">Nueva cátedra</h6>
+                </div>
+            </div>
+            
+            <!-- Linea horizontal -->
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <div class="row">
+                <div class="col">
+                    <form [formGroup]="form">
+
+                        <!-- Código -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="code" formControlName="code">
+                            <label for="floatingInput" class="text-table-font">Código de la cátedra</label>
+                        </div>
+
+                        <!-- Código -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="name" formControlName="name">
+                            <label for="floatingInput" class="text-table-font">Nombre de la cátedra</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Linea horizontal -->
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="row">
+        <div class="col">
+            <!-- Crear -->
+            <button type="button" class="btn btn-dark float-end" (click)="createSubject()" [disabled]="form.invalid">Crear</button>
+            <!-- Cerrar -->
+            <button type="button" class="btn btn-dark float-start" (click)="flag_show_create_subject = false">Cerrar</button>
+        </div>
+    </div>
+</p-dialog>

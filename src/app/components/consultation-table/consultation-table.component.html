@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="table-responsive table-responsive-height">
+                    <!-- Tabla  -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Asesor</th>
+                                <th scope="col">Cátedra</th>
+                                <th scope="col">Día</th>
+                                <th scope="col">Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="pointer" *ngFor="let consultation of consultations">
+                                <td>
+                                    <p class="my-2">{{consultation.user.first_name}} {{consultation.user.last_name}}</p>
+                                </td>
+                                <td>
+                                    <p class="my-2">{{consultation.subject}}</p>
+                                </td>
+                                <td>
+                                    <p class="my-2">{{consultation.day}}</p>
+                                </td>
+                                <td>
+                                    <p class="my-2">{{consultation.start}} - {{consultation.end}}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

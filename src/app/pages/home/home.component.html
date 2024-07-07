@@ -10,38 +10,8 @@
         </h6>
         <!-- Linea horizontal  -->
         <hr>
-        <!-- <div class="card shadow">
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-6 d-flex justify-content-center align-items-center">
-                    <div class="card-body my-5 my-md-5 my-lg-0"> -->
-                        <!-- Planeta animado  -->
-                        <!-- <h1 class="text-center planet_animation">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-planet" width="50" height="50" viewBox="0 0 25 25" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M18.816 13.58c2.292 2.138 3.546 4 3.092 4.9c-.745 1.46 -5.783 -.259 -11.255 -3.838c-5.47 -3.579 -9.304 -7.664 -8.56 -9.123c.464 -.91 2.926 -.444 5.803 .805" />
-                                <path d="M12 12m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                            </svg>
-                        </h1> -->
-                        <!-- Titulo  -->
-                        <!-- <h2 class="text-center">
-                            AsesoresApp
-                        </h2> -->
-                        <!-- Párrafo slogan-->
-                        <!-- <p class="text-center">
-                            ¡Por que entre nosotros nos apoyamos!
-                        </p>
-                    </div>
-                </div> -->
-                <!-- Imagen del spaceman -->
-                <!-- <div class="col-12 col-md-12 col-lg-6">
-                    <img class="card-img-top img-fluid" src="../../../assets/images/space.jpg" alt="spaceman">
-                </div>
-            </div>
-        </div> -->
-        <!-- Linea horizontal  -->
-        <!-- <hr> -->
-        <!-- Mapa -->
-        <app-map></app-map>
+        <!-- Tabla de asesoramientos -->
+         <app-consultation-table></app-consultation-table>
     </div>
 </div>
 
@@ -179,16 +149,3 @@
         </div>
     </div>
 </div>
-
-<!-- Botón de chat  --> 
-<div style="display: flex; position: fixed; right: 50px; bottom: 50px; z-index: 99;">
-    <button class="btn btn-dark" (click)="showChat()">
-        <div class="spinner-grow spinner-grow-sm text-danger me-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        ASTRO
-    </button>
-</div>
-
-<!-- Modal del chat  -->
-<app-chat [flag]="flag_show_chat" [instructions]="instructions" (flag_response)="flag_show_chat = $event"></app-chat>

@@ -10,6 +10,7 @@ import { ProgressBarConsultationsComponent } from './progress-bar-consultations/
 import { RankComponent } from './rank/rank.component';
 import { ReadExcelComponent } from './read-excel/read-excel.component';
 import { MapComponent } from './map/map.component';
+import { ConsultationTableComponent } from './consultation-table/consultation-table.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MapComponent } from './map/map.component';
     ProgressBarConsultationsComponent,
     RankComponent,
     ReadExcelComponent,
-    MapComponent
+    MapComponent,
+    ConsultationTableComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { MapComponent } from './map/map.component';
     ProgressBarConsultationsComponent,
     RankComponent,
     ReadExcelComponent,
-    MapComponent
+    MapComponent,
+    ConsultationTableComponent
   ]
 })
 export class ComponentsModule { }

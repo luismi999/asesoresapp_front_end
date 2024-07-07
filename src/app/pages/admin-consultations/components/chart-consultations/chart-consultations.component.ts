@@ -13,6 +13,7 @@ import { Consultation } from 'src/app/model/consultation.model';
   styleUrls: ['./chart-consultations.component.css']
 })
 export class ChartConsultationsComponent {
+
 // Propiedades
 data         : any;
 options      : any;
@@ -133,8 +134,7 @@ initChartConsultations(subjects: string[], consultationsCount: number[], joinsCo
                   drawBorder: false
               }
           }
-
-      }
-  };
-}
+        }
+    } ;
+  }
 }

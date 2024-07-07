@@ -25,6 +25,8 @@ import { CreateConsultationComponent } from './my-consultations/components/creat
 import { GradeJoinComponent } from './my-joins/components/grade-join/grade-join.component';
 import { ChartUsersComponent } from './admin-users/components/chart-users/chart-users.component';
 import { ChartConsultationsComponent } from './admin-consultations/components/chart-consultations/chart-consultations.component';
+import { CreateSubjectComponent } from './admin-subjects/components/create-subject/create-subject.component';
+import { SubjectChartComponent } from './admin-subjects/components/subject-chart/subject-chart.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { ChartConsultationsComponent } from './admin-consultations/components/ch
     CreateConsultationComponent,
     GradeJoinComponent,
     ChartUsersComponent,
-    ChartConsultationsComponent
+    ChartConsultationsComponent,
+    CreateSubjectComponent,
+    SubjectChartComponent
   ],
   imports: [
     CommonModule,
