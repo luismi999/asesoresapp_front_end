@@ -14,8 +14,6 @@ import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/v
 import { Subscription } from 'rxjs';
 import { UpdateUserResponse } from 'src/app/model/updateUserResponse.interface';
 import { DeleteUserResponse } from 'src/app/model/deleteUserResponse.interface';
-import { ChatComponent } from 'src/app/components/chat/chat.component';
-import { instruction_users } from 'src/app/instruction_chats/instructions';
 
 @Component({
   selector: 'app-admin-users',
@@ -26,7 +24,6 @@ import { instruction_users } from 'src/app/instruction_chats/instructions';
 export class AdminUsersComponent {
 
   @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent!: ViewUserAdvisorComponent;
-  @ViewChild(ChatComponent) chatComponent!: ChatComponent;
 
   // Propiedades
   my_user       ?: User;
@@ -47,10 +44,6 @@ export class AdminUsersComponent {
   sub_user_find_all?: Subscription;
   sub_user_update  ?: Subscription;
   sub_user_delete  ?: Subscription;
-
-  // Propiedades para el chat 
-  instructions  : any[] = instruction_users;
-  flag_show_chat: boolean = false;
 
   // Constructor
   constructor(
@@ -252,15 +245,5 @@ export class AdminUsersComponent {
         this.messageService.add({ key: 'serverResponse', severity:'error', summary: 'Error', detail: error.error.message, life: 5000 });
       }
     });
-  }
-
-  // Mostramos el modal del chat 
-  showChat(){
-    // Bandera 
-    this.flag_show_chat = true;
-    // Iniciamos el componente 
-    setTimeout(() => {
-      this.chatComponent.initComponent();
-    }, 100);
   }
 }

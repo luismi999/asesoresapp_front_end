@@ -14,7 +14,6 @@ import { CreateSubjectResponse } from 'src/app/model/createSubjectResponse.inter
 import { DeleteSubjectResponse } from 'src/app/model/deleteSubjectResponse.interface';
 
 // Instrucciones 
-import { instruction_subjects } from 'src/app/instruction_chats/instructions';
 import { CreateSubjectComponent } from './components/create-subject/create-subject.component';
 
 @Component({
@@ -40,10 +39,6 @@ export class AdminSubjectsComponent {
   sub_subject_find_all?: Subscription;
   sub_subject_create  ?: Subscription;
   sub_subject_delete  ?: Subscription;
-
-  // Propiedades para el chat 
-  instructions  : any[] = instruction_subjects;
-  flag_show_chat: boolean = false;
 
   // Constructor 
   constructor( 

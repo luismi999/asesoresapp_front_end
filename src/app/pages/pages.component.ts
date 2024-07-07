@@ -55,7 +55,7 @@ export class PagesComponent {
         // Guardamos la respuesta en una variable 
         this.my_user = await resp;
         // Inicializamos el componente para el rango 
-        this.rankComponent.initComponent(resp.uuid);
+        this.rankComponent?.initComponent(resp.uuid);
         // Bandera 
         this.flag_loading = false;
       },error: (error) => {

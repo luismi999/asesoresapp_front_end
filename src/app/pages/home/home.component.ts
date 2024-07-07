@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 
-// Instrucciones 
-import { instruction_home } from 'src/app/instruction_chats/instructions';
-
 // Modelos 
 import { User } from 'src/app/model/user.model';
 
@@ -18,10 +15,6 @@ export class HomeComponent {
 
   // Propiedades generales 
   my_user?: User;
-
-  // Propiedades para el chat 
-  instructions  : any[] = instruction_home;
-  flag_show_chat: boolean = false;
 
   // Constructor
   constructor(private authService: AuthService){}
