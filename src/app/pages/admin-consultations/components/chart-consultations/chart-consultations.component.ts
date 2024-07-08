@@ -93,7 +93,7 @@ initChartConsultations(subjects: string[], consultationsCount: number[], joinsCo
               data: consultationsCount
           },
           {
-            label: 'Numero de asesoramientos',
+            label: 'Numero de joins',
             backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
             borderColor: documentStyle.getPropertyValue('--yellow-500'),
             data: joinsCount

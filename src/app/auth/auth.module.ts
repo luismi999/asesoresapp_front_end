@@ -9,8 +9,8 @@ import { LoginComponent } from './login/login.component';
 
 /* Modulos */
 import { PrimengModule } from '../primeng/primeng.module';
-import { ComponentsModule } from '../components/components.module';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
