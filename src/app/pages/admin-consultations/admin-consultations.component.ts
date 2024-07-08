@@ -232,8 +232,8 @@ export class AdminConsultationsComponent {
   showConfirmation(consultation: Consultation): void{
     // Creamos el contenido de la confirmación 
     this.confirmationService.confirm({
-      message: `¿Deseas eliminar la asesoría sobre ${consultation.subject.name.toUpperCase()} del asesor ${consultation.user.first_name.toUpperCase()} 
-      ${consultation.user.last_name.toUpperCase()}?, Esto tendrá un gran impacto sobre los asesoramientos.`,
+      message: `Estás a punto de eliminar la asesoría sobre ${consultation.subject.name.toUpperCase()} del asesor ${consultation.user.first_name.toUpperCase()} 
+      ${consultation.user.last_name.toUpperCase()}, ¿Deseas continuar?`,
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Si',
