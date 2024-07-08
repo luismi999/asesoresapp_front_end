@@ -226,8 +226,7 @@ export class AdminUsersComponent {
    // Mostrar confirmación 
    showConfirmation(user: User){
     this.confirmationService.confirm({
-      message: `¿Deseas eliminar al usuario ${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()} con el código institucional ${user.institutional_code}?, 
-      Esto tendrá un gran impacto sobre las asesorías y asesoramientos.`,
+      message: `Estas a punto de eliminar a ${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}, ¿Deseas continuar?`,
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Si',
