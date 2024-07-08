@@ -28,57 +28,39 @@
                             <ul class="list-group">
                                 <!-- Código institucional -->
                                 <li class="list-group-item list-group-item-action">
-                                    <h6 class="text-muted">Código institucional</h6>
-                                    <h6 *ngIf="user_who_wants_to_see?.role == 'admin'" class="my-0">
-                                        {{user?.institutional_code}}  
-                                    </h6>
+                                    <h6>Código institucional</h6>
+                                    <p *ngIf="user_who_wants_to_see?.role == 'admin'" class="my-0">{{user?.institutional_code}}</p>
                                     <!-- No disponible -->
-                                    <h6 *ngIf="user_who_wants_to_see?.role != 'admin'" class="my-0">
-                                        No disponible
-                                    </h6>
+                                    <p *ngIf="user_who_wants_to_see?.role != 'admin'" class="my-0">No disponible</p>
                                 </li>
                                 <!-- Nombre -->
                                 <li class="list-group-item list-group-item-action">
-                                    <h6 class="text-muted">Nombre(s)</h6>
-                                    <h6 class="my-0">
-                                        {{user?.first_name | titlecase}}
-                                    </h6>
+                                    <h6>Nombre(s)</h6>
+                                    <p class="my-0">{{user?.first_name | titlecase}}</p>
                                 </li>
                                 <!-- Apellido -->
                                 <li class="list-group-item list-group-item-action">
-                                    <h6 class="text-muted">Apellido(s)</h6>
-                                    <h6 class="my-0">
-                                        {{user?.last_name | titlecase}}
-                                    </h6>
+                                    <h6>Apellido(s)</h6>
+                                    <p class="my-0">{{user?.last_name | titlecase}}</p>
                                 </li>
                                 <!-- Correo institucional -->
                                 <li class="list-group-item list-group-item-action">
-                                    <h6 class="text-muted">Correo institucional</h6>
-                                    <h6 class="my-0">
-                                        {{user?.institutional_email | titlecase}}
-                                    </h6>
+                                    <h6>Correo institucional</h6>
+                                    <p class="my-0">{{user?.institutional_email | titlecase}}</p>
                                     <!-- No disponible -->
-                                    <h6 *ngIf="user_who_wants_to_see?.role != 'admin'" class="my-0">
-                                        No disponible
-                                    </h6>
+                                    <p *ngIf="user_who_wants_to_see?.role != 'admin'" class="my-0">No disponible</p>
                                 </li>
                                 <!-- Teléfono -->
                                 <li class="list-group-item list-group-item-action">
-                                    <h6 class="text-muted">Teléfono</h6>
-                                    <h6 *ngIf="user_who_wants_to_see?.role == 'admin'" class="my-0">
-                                        {{user?.cellphone_number}}
-                                    </h6>
+                                    <h6>Teléfono</h6>
+                                    <p *ngIf="user_who_wants_to_see?.role == 'admin'" class="my-0">{{user?.cellphone_number}}</p>
                                     <!-- No disponible -->
-                                    <h6 *ngIf="user_who_wants_to_see?.role != 'admin'" class="my-0">
-                                        No disponible
-                                    </h6>
+                                    <p *ngIf="user_who_wants_to_see?.role != 'admin'" class="my-0">No disponible</p>
                                 </li>
                                 <!-- Rol -->
                                 <li class="list-group-item list-group-item-action">
-                                    <h6 class="text-muted">Rol</h6>
-                                    <h6 class="my-0">
-                                        {{user?.role}}
-                                    </h6>
+                                    <h6>Rol</h6>
+                                    <p class="my-0">{{user?.role}}</p>
                                 </li>
                             </ul>
                         </div>

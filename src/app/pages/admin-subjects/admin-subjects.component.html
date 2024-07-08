@@ -5,67 +5,69 @@
 <!-- Notificación -->
 <p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}"></p-toast>
 
-<div class="row">
-    <div class="col">
-        <!-- Titulo  -->
-        <h6>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 18">
-                <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8"/>
-                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
-                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
-            </svg>
-            Cátedras
-        </h6>
+<div class="div animate__animated animate__fadeIn">
+    <div class="row">
+        <div class="col">
+            <!-- Titulo  -->
+            <h6>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 18">
+                    <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8"/>
+                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                </svg>
+                Cátedras
+            </h6>
+        </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <!-- Linea horizontal -->
-        <hr>
+    
+    <div class="row">
+        <div class="col">
+            <!-- Linea horizontal -->
+            <hr>
+        </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <div class="card shadow">
-            <div class="card-header">
-                <!-- Botón para abrir el modal de crear una nueva cátedra -->
-                <button type="button" class="btn btn-dark my-2" (click)="showModalCreate()">Crear cátedra</button>
-            </div>
-            <div *ngIf="subjects.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col" class=""><p>Código</p></th>
-                            <th scope="col" class=""><p>Nombre</p></th>
-                            <th scope="col" class=""><p></p></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let subject of subjects">
-                            <td class=""><p class="my-2">{{subject.code | uppercase}}</p></td>
-                            <td class=""><p class="my-2">{{subject.name | titlecase}}</p></td>
-                            <td class="">
-                                <button type="button" class="btn btn-dark float-end" (click)="showConfirmation(subject)">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div *ngIf="subjects.length == 0" class="card-body card-body-height table-responsive table-responsive-height">
-                <h6 class="text-center">
-                    <p>No hay registros</p>
-                </h6>
+    
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">
+                    <!-- Botón para abrir el modal de crear una nueva cátedra -->
+                    <button type="button" class="btn btn-dark my-2" (click)="showModalCreate()">Crear cátedra</button>
+                </div>
+                <div *ngIf="subjects.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" class=""><p>Código</p></th>
+                                <th scope="col" class=""><p>Nombre</p></th>
+                                <th scope="col" class=""><p></p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let subject of subjects">
+                                <td class=""><p class="my-2">{{subject.code | uppercase}}</p></td>
+                                <td class=""><p class="my-2">{{subject.name | titlecase}}</p></td>
+                                <td class="">
+                                    <button type="button" class="btn btn-dark float-end" (click)="showConfirmation(subject)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="subjects.length == 0" class="card-body card-body-height table-responsive table-responsive-height">
+                    <h6 class="text-center">
+                        <p>No hay registros</p>
+                    </h6>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <!-- Linea horizontal -->
-        <hr>
+    
+    <div class="row">
+        <div class="col">
+            <!-- Linea horizontal -->
+            <hr>
+        </div>
     </div>
 </div>
 
