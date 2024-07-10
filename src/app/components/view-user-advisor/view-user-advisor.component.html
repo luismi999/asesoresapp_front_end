@@ -2,7 +2,7 @@
 <app-loading *ngIf="flag_loading"></app-loading>
 
 <!-- Nuevo modal de confirmación de actualización de asesoría (restructured) -->
-<p-dialog asesoría="Usuario" [(visible)]="flag" [modal]="true"  [style]="{ width: '70vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
+<p-dialog asesoría="Usuario" [(visible)]="flag" [modal]="true"  [style]="{ width: '50vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
 
     <div class="row">
         <div class="col">
@@ -18,20 +18,15 @@
         </div>
     </div>
 
-    <!-- Detalles -->
     <div class="row">
-        <div class="col-12 col-md-4 col-lg-4">
-            <!-- Card  -->
-            <div class="card shadow h-100">
-                <!-- Card header  -->
+        <div class="col">
+            <div class="card shadow">
                 <div class="card-header">
-                    <p class="text-center my-2">Usuario</p>
+                    <p class="text-center">Asesor</p>
                 </div>
-                <!-- Card body  -->
                 <div class="card-body">
-                    <!-- Detalles -->
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-md-6 col-lg-6">
                             <ul class="list-group">
                                 <!-- Código institucional -->
                                 <li class="list-group-item list-group-item-action">
@@ -50,6 +45,10 @@
                                     <h6>Apellido(s)</h6>
                                     <p class="my-0">{{user?.last_name | titlecase}}</p>
                                 </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <ul class="list-group">
                                 <!-- Correo institucional -->
                                 <li class="list-group-item list-group-item-action">
                                     <h6>Correo institucional</h6>
@@ -75,14 +74,19 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Gráfica de asesor sobre los joins asignados en cada mes  -->
-        <div class="col-12 col-md-8 col-lg-8 mt-3 mt-md-0 mt-lg-0">
-            <div class="row">
-                <div class="col">
-                    <app-chart-advisor></app-chart-advisor>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col">
+            <!-- Linea horizontal -->
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <!-- Histograma -->
+            <app-chart-advisor></app-chart-advisor>
         </div>
     </div>
 

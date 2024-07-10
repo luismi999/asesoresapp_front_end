@@ -65,10 +65,10 @@ export class ViewConsultationComponent {
         this.flag_loading = false;
         // Buscamos los joins de la asesoría 
         this.findJoinsByConsultation(resp);
-        // Inicializamos el mapa 
-        setTimeout(() => {
-          this.initMap(this.consultation)
-        }, 100);
+        // // Inicializamos el mapa 
+        // setTimeout(() => {
+        //   this.initMap(this.consultation)
+        // }, 100);
       },error: (error) => {
         // Respuesta 
         console.log(error.error.message);
@@ -102,44 +102,44 @@ export class ViewConsultationComponent {
     });
   }
 
-  // inicializar mapa digital 
-  initMap(consultation: Consultation | any): void{
-    // Guardamos la asesoría 
-    this.consultation = consultation;
-    // API KEY
-    (mapboxgl as any).accessToken = import.meta.env.NG_APP_MAPBOX_KEY;
-    // Creamos el mapa
-    this.map2 = new mapboxgl.Map({
-      container: 'mapForView',
-      style: `${import.meta.env.NG_APP_MAPBOX_STYLE}`,
-      center: [parseFloat(consultation.map_longitud), parseFloat(consultation.map_latitud)],
-      zoom: 10,
-    });
-    // Centrar el mapa
-    this.map2.flyTo({
-      center: [parseFloat(consultation.map_longitud), parseFloat(consultation.map_latitud)],
-      zoom: 18
-    });
-    // Colocamos el botón para fullscreen
-    this.map2.addControl(new mapboxgl.FullscreenControl());
-    // Colocamos el botón de geolocalización
-    this.map2.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true,
-        showUserHeading: true
-      })
-    );
-    // Creamos el marcador
-    this.mark2 = new mapboxgl.Marker({
-      draggable: false,
-      color: "#C70039"
-    })
-    .setLngLat([parseFloat(consultation.map_longitud), parseFloat(consultation.map_latitud)])
-    .addTo(this.map2);
-  }
+  // // inicializar mapa digital 
+  // initMap(consultation: Consultation | any): void{
+  //   // Guardamos la asesoría 
+  //   this.consultation = consultation;
+  //   // API KEY
+  //   (mapboxgl as any).accessToken = import.meta.env.NG_APP_MAPBOX_KEY;
+  //   // Creamos el mapa
+  //   this.map2 = new mapboxgl.Map({
+  //     container: 'mapForView',
+  //     style: `${import.meta.env.NG_APP_MAPBOX_STYLE}`,
+  //     center: [parseFloat(consultation.map_longitud), parseFloat(consultation.map_latitud)],
+  //     zoom: 10,
+  //   });
+  //   // Centrar el mapa
+  //   this.map2.flyTo({
+  //     center: [parseFloat(consultation.map_longitud), parseFloat(consultation.map_latitud)],
+  //     zoom: 18
+  //   });
+  //   // Colocamos el botón para fullscreen
+  //   this.map2.addControl(new mapboxgl.FullscreenControl());
+  //   // Colocamos el botón de geolocalización
+  //   this.map2.addControl(
+  //     new mapboxgl.GeolocateControl({
+  //       positionOptions: {
+  //         enableHighAccuracy: true
+  //       },
+  //       trackUserLocation: true,
+  //       showUserHeading: true
+  //     })
+  //   );
+  //   // Creamos el marcador
+  //   this.mark2 = new mapboxgl.Marker({
+  //     draggable: false,
+  //     color: "#C70039"
+  //   })
+  //   .setLngLat([parseFloat(consultation.map_longitud), parseFloat(consultation.map_latitud)])
+  //   .addTo(this.map2);
+  // }
 
   // Cerrar modal 
   closeModal(): void{

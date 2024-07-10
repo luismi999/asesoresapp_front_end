@@ -75,9 +75,13 @@
                                            Investigar
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark">
-                                            <!-- Asesoría  -->
+                                            <!-- Detalles  -->
                                             <li>
-                                                <a class="dropdown-item cursor-pointer" (click)="showModalViewConsultation(consultation)">Asesoría</a>
+                                                <a class="dropdown-item cursor-pointer" (click)="showModalViewConsultation(consultation)">Detalles</a>
+                                            </li>
+                                            <!-- Asesor  -->
+                                            <li>
+                                                <a class="dropdown-item cursor-pointer" (click)="showModalViewUser(consultation.user)">Asesor</a>
                                             </li>
                                             <!-- Divisor  -->
                                             <li><hr class="dropdown-divider"></li>
@@ -113,9 +117,11 @@
     <app-chart-consultations></app-chart-consultations>
 </div>
 
-
 <!-- Modal para ver la asesoría  -->
 <app-view-consultation [flag]="flag_show_view_consultation" (flag_response)="flag_show_view_consultation = $event"></app-view-consultation>
+
+<!-- Modal para ver un usuario asesor -->
+<app-view-user-advisor [flag]="flag_show_view_user_advisor" [user_who_wants_to_see]="my_user" (flag_response)="flag_show_view_user_advisor = $event"></app-view-user-advisor>
 
 <!-- Confirmación de eliminación de asesoría  -->
 <p-confirmDialog [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}"></p-confirmDialog>

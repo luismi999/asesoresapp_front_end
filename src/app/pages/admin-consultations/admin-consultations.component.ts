@@ -17,6 +17,7 @@ import { ViewConsultationComponent } from '../../components/view-consultation/vi
 import { Subject } from 'src/app/model/subject.model';
 import { UpdateConsultationResponse } from 'src/app/model/updateConsultationResponse.interface';
 import { deleteConsultationResponse } from 'src/app/model/deleteConsultationResponse.interface';
+import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
 
 @Component({
   selector: 'app-admin-consultations',
@@ -27,6 +28,7 @@ import { deleteConsultationResponse } from 'src/app/model/deleteConsultationResp
 export class AdminConsultationsComponent {
 
   @ViewChild(ViewConsultationComponent) viewConsultationComponent!: ViewConsultationComponent;
+  @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent!: ViewUserAdvisorComponent;
 
   // Propiedades 
   my_user           ?: User;
@@ -40,6 +42,7 @@ export class AdminConsultationsComponent {
 
   // Banderas de los modales
   flag_show_view_consultation: boolean = false;
+  flag_show_view_user_advisor: boolean = false;
   flag_loading               : boolean = false;
 
   // Suscripciones
@@ -224,6 +227,14 @@ export class AdminConsultationsComponent {
     this.flag_show_view_consultation = true;
     // Inicializamos el componente hijo 
     this.viewConsultationComponent.initComponent(consultation.uuid || '');
+  }
+
+  // - - - - - - - - --  - - - - - - - - - -   - - - - - - - - --  -- - - - - Funciones para mostrar AL ASESOR - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  showModalViewUser(user: User): void{
+    // Bandera 
+    this.flag_show_view_user_advisor = true;
+    this.viewUserAdvisorComponent.findUser(user.uuid);
   }
 
   //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para eliminar una asesoría - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
