@@ -1,6 +1,6 @@
 
 <!-- Pantalla de carga  -->
-<app-loading *ngIf="flag_loading"></app-loading>
+<app-loading *ngIf="loading_flag"></app-loading>
 
 <!-- Notificación -->
 <p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}"></p-toast>
@@ -32,7 +32,7 @@
             <div class="card shadow">
                 <div class="card-header">
                     <!-- Botón para abrir el modal de crear una nueva cátedra -->
-                    <button type="button" class="btn btn-dark my-2" (click)="showModalCreate()">Crear cátedra</button>
+                    <button type="button" class="btn btn-dark my-2" (click)="show_create_subject_component()">Crear cátedra</button>
                 </div>
                 <div *ngIf="subjects.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
                     <table class="table table-striped table-hover">
@@ -48,7 +48,7 @@
                                 <td class=""><p class="my-2">{{subject.code | uppercase}}</p></td>
                                 <td class=""><p class="my-2">{{subject.name | titlecase}}</p></td>
                                 <td class="">
-                                    <button type="button" class="btn btn-dark float-end" (click)="showConfirmation(subject)">Eliminar</button>
+                                    <button type="button" class="btn btn-dark float-end" (click)="show_delete_subject_component(subject)">Eliminar</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -72,13 +72,13 @@
 </div>
 
 <!-- Componente para crear cátedra -->
-<app-create-subject [flag_show_create_subject]="flag_show_create_subject" 
-                    (get_subjects_event)="getSubjects()" 
-                    (flag_response)="flag_show_create_subject = $event">
+<app-create-subject [create_subject_component_flag]="create_subject_component_flag" 
+                    (reload_subject_table)="get_subjects()" 
+                    (create_subject_component_flag_response)="create_subject_component_flag = $event">
 </app-create-subject>
 
 <!-- Confirmación de eliminación de asesoría  -->
-<p-confirmDialog [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}"></p-confirmDialog>
+<app-delete-subject (reload_subjects)="get_subjects()"></app-delete-subject>
 
 <!-- Componente de gráfica -->
 <app-subject-chart></app-subject-chart>

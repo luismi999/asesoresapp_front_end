@@ -1,5 +1,8 @@
+<!-- Pantalla de carga  -->
+<app-loading *ngIf="loading_flag"></app-loading>
+
 <!-- Nuevo modal para crear una cátedra (restructured)-->
-<p-dialog asesoría="Nueva cátedra" [(visible)]="flag_show_create_subject" [modal]="true" [style]="{ width: '30vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" [closable]="true" (onHide)="closeModal()">
+<p-dialog asesoría="Nueva cátedra" [(visible)]="create_subject_component_flag" [modal]="true" [style]="{ width: '30vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" [closable]="true" (onHide)="close_modal()">
     <div class="row">
 
         <!-- Detalles -->
@@ -52,9 +55,9 @@
     <div class="row">
         <div class="col">
             <!-- Crear -->
-            <button type="button" class="btn btn-dark float-end" (click)="createSubject()" [disabled]="form.invalid">Crear</button>
+            <button type="button" class="btn btn-dark float-end" (click)="create_subject()" [disabled]="form.invalid">Crear</button>
             <!-- Cerrar -->
-            <button type="button" class="btn btn-dark float-start" (click)="flag_show_create_subject = false">Cerrar</button>
+            <button type="button" class="btn btn-dark float-start" (click)="create_subject_component_flag = false">Cerrar</button>
         </div>
     </div>
 </p-dialog>

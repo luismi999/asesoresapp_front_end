@@ -8,13 +8,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 // Modelos 
 import { Subject } from 'src/app/model/subject.model';
-import { CreateSubjectResponse } from 'src/app/model/createSubjectResponse.interface';
-
-// Interfaces 
-import { DeleteSubjectResponse } from 'src/app/model/deleteSubjectResponse.interface';
 
 // Instrucciones 
 import { CreateSubjectComponent } from './components/create-subject/create-subject.component';
+import { DeleteSubjectComponent } from './components/delete-subject/delete-subject.component';
 
 @Component({
   selector: 'app-admin-subjects',
@@ -26,14 +23,15 @@ export class AdminSubjectsComponent {
 
   // @ViewChild(ChatComponent) chatComponent!: ChatComponent;
   @ViewChild(CreateSubjectComponent) createSubjectComponent!: CreateSubjectComponent;
+  @ViewChild(DeleteSubjectComponent) deleteSubjectComponent!: DeleteSubjectComponent;
 
   // Propiedades 
   subjects: any[] = [];
   form    !: FormGroup;
 
   // Banderas 
-  flag_show_create_subject: boolean = false;
-  flag_loading            : boolean = false;
+  create_subject_component_flag: boolean = false;
+  loading_flag                 : boolean = false;
 
   // Suscripciones 
   sub_subject_find_all?: Subscription;
@@ -42,15 +40,14 @@ export class AdminSubjectsComponent {
 
   // Constructor 
   constructor( 
-    private messageService     : MessageService,
     private fb                 : FormBuilder,
-    private confirmationService: ConfirmationService,
-    private subjectsService    : SubjectsService){}
+    private subjectsService    : SubjectsService)
+  {}
 
   // Inicializado 
   ngOnInit(): void {
-    this.getSubjects();
-    this.initForm();
+    this.get_subjects();
+    this.start_form();
   }
 
   // Destructor
@@ -61,7 +58,7 @@ export class AdminSubjectsComponent {
   } 
 
   // Inicializar formulario
-  initForm(): void{
+  start_form(): void{
     this.form = this.fb.group({
       code: ['',[Validators.required]],
       name: ['',[Validators.required]]
@@ -69,9 +66,9 @@ export class AdminSubjectsComponent {
   } 
 
   // Obtener todos las cátedras 
-  getSubjects(): void{
+  get_subjects(): void{
     // Bandera 
-    this.flag_loading = true; // Bandera 
+    this.loading_flag = true; // Bandera 
     // Reiniciamos las cátedras 
     this.subjects = []; 
     // Consultamos el servicio de SUBJECTS 
@@ -80,84 +77,27 @@ export class AdminSubjectsComponent {
         // Guardamos la respuesta en la variable de cátedras 
         this.subjects = resp;
         // Bandera 
-        this.flag_loading = false;
+        this.loading_flag = false;
       },
       error: (error) => {
         // Retornamos 
         console.log(error.error.message);
         // Bandera 
-        this.flag_loading = false;
+        this.loading_flag = false;
       }
     });
   }
 
-  // Mostrar el modal para crear una cátedra 
-  showModalCreate(): void{
-    this.flag_show_create_subject = true;
+  // ---------------------------------------- Componente hijo (Create subject component) ---------------------------------------
+
+  // Mostramos el componente de crear cátedra
+  show_create_subject_component(): void {
+    this.create_subject_component_flag = true;
   }
 
-  // Crear cátedra 
-  createSubject(): void{
-    this.flag_show_create_subject = false;
-    // Bandera 
-    this.flag_loading = true;
-    // Consultamos el servicio de SUBJECTS 
-    this.sub_subject_create = this.subjectsService.create(this.form.value).subscribe({
-      next: (resp: CreateSubjectResponse) => {
-        //Respuesta
-        this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg,life: 5000 });
-        // Bandera 
-        this.flag_loading = false;
-        // Reiniciamos el formulario 
-        this.form.reset();
-        // Obtenemos nuevamente la lista de cátedras 
-        this.getSubjects();
-      },
-      error: (error) => {
-        // Respuesta
-        this.messageService.add({ key: 'serverResponse', severity:'error', summary: 'Error', detail: error.error.message, life: 5000 });
-        // Bandera 
-        this.flag_loading = false;
-      }
-    });
-  }
-
-  // Mostrar confirmación 
-  showConfirmation(subject: Subject): void{
-    // Creamos el contenido de la confirmación 
-    this.confirmationService.confirm({
-      message: `Estas apunto de eliminar la cátedra para ${subject.name.toUpperCase()}, ¿Deseas continuar?`,
-      header: 'Confirmación',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Si',
-      accept: () => {
-        // Actualizamos la asesoría 
-        this.deleteSubject(subject);
-      },
-      reject: (type: any) => {}
-    });
-  }
-
-  // Eliminar una cátedra 
-  deleteSubject(subject: Subject): void{
-    // Bandera 
-    this.flag_loading = true;
-    // Consultamos al servicio de SUBJECTS 
-    this.sub_subject_delete = this.subjectsService.delete(subject.uuid).subscribe({
-      next: (resp: DeleteSubjectResponse) => {
-        //Respuesta
-        this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg,life: 5000 });
-        // Bandera 
-        this.flag_loading = false;
-        // Obtenemos nuevamente la lista de cátedras 
-        this.getSubjects();
-      },
-      error: (error) => {
-        // Respuesta
-        this.messageService.add({ key: 'serverResponse', severity:'error', summary: 'Error', detail: error.error.message, life: 5000 });
-        // Bandera 
-        this.flag_loading = false;
-      }
-    });
+  // --------------------------------------- Componente hijo (Delete subject component) ---------------------------------------
+  show_delete_subject_component(subject: Subject): void {
+    this.deleteSubjectComponent.subject = subject;
+    this.deleteSubjectComponent.start_component();
   }
 }

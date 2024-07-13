@@ -13,34 +13,36 @@ import { Subscription } from 'rxjs';
 export class CreateSubjectComponent implements OnInit, OnDestroy{
 
   // Inputs 
-  @Input() flag_show_create_subject!: boolean;
+  @Input() create_subject_component_flag !: boolean;
 
   // Outputs
-  @Output() get_subjects_event = new EventEmitter<void>();
-  @Output() flag_response = new EventEmitter<boolean>();
+  @Output() reload_subject_table                   = new EventEmitter<void>();
+  @Output() create_subject_component_flag_response = new EventEmitter<boolean>();
   
   // Propiedades 
-  form!: FormGroup;
+  loading_flag: boolean = false;
+  form       !: FormGroup;
 
   // Suscripciones 
-  sub_subject_create?: Subscription;
+  sub_create_subject?: Subscription;
 
   // Constructor
   constructor(
-    private fb: FormBuilder,
-    private messageService: MessageService,
-    private subjectsService: SubjectsService) {} 
+    private fb             : FormBuilder,
+    private messageService : MessageService,
+    private subjectsService: SubjectsService) 
+  {} 
 
   ngOnInit(): void {
-    this.initForm();
+    this.start_form();
   }
 
   ngOnDestroy(): void {
-    this.sub_subject_create?.unsubscribe();
+    this.sub_create_subject?.unsubscribe();
   }
   
   // Inicializar formulario
-  initForm(): void{
+  start_form(): void{
     this.form = this.fb.group({
       code: ['',[Validators.required]],
       name: ['',[Validators.required]]
@@ -48,20 +50,26 @@ export class CreateSubjectComponent implements OnInit, OnDestroy{
   } 
 
   // Crear cátedra 
-  createSubject(): void{
+  create_subject(): void{
+    // Cargando
+    this.loading_flag = true;
     // Consultamos el servicio de SUBJECTS 
-    this.sub_subject_create = this.subjectsService.create(this.form.value).subscribe({
+    this.sub_create_subject = this.subjectsService.create(this.form.value).subscribe({
       next: (resp: CreateSubjectResponse) => {
+        // Cargando
+        this.loading_flag = false;
         //Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg,life: 5000 });
         // Reiniciamos el formulario 
         this.form.reset();
-        // Mandamos el eventos 
-        this.get_subjects_event.emit();
-        // Cerramos modal
-        this.closeModal();
+        // Actualizamos las cátedras de la tabla 
+        this.reload_subject_table.emit();
+        // Cerramos el componente
+        this.close_modal();
       },
       error: (error) => {
+        // Cargando
+        this.loading_flag = false;
         // Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'error', summary: 'Error', detail: error.error.message, life: 5000 });
       }
@@ -69,7 +77,7 @@ export class CreateSubjectComponent implements OnInit, OnDestroy{
   }
 
   // Cerrar modal 
-  closeModal(): void{
-    this.flag_response.emit(false);
+  close_modal(): void{
+    this.create_subject_component_flag_response.emit(false);
   }
 }

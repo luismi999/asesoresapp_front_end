@@ -9,7 +9,6 @@ import { ProgressBarConsultationsComponent } from './progress-bar-consultations/
 import { RankComponent } from './rank/rank.component';
 import { ReadExcelComponent } from './read-excel/read-excel.component';
 import { MapComponent } from './map/map.component';
-import { ConsultationTableComponent } from './consultation-table/consultation-table.component';
 import { ViewUserStudentComponent } from './view-user-student/view-user-student.component';
 
 
@@ -23,7 +22,6 @@ import { ViewUserStudentComponent } from './view-user-student/view-user-student.
     RankComponent,
     ReadExcelComponent,
     MapComponent,
-    ConsultationTableComponent,
     ViewUserStudentComponent
   ],
   imports: [
@@ -39,7 +37,6 @@ import { ViewUserStudentComponent } from './view-user-student/view-user-student.
     RankComponent,
     ReadExcelComponent,
     MapComponent,
-    ConsultationTableComponent,
     ViewUserStudentComponent
   ]
 })
