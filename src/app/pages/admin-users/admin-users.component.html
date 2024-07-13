@@ -32,10 +32,7 @@
                     <!-- Selector  -->
                     <app-user-selector (set_loading_flag)="loading_flag = $event" (set_users)="users = $event"></app-user-selector>
                     <!-- Buscador de usuario por código institucional  -->
-                    <div class="form-floating float-end" style="width: 150px;" >
-                        <input type="text" class="form-control" id="code" (change)="get_user_by_institutional_code($event)">
-                        <label for="code">Código institucional</label>
-                    </div>
+                    <app-user-input (set_loading_flag)="loading_flag = $event" (set_users)="users = $event"></app-user-input>
                 </div>
                 <div *ngIf="users?.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
                     <table class="table table-hover table-striped">
