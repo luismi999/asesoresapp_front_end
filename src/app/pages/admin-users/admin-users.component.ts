@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { UpdateUserResponse } from 'src/app/model/updateUserResponse.interface';
 import { DeleteUserResponse } from 'src/app/model/deleteUserResponse.interface';
 import { ViewUserStudentComponent } from '../../components/view-user-student/view-user-student.component';
+import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 
 @Component({
   selector: 'app-admin-users',
@@ -26,6 +27,7 @@ export class AdminUsersComponent {
 
   @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent!: ViewUserAdvisorComponent;
   @ViewChild(ViewUserStudentComponent) ViewUserStudentComponent!: ViewUserStudentComponent;
+  @ViewChild(UserSelectorComponent) userSelectorComponent!: UserSelectorComponent;
 
   // Propiedades
   my_user       ?: User;
@@ -33,14 +35,13 @@ export class AdminUsersComponent {
   advisors      ?: User[] = [];
   students      ?: User[] = [];
   filtered_users?: User[] = [];
-  form1         !: FormGroup;
-  form2         !: FormGroup;
-  
+  form          !: FormGroup;
+
   // Banderas
   flag_show_delete_user        : boolean = false;
   flag_show_view_user_advisor  : boolean = false;
   flag_show_view_user_student  : boolean = false;
-  flag_loading                 : boolean = false;
+  loading_flag                 : boolean = false;
 
   // Suscripciones 
   sub_user_find_one?: Subscription;
@@ -59,8 +60,8 @@ export class AdminUsersComponent {
   // Inicializado 
   ngOnInit(): void{
     this.my_user = this.AuthService.getUser();
-    this.getUsers();
-    this.initForms();
+    this.get_users();
+    this.start_form();
   }
 
   // Destructor 
@@ -72,9 +73,9 @@ export class AdminUsersComponent {
   }
 
   // Inicializar formulario 
-  initForms(): void{
+  start_form(): void{
     // Formulario para cambiar el estado
-    this.form1 = this.fb.group({
+    this.form = this.fb.group({
       role: ['']
     });
   }
@@ -82,9 +83,9 @@ export class AdminUsersComponent {
   //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones para la tabla de usuarios - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
   // Obtener usuarios 
-  getUsers(): void{
-    // loading 
-    this.flag_loading = true;
+  get_users(): void{
+    // Cargando 
+    this.loading_flag = true;
     // Borramos los usuarios existentes 
     this.users = [];
     // Consultamos el servicio de USERS 
@@ -95,50 +96,22 @@ export class AdminUsersComponent {
           if(user.role == 'advisor')
             this.users?.push(user);
         });
-        // loading 
-        this.flag_loading = false;
+        // Cargando 
+        this.loading_flag = false;
       },
       error: (error) => {
         // Respuesta del backend 
         console.log(error.error.message);
-        // loading 
-        this.flag_loading = false;
+        // Cargando 
+        this.loading_flag = false;
       }
     });
   }
 
-  // Obtenemos los usuarios por role 
-  getUsersBySelected(event: any): void{
-    // loading 
-    this.flag_loading = true;
-    // Reiniciamos los usuarios 
-    this.users = [];
-    // Creamos una variable donde guardamos el valor del evento 
-    const role = event.target.value;
-    // Consultamos al servicio de USERS 
-    this.sub_user_find_all = this.usersService.findAll().subscribe({
-      next: (resp: User[]) => {
-        // Guardamos los usuarios 
-        resp.map((user: User) => {
-          if(user.role == role)
-            this.users?.push(user);
-        });
-        // loading 
-        this.flag_loading = false;
-      },
-      error: (error) => {
-        // Respuesta del backend 
-        console.log(error.error.message);
-        // loading 
-        this.flag_loading = false;
-      }
-    })
-  }
-
   // Obtener usuario por código institucional 
-  getUserByInstitutionalCode(event: any){
-    // Bandera 
-    this.flag_loading = true;
+  get_user_by_institutional_code(event: any){
+    // Cargando 
+    this.loading_flag = true;
     // Guardamos el valor del evento 
     const institutionalCode: string = event.target.value;
     // Reiniciamos usuarios 
@@ -152,22 +125,22 @@ export class AdminUsersComponent {
           if(user.institutional_code == institutionalCode)
             this.users?.push(user);
         });
-        // Bandera 
-        this.flag_loading = false;
+        // Cargando 
+        this.loading_flag = false;
       },
       error: (error) => {
         // Respuesta del backend 
         console.log(error.error.message);
         // loading 
-        this.flag_loading = false;
+        this.loading_flag = false;
       }
     });
   }
 
   // Actualizaremos solo el status del usuario 
-  updateIsActive(user: User, event: any): void{
-    // loading 
-    this.flag_loading = true;
+  update_user_active(user: User, event: any): void{
+    // Cargando
+    this.loading_flag = true;
     // Guardamos le valor en una variable 
     const data: any = {isActive: event.srcElement.checked}; 
     // Consultamos al servicio de USERS 
@@ -175,40 +148,40 @@ export class AdminUsersComponent {
       next: (resp: UpdateUserResponse) => {
         // Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
-        // loading 
-        this.flag_loading = false;
+        // Cargando
+        this.loading_flag = false;
       },
       error: (error) => {
         // Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'error', summary: 'Error', detail: error.error.message, life: 5000 });
-        // loading 
-        this.flag_loading = false;
+        // Cargando
+        this.loading_flag = false;
       }
     });
   }
 
   // Actualizaremos solo el status del usuario 
-  updateRole(user: User): void{
-    // loading 
-    this.flag_loading = true;
+  update_role(user: User): void{
+    // Cargando 
+    this.loading_flag = true;
     // Consultamos al servicio de USERS 
-    this.sub_user_update = this.usersService.update(user.uuid, this.form1.value).subscribe({
+    this.sub_user_update = this.usersService.update(user.uuid, this.form.value).subscribe({
       next: (resp: UpdateUserResponse) => {
         //Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
-        // loading 
-        this.flag_loading = false;
+        // Cargando 
+        this.loading_flag = false;
       },
       error: (error) => {
         //Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'error', summary: 'Error', detail: error.error.message, life: 5000 });
-        // loading 
-        this.flag_loading = false;
+        // Cargando 
+        this.loading_flag = false;
       }
     });
   }
 
-  //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones para el modal de ver usuarios - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  //  ---------------------------------------------------------------------------- Componente hijo (view user) ---------------------------------------------------------------------
   showModalViewUser(user: User): void{
     // Buscamos el usuario desde el componente hijo 
     if(user.role == 'advisor'){
@@ -248,7 +221,7 @@ export class AdminUsersComponent {
         //Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
         // Actualizamos los usuario 
-        this.getUsers();
+        this.get_users();
       },
       error: (error) => {
         //Respuesta

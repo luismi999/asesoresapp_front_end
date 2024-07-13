@@ -1,5 +1,5 @@
 <!-- Pantalla de carga  -->
-<app-loading *ngIf="flag_loading"></app-loading>
+<app-loading *ngIf="loading_flag"></app-loading>
 
 <!-- Notificación -->
 <p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
@@ -30,17 +30,10 @@
             <div class="card shadow">
                 <div class="card-header">
                     <!-- Selector  -->
-                    <div class="form-floating select-size float-start">
-                        <select class="form-select cursor-pointer" aria-label="Floating label select example" (change)="getUsersBySelected($event)">
-                            <option class="" value="advisor" selected>Asesores</option>
-                            <option class="" value="student">Estudiantes</option>
-                            <option class="" value="admin">Administradores</option>
-                        </select>
-                        <label for="floatingSelect" class="">Filtrar por role</label>
-                    </div> 
+                    <app-user-selector (set_loading_flag)="loading_flag = $event" (set_users)="users = $event"></app-user-selector>
                     <!-- Buscador de usuario por código institucional  -->
                     <div class="form-floating float-end" style="width: 150px;" >
-                        <input type="text" class="form-control" id="code" (change)="getUserByInstitutionalCode($event)">
+                        <input type="text" class="form-control" id="code" (change)="get_user_by_institutional_code($event)">
                         <label for="code">Código institucional</label>
                     </div>
                 </div>
@@ -63,15 +56,15 @@
                                 <td><p class="my-3">{{user.last_name | titlecase}}</p></td>
                                 <td>
                                     <div *ngIf="user.uuid != my_user?.uuid" class="form-check form-switch my-3">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [checked]="user.isActive" (change)="updateIsActive(user, $event)">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [checked]="user.isActive" (change)="update_user_active(user, $event)">
                                         <label class="form-check-label" for="flexSwitchCheckChecked">Permitido</label>
                                     </div>
                                     <!-- No permitido para el admin de turno  -->
                                     <p *ngIf="user.uuid == my_user?.uuid" class="my-3">No permitido</p>
                                 </td>
                                 <td>
-                                    <form *ngIf="user.uuid != my_user?.uuid" [formGroup]="form1">
-                                        <select class="form-select cursor-pointer select-size" aria-label="Default select example" formControlName="role" (change)="updateRole(user)">
+                                    <form *ngIf="user.uuid != my_user?.uuid" [formGroup]="form">
+                                        <select class="form-select cursor-pointer select-size" aria-label="Default select example" formControlName="role" (change)="update_role(user)">
                                             <option [value]="user.role" value="student">{{user.role | uppercase}}</option>
                                             <option *ngIf="user.role != 'student'" value="student">STUDENT</option>
                                             <option *ngIf="user.role != 'advisor'" value="advisor">ADVISOR</option>

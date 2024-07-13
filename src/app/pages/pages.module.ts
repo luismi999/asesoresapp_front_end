@@ -28,6 +28,7 @@ import { ChartConsultationsComponent } from './admin-consultations/components/ch
 import { CreateSubjectComponent } from './admin-subjects/components/create-subject/create-subject.component';
 import { SubjectChartComponent } from './admin-subjects/components/subject-chart/subject-chart.component';
 import { DeleteSubjectComponent } from './admin-subjects/components/delete-subject/delete-subject.component';
+import { UserSelectorComponent } from './admin-users/components/user-selector/user-selector.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { DeleteSubjectComponent } from './admin-subjects/components/delete-subje
     CreateSubjectComponent,
     SubjectChartComponent,
     StatisticsComponent,
-    DeleteSubjectComponent
+    DeleteSubjectComponent,
+    UserSelectorComponent
   ],
   imports: [
     CommonModule,
