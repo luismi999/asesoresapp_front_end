@@ -35,14 +35,12 @@ export class AdminSubjectsComponent {
 
   // Suscripciones 
   sub_subject_find_all?: Subscription;
-  sub_subject_create  ?: Subscription;
-  sub_subject_delete  ?: Subscription;
 
   // Constructor 
   constructor( 
-    private fb                 : FormBuilder,
-    private subjectsService    : SubjectsService)
-  {}
+    private fb             : FormBuilder,
+    private subjectsService: SubjectsService
+  ){}
 
   // Inicializado 
   ngOnInit(): void {
@@ -53,8 +51,6 @@ export class AdminSubjectsComponent {
   // Destructor
   ngOnDestroy(): void {
     this.sub_subject_find_all?.unsubscribe();
-    this.sub_subject_create?.unsubscribe();
-    this.sub_subject_delete?.unsubscribe();
   } 
 
   // Inicializar formulario

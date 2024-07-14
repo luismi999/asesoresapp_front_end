@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 
 // PrimeNG 
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -12,7 +12,7 @@ import { SubjectsService } from 'src/app/services/subjects.service';
   templateUrl: './delete-subject.component.html',
   styleUrls: ['./delete-subject.component.css']
 })
-export class DeleteSubjectComponent {
+export class DeleteSubjectComponent implements OnDestroy {
 
   // Entradas 
   @Input() subject!: Subject;
@@ -30,8 +30,13 @@ export class DeleteSubjectComponent {
   constructor(
     private messageService     : MessageService, 
     private confirmationService: ConfirmationService,
-    private subjectsService    : SubjectsService ) 
-  {}
+    private subjectsService    : SubjectsService 
+  ){}
+
+  // Destructor 
+  ngOnDestroy(): void {
+    this.sub_delete_subject?.unsubscribe();
+  }
 
   // Iniciar componente 
   start_component(){
@@ -76,5 +81,4 @@ export class DeleteSubjectComponent {
       }
     });
   }
-
 }

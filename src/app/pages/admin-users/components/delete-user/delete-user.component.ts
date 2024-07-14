@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { DeleteUserResponse } from 'src/app/model/deleteUserResponse.interface';
   templateUrl: './delete-user.component.html',
   styleUrls: ['./delete-user.component.css']
 })
-export class DeleteUserComponent {
+export class DeleteUserComponent implements OnDestroy {
 
   // Salidas 
   @Output() reload_users = new EventEmitter<void>();
@@ -26,10 +26,16 @@ export class DeleteUserComponent {
   // Constructor 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private usersService: UsersService
+    private messageService     : MessageService,
+    private usersService       : UsersService
   ){}
 
+  // Destructor 
+  ngOnDestroy(): void {
+    this.sub_user_delete?.unsubscribe();
+  }
+
+  // Inicializado 
   start_component(user: User): void {
     this.show_confirmation(user);
   }

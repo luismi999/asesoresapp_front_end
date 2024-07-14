@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 // Modelos 
 import { Consultation } from 'src/app/model/consultation.model';
@@ -11,7 +12,7 @@ import { ConsultationsService } from 'src/app/services/consultations.service';
   templateUrl: './subject-chart.component.html',
   styleUrls: ['./subject-chart.component.css']
 })
-export class SubjectChartComponent implements OnInit {
+export class SubjectChartComponent implements OnInit, OnDestroy {
 
   // Propiedades
   data         : any;
@@ -21,12 +22,20 @@ export class SubjectChartComponent implements OnInit {
   joinsCount   : number[] = [];
   ActiveConsultationsCount: number[] = [];
 
+  // Suscripciones 
+  sub_find_all_consultations?: Subscription;
+
   // Constructor 
   constructor(private consultationsService: ConsultationsService){}
 
   // Inicializado de componente
   ngOnInit() {
     this.getAllConsultations();
+  }
+
+  // Destructor 
+  ngOnDestroy(): void {
+    this.sub_find_all_consultations?.unsubscribe();
   }
 
   // Buscar usuarios 
@@ -38,7 +47,7 @@ export class SubjectChartComponent implements OnInit {
     // Reiniciamos los asesoramientos
     this.joinsCount = [];
     // Consultamos el servicio de CONSULTATIONS 
-    this.consultationsService.findAll()
+    this.sub_find_all_consultations = this.consultationsService.findAll()
     .subscribe({
       next: (resp: Consultation[]) => {
 

@@ -1,25 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 // Servicios 
 import { UsersService } from '../../../../services/users.service';
 
 // Modelos 
 import { User } from 'src/app/model/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chart-users',
   templateUrl: './chart-users.component.html',
   styleUrls: ['./chart-users.component.css']
 })
-export class ChartUsersComponent {
+export class ChartUsersComponent implements OnDestroy {
     
   // Propiedades
   data   : any;
   options: any;
   users  : User[] = [];
 
+  // Suscripciones 
+  sub_find_all_users?: Subscription;
+
   // Constructor 
   constructor(private usersService: UsersService){}
+
+  // Destructor 
+  ngOnDestroy(): void {
+    this.sub_find_all_users?.unsubscribe();
+  }
 
   // Inicializado de componente
   ngOnInit() {
@@ -29,7 +38,7 @@ export class ChartUsersComponent {
   // Buscar usuarios 
   getAllUsers(){
     // Consultamos el servicio de USERS 
-    this.usersService.findAll()
+    this.sub_find_all_users = this.usersService.findAll()
     .subscribe({
       next: (resp: User[]) => {
         // Creamos las variables para los usuarios de tipo ADVISOR 

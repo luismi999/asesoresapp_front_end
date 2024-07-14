@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { UsersService } from '../../../../services/users.service';
@@ -8,7 +8,7 @@ import { UsersService } from '../../../../services/users.service';
   templateUrl: './user-selector.component.html',
   styleUrls: ['./user-selector.component.css']
 })
-export class UserSelectorComponent {
+export class UserSelectorComponent implements OnInit, OnDestroy{
 
   // Salidas 
   @Output() set_users        = new EventEmitter<User[]>();
@@ -16,6 +16,14 @@ export class UserSelectorComponent {
 
   // Constructor 
   constructor(private usersService: UsersService){}
+
+  // creador 
+  ngOnInit(): void {}
+
+  // Destructor 
+  ngOnDestroy(): void {
+    this.sub_user_find_all?.unsubscribe();
+  }
 
   // Propiedades 
   users: User[] = [];

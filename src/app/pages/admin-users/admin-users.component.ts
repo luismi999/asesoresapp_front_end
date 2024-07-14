@@ -15,7 +15,6 @@ import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/v
 import { ViewUserStudentComponent } from '../../components/view-user-student/view-user-student.component';
 import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 import { UpdateUserResponse } from 'src/app/model/updateUserResponse.interface';
-import { DeleteUserResponse } from 'src/app/model/deleteUserResponse.interface';
 import { DeleteUserComponent } from './components/delete-user/delete-user.component';
 
 @Component({
@@ -32,26 +31,25 @@ export class AdminUsersComponent {
   @ViewChild(DeleteUserComponent) deleteUserComponent!: DeleteUserComponent;
 
   // Propiedades
-  my_user       ?: User;
-  users         ?: User[] = [];
-  form          !: FormGroup;
+  my_user?: User;
+  users  ?: User[] = [];
+  form   !: FormGroup;
 
   // Banderas
-  flag_show_view_user_advisor  : boolean = false;
-  flag_show_view_user_student  : boolean = false;
-  loading_flag                 : boolean = false;
+  flag_show_view_user_advisor: boolean = false;
+  flag_show_view_user_student: boolean = false;
+  loading_flag               : boolean = false;
 
-  // Suscripciones 
-  sub_user_find_one?: Subscription;
+  // Suscripciones
   sub_user_find_all?: Subscription;
   sub_user_update  ?: Subscription;
 
   // Constructor
   constructor(
-    private fb                 : FormBuilder,
-    private AuthService        : AuthService,
-    private messageService     : MessageService,
-    private usersService       : UsersService){}
+    private fb            : FormBuilder,
+    private AuthService   : AuthService,
+    private messageService: MessageService,
+    private usersService  : UsersService){}
 
   // Inicializado 
   ngOnInit(): void{
@@ -62,7 +60,6 @@ export class AdminUsersComponent {
 
   // Destructor 
   ngOnDestroy(): void {
-    this.sub_user_find_one?.unsubscribe();
     this.sub_user_find_all?.unsubscribe();
     this.sub_user_update?.unsubscribe();
   }
@@ -84,7 +81,7 @@ export class AdminUsersComponent {
     // Borramos los usuarios existentes 
     this.users = [];
     // Consultamos el servicio de USERS 
-    this.sub_user_find_one = this.usersService.findAll().subscribe({
+    this.sub_user_find_all = this.usersService.findAll().subscribe({
       next: (resp: User[]) => {
         // Guardamos los usuarios 
         resp.map((user: User) => {

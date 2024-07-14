@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { User } from 'src/app/model/user.model';
 import { UsersService } from '../../../../services/users.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-input',
   templateUrl: './user-input.component.html',
   styleUrls: ['./user-input.component.css']
 })
-export class UserInputComponent {
+export class UserInputComponent implements OnDestroy {
 
   // Salidas 
   @Output() set_loading_flag = new EventEmitter<boolean>();
@@ -18,6 +19,14 @@ export class UserInputComponent {
 
   // Propiedades 
   users: User[] = [];
+
+  // Suscripciones 
+  sub_find_all_users?: Subscription;
+
+  // Destructor 
+  ngOnDestroy(): void {
+    this.sub_find_all_users?.unsubscribe();
+  }
 
   // Constructor 
   constructor(private usersService: UsersService){}
@@ -31,7 +40,7 @@ export class UserInputComponent {
     // Reiniciamos usuarios 
     this.users = [];
     // Consultamos al servicio de USERS 
-    this.usersService.findAll()
+    this.sub_find_all_users = this.usersService.findAll()
     .subscribe({
       next: (resp: User[]) => {
         // Mapeamos la respuesta 
@@ -52,5 +61,4 @@ export class UserInputComponent {
       }
     });
   }
-
 }
