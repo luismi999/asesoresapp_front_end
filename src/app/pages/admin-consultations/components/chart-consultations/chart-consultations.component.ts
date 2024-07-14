@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 // Servicios 
 import { ConsultationsService } from '../../../../services/consultations.service';
 
 // Modelos 
 import { Consultation } from 'src/app/model/consultation.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Consultation } from 'src/app/model/consultation.model';
   templateUrl: './chart-consultations.component.html',
   styleUrls: ['./chart-consultations.component.css']
 })
-export class ChartConsultationsComponent {
+export class ChartConsultationsComponent implements OnDestroy {
 
 // Propiedades
 data         : any;
@@ -22,16 +23,24 @@ subjects     : string[] = [];
 joinsCount   : number[] = [];
 ActiveConsultationsCount: number[] = [];
 
+// Suscripciones 
+sub_find_all_consultations?: Subscription;
+
 // Constructor 
 constructor(private consultationsService: ConsultationsService){}
 
 // Inicializado de componente
 ngOnInit() {
-  this.getAllConsultations();
+  this.get_all_consultations();
+}
+
+// Destructor 
+ngOnDestroy(): void {
+  this.sub_find_all_consultations?.unsubscribe();
 }
 
 // Buscar usuarios 
-getAllConsultations(){
+get_all_consultations(){
   // Reiniciamos las cátedras 
   this.subjects = [];
   // Reiniciamos las asesorías 
@@ -39,7 +48,7 @@ getAllConsultations(){
   // Reiniciamos los asesoramientos
   this.joinsCount = [];
   // Consultamos el servicio de CONSULTATIONS 
-  this.consultationsService.findAll()
+  this.sub_find_all_consultations = this.consultationsService.findAll()
   .subscribe({
     next: (resp: Consultation[]) => {
 
