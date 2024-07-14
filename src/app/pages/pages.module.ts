@@ -30,6 +30,7 @@ import { SubjectChartComponent } from './admin-subjects/components/subject-chart
 import { DeleteSubjectComponent } from './admin-subjects/components/delete-subject/delete-subject.component';
 import { UserSelectorComponent } from './admin-users/components/user-selector/user-selector.component';
 import { UserInputComponent } from './admin-users/components/user-input/user-input.component';
+import { DeleteUserComponent } from './admin-users/components/delete-user/delete-user.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { UserInputComponent } from './admin-users/components/user-input/user-inp
     StatisticsComponent,
     DeleteSubjectComponent,
     UserSelectorComponent,
-    UserInputComponent
+    UserInputComponent,
+    DeleteUserComponent
   ],
   imports: [
     CommonModule,

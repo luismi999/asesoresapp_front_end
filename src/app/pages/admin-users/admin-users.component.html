@@ -76,10 +76,10 @@
                                         <a class="btn btn-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Investigar</a>
                                         <ul class="dropdown-menu dropdown-menu-dark">
                                             <!-- Ver al usuario  -->
-                                            <li><a class="dropdown-item cursor-pointer" (click)="showModalViewUser(user)">Detalles</a></li>
+                                            <li><a class="dropdown-item cursor-pointer" (click)="show_modal_view_user(user)">Detalles</a></li>
                                             <!-- Divisor  -->
                                             <li *ngIf="user.uuid != my_user?.uuid"><hr class="dropdown-divider"></li>
-                                            <li *ngIf="user.uuid != my_user?.uuid"><a class="dropdown-item cursor-pointer" (click)="showConfirmation(user)">Eliminar</a></li>
+                                            <li *ngIf="user.uuid != my_user?.uuid"><a class="dropdown-item cursor-pointer" (click)="show_modal_delete_user(user)">Eliminar</a></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -113,5 +113,5 @@
 <!-- Modal para ver un usuario  -->
 <app-view-user-student [flag]="flag_show_view_user_student" [user_who_wants_to_see]="my_user" (flag_response)="flag_show_view_user_student = $event"></app-view-user-student>
 
-<!-- Confirmación de eliminación de asesoría  -->
-<p-confirmDialog [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}"></p-confirmDialog>
+<!-- Modal para eliminar un usuario -->
+ <app-delete-user (reload_users)="get_users()"></app-delete-user>
