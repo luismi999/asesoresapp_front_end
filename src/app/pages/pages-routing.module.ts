@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { StudentGuard } from '../guards/student.guard';
 
-/* Componenets */
+/* Componentes */
 import { HomeComponent } from './home/home.component';
 import { PagesComponent } from './pages.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -19,17 +19,22 @@ import { AdminConsultationsComponent } from './admin-consultations/admin-consult
 import { AdminSubjectsComponent } from './admin-subjects/admin-subjects.component';
 import { AdvisorGuard } from '../guards/advisor.guard';
 import { AdminGuard } from '../guards/admin.guard';
+import { AdvisorJoinsComponent } from './advisor-joins/advisor-joins.component';
 
 const routes: Routes = [
   { path: "", component: PagesComponent, children: [
+    // Todos 
     { path: "", canActivate:[AuthGuard], component: HomeComponent },
     { path: "profile", canActivate:[AuthGuard], component: ProfileComponent},
+    { path: "consultationsMap", canActivate:[AuthGuard], component: ConsultationsMapComponent},
+    // Asesor 
     { path: "myConsultations", canActivate:[AuthGuard, AdvisorGuard], component: MyConsultationsComponent},
+    { path: "statistics", canActivate:[AuthGuard, AdvisorGuard], component: StatisticsComponent},
+    { path: "joins/:uuid", canActivate:[AuthGuard, AdvisorGuard], component: AdvisorJoinsComponent},
+    // Estudiante 
     { path: "consultations", canActivate:[AuthGuard, StudentGuard], component: ConsultationsComponent},
     { path: "myJoins", canActivate:[AuthGuard, StudentGuard], component: MyJoinsComponent},
-    { path: "consultationsMap", canActivate:[AuthGuard], component: ConsultationsMapComponent},
-    { path: "statistics", canActivate:[AuthGuard, AdvisorGuard], component: StatisticsComponent},
-    /* { path: "tutors", component: TutorsComponent }, */
+    // Administrador 
     { path: "adminUsers", canActivate:[AuthGuard, AdminGuard], component: AdminUsersComponent },
     { path: "adminConsultations", canActivate:[AuthGuard, AdminGuard], component: AdminConsultationsComponent },
     { path: "adminSubjects", canActivate:[AuthGuard, AdminGuard], component: AdminSubjectsComponent }

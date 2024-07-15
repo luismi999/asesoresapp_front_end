@@ -67,6 +67,10 @@
                                         <li>
                                             <a class="dropdown-item cursor-pointer" (click)="show_modal_view_user(consultation.user)">Asesor</a>
                                         </li>
+                                        <!-- Joins  -->
+                                        <li>
+                                            <a class="dropdown-item cursor-pointer" [routerLink]="['/home/joins',consultation.uuid]">Joins</a>
+                                        </li>
                                         <!-- Divisor  -->
                                         <li><hr class="dropdown-divider"></li>
                                         <!-- Eliminar  -->

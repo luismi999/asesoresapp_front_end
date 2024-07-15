@@ -50,7 +50,7 @@
                                 <!-- Correo institucional -->
                                 <li class="list-group-item list-group-item-action">
                                     <h6>Correo institucional</h6>
-                                    <p class="my-0">{{user?.institutional_email | titlecase}}</p>
+                                    <p *ngIf="user_who_wants_to_see?.role == 'admin'" class="my-0">{{user?.institutional_email | titlecase}}</p>
                                     <!-- No disponible -->
                                     <p *ngIf="user_who_wants_to_see?.role != 'admin'" class="my-0">No disponible</p>
                                 </li>

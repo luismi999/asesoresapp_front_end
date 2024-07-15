@@ -1,0 +1,15 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.selector-width {
+    width: 150px;
+}
+
+.card-body-height {
+    height: 500px;
+}
+
+.table-responsive-height {
+    height: 500px;
+}
