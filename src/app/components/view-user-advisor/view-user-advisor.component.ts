@@ -22,9 +22,11 @@ export class ViewUserAdvisorComponent {
   @ViewChild(ChartAdvisorComponent) chartAdvisorComponent?: ChartAdvisorComponent;
   @ViewChild(RankComponent) rankComponent?: RankComponent;
 
-  // Inputs y outputs del componente 
+  // Entradas 
   @Input() flag!: boolean;
   @Input() user_who_wants_to_see!: User | undefined;
+
+  // Salidas 
   @Output() flag_response = new EventEmitter<boolean>();
 
   // Propiedades 

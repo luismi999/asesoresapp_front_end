@@ -78,7 +78,7 @@
                                             <li><hr class="dropdown-divider"></li>
                                             <!-- Eliminar  -->
                                             <li>
-                                                <a class="dropdown-item cursor-pointer" (click)="show_confirmation(consultation)">Eliminar</a>
+                                                <a class="dropdown-item cursor-pointer" (click)="show_modal_delete_consultation(consultation)">Eliminar</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -114,5 +114,5 @@
 <!-- Modal para ver un usuario asesor -->
 <app-view-user-advisor [flag]="flag_show_view_user_advisor" [user_who_wants_to_see]="my_user" (flag_response)="flag_show_view_user_advisor = $event"></app-view-user-advisor>
 
-<!-- Confirmación de eliminación de asesoría  -->
-<p-confirmDialog [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}"></p-confirmDialog>
+<!-- Modal para eliminar una asesoría -->
+<app-delete-consultation (set_reload_consultations)="find_all_consultations()"></app-delete-consultation>
