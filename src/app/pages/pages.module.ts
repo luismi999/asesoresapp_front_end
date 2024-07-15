@@ -32,6 +32,7 @@ import { UserSelectorComponent } from './admin-users/components/user-selector/us
 import { UserInputComponent } from './admin-users/components/user-input/user-input.component';
 import { DeleteUserComponent } from './admin-users/components/delete-user/delete-user.component';
 import { ConsultationSelectorComponent } from './admin-consultations/components/consultation-selector/consultation-selector.component';
+import { ConsultationInputComponent } from './admin-consultations/components/consultation-input/consultation-input.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ConsultationSelectorComponent } from './admin-consultations/components/
     UserSelectorComponent,
     UserInputComponent,
     DeleteUserComponent,
-    ConsultationSelectorComponent
+    ConsultationSelectorComponent,
+    ConsultationInputComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,7 @@
+<!-- Pantalla de carga  -->
+<app-loading *ngIf="loading_flag"></app-loading>
+
+<div class="form-floating float-end selector-width" (change)="find_consultations_by_user_code($event)">
+    <input type="text" class="form-control" id="code">
+    <label for="code">Código institucional</label>
+</div>

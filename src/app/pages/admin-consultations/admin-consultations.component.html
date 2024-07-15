@@ -33,10 +33,7 @@
                     <!-- Selector  -->
                     <app-consultation-selector (set_consultations)="all_consultations = $event" (set_reload_consultations)="find_all_consultations()"></app-consultation-selector>
                     <!-- Buscador por usuario  -->
-                    <div class="form-floating float-end selector-width" (change)="findConsultationsByUserCode($event)">
-                        <input type="text" class="form-control" id="code">
-                        <label for="code">Código institucional</label>
-                    </div>
+                    <app-consultation-input (set_consultations)="all_consultations = $event"></app-consultation-input>
                 </div>
                 <div *ngIf="all_consultations?.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
                     <table class="table table-hover table-striped table-centered">
