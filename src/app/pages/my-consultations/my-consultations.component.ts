@@ -55,20 +55,20 @@ export class MyConsultationsComponent {
 
   // Iniciador
   ngOnInit(): void{
-    this.getUser();
-    this.findAllByUser();
+    this.get_user();
+    this.find_all_consultations_by_user();
   }
   
   // Obtener el usuario 
-  getUser(): void{
+  get_user(): void{
     this.user = this.authService.getUser();
   }
 
   //  - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - -  Funciones de la tabla de asesorías - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
   // Buscar asesorías por usuario 
-  findAllByUser(): void{
-    // Bandera 
+  find_all_consultations_by_user(): void{
+    // Cargando 
     this.flag_loading = true;
     // Buscamos todas las asesorías del usuario
     this.consultationsService.findAllByUser(this.user?.uuid || "")
@@ -77,23 +77,23 @@ export class MyConsultationsComponent {
         // Guardamos las asesorías obtenidas 
         this.consultations = resp;
         // Obtenemos la cuenta de las asesorías activas 
-        this.getActiveConsultationsCount(resp);
+        this.get_active_consultations_count(resp);
         // Refrescamos la barra de progreso 
         this.progressBarConsultationsComponent.refresh();
-        // Bandera 
+        // Cargando 
         this.flag_loading = false;
       },
       error: (error: any) => {
         // Respuesta
         console.log(error.error.message);
-        // Bandera 
+        // Cargando 
         this.flag_loading = false;
       }
     }); 
   }
 
   // Obtener el numero de asesorías activas 
-  getActiveConsultationsCount(consultations: Consultation[]){
+  get_active_consultations_count(consultations: Consultation[]){
     // Reiniciamos la cuenta 
     this.ActiveConsultationsCount = 0;
     // Mapeamos las asesorías 
@@ -103,26 +103,35 @@ export class MyConsultationsComponent {
     });
   }
 
-  //  - - - - - - - - - - - - - - - - - - - - -------- - - - - - - - - Funciones del modal para crear un asesoramiento - - - - ----- - - - - - - - - - - - - - - - - - - - - - - - 
+  // --------------------------------------------------------------------------- Componente hijo (crear) -------------------------------------------------------------------- 
 
   // Mostrar el modal de creación de asesoría
-  showModalCreateConsultation(): void{
+  show_modal_create_consultation(): void{
     // Bandera 
     this.flag_create_consultation = true;
     // Inicializamos el componente 
     this.createConsultationComponent.initComponent();
   }
 
-  //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para ver los detalles del asesoramiento - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  // ------------------------------------------------------------------------- Componente hijo (ver sensoria) --------------------------------------------------------------
 
   // Mostrar el modal de vista de asesoría
-  showModalViewConsultation(consultation: Consultation): void{
+  show_modal_view_consultation(consultation: Consultation): void{
     // Levantamos la bandera 
     this.flag_view_consultation = true;
     // Inicializamos el componente 
     this.viewConsultationComponent.initComponent(consultation.uuid || '');
   }
 
+  // ---------------------------------------------------------------------------- Componente hijo (ver asesor) -------------------------------------------------------------
+
+  // Mostrar el modal de vista de usuario 
+  show_modal_view_user(user: any): void{
+    // Bandera 
+    this.flag_view_user = true;
+    // Inicializamos el componente 
+    this.viewUserAdvisorComponent.initComponent(user.uuid);
+  }
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para ver las joins de un asesoramiento - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
   // Mostrar el modal de vista de joins 
@@ -133,15 +142,6 @@ export class MyConsultationsComponent {
     this.viewJoinsComponent.initComponent(consultation);
   }
 
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para ver al usuario de un asesoramiento - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-  // Mostrar el modal de vista de usuario 
-  showModalViewUser(user: any): void{
-    // Bandera 
-    this.flag_view_user = true;
-    // Inicializamos el componente 
-    this.viewUserAdvisorComponent.initComponent(user.uuid);
-  }
 
   //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para confirmar la eliminación de una asesoría - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   showConfirmationToDelete(consultation: Consultation): void{
@@ -168,7 +168,7 @@ export class MyConsultationsComponent {
         // Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
         // Actualizamos las asesorías dentro de nuestra tabla 
-        this.findAllByUser();
+        this.find_all_consultations_by_user();
         // Refrescamos la barra de progreso 
         this.progressBarConsultationsComponent.refresh()
         // Bandera 

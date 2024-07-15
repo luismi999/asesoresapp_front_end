@@ -2,18 +2,14 @@
     cursor: pointer;
 }
 
-.planet {
-    animation: upDown 5s ease-in-out infinite;
+.selector-width {
+    width: 150px;
 }
 
-/* Definición de la animación */
-@keyframes leftToRight {
-    0%, 100% { transform: translateX(-20px); }
-    50% { transform: translateX(20px); }
+.card-body-height {
+    height: 500px;
 }
 
-/* Definición de la animación del planeta */
-@keyframes upDown {
-    0%, 100% { transform: translateY(-5px); }
-    50% { transform: translateY(5px); }
+.table-responsive-height {
+    height: 500px;
 }

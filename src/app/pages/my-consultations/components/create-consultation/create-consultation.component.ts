@@ -36,8 +36,6 @@ export class CreateConsultationComponent {
   start_hours: number[] = [];
   end_hours  : number[] = [];
   days      ?: string[];
-  map       ?: mapboxgl.Map;
-  mark      ?: mapboxgl.Marker;
 
   // Banderas 
   flag_loading: boolean = false;
@@ -51,7 +49,7 @@ export class CreateConsultationComponent {
 
   // Inicializa
   ngOnInit(): void {
-    this.initForm();
+    this.start_form();
     this.days = this.consultationsService.days;
     this.hours = this.consultationsService.hours;
   }
@@ -59,16 +57,12 @@ export class CreateConsultationComponent {
   // Inicializado de componente 
   initComponent(): void {
     // Inicializamos el formulario y las cátedras 
-    this.initForm();
-    this.getSubjects();
-    // Inicializamos el mapa 
-    setTimeout(() => {
-      this.initMap();
-    }, 100);
+    this.start_form();
+    this.get_subjects();
   }
 
   // Inicializar el formulario para crear una asesoría
-  initForm(): void{
+  start_form(): void{
     this.form = this.fb.group({
       uuid_subject: ['',[Validators.required]],
       day         : ['',[Validators.required]],
@@ -80,7 +74,7 @@ export class CreateConsultationComponent {
   }
 
   // Obtener cátedras 
-  getSubjects(): void{
+  get_subjects(): void{
     // Bandera 
     this.flag_loading = true;
     // Reiniciamos nuestra variable 
@@ -104,7 +98,7 @@ export class CreateConsultationComponent {
   }
 
   // Obtener la hora de fín 
-  getEndHours(event: any): void{
+  get_end_hours(event: any): void{
     // Obtenemos la hora seleccionada 
     let selectedHour = event.target.value;
     // Reiniciamos las horas de fin 
@@ -119,48 +113,13 @@ export class CreateConsultationComponent {
     });
   }
 
-  // Inicializar el mapa para creación de asesoría
-  initMap(): void{
-    // API KEY
-    (mapboxgl as any).accessToken = import.meta.env.NG_APP_MAPBOX_KEY;
-    // Creamos el mapa
-    this.map = new mapboxgl.Map({
-      container: 'mapForCreate',
-      style: `${import.meta.env.NG_APP_MAPBOX_STYLE}`,
-      center: [-103.325930, 20.655824],
-      zoom: 18,
-    });
-    // Colocamos el botón para fullscreen
-    this.map.addControl(new mapboxgl.FullscreenControl());
-    // Colocamos el botón de globalización
-    this.map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true,
-        showUserHeading: true
-      })
-    );
-    // Creamos el marcador
-    this.mark = new mapboxgl.Marker({
-      draggable: true,
-      color: "#C70039",
-    })
-    .setLngLat([-103.325930, 20.655824])
-    .addTo(this.map);
-  }
-
   // Crear asesoría
-  createConsultation(): void{
+  create_consultation(): void{
     // Bandera 
     this.flag_loading = true;
-    // Obtenemos la latitud y longitud del marcador dentro del mapa 
-    const long = this.mark?.getLngLat().lng;
-    const lat  = this.mark?.getLngLat().lat;
     // Guardamos la longitud y latitud obtenidos del mapa en el formulario
-    this.form.get('map_longitud')?.setValue(long);
-    this.form.get('map_latitud')?.setValue(lat);
+    this.form.get('map_longitud')?.setValue(1000);
+    this.form.get('map_latitud')?.setValue(1000);
     // Creamos una variable "asesoría" con los valores del formulario
     const newConsultation: CreateConsultation = this.form.value;
     newConsultation.uuid_user = this.user?.uuid;
@@ -171,9 +130,9 @@ export class CreateConsultationComponent {
         // Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000});
         // Obtenemos nuevamente todas las asesorías 
-        this.getConsultations();
+        this.get_consultations();
         // Cerramos modal 
-        this.closeModal();
+        this.close_modal();
         // Bandera 
         this.flag_loading = false;
       },
@@ -191,12 +150,12 @@ export class CreateConsultationComponent {
   }
 
   // Obtener todas las asesorías 
-  getConsultations(): void{
+  get_consultations(): void{
     this.get_consultations_event.emit();
   }
 
   // Cerrar modal 
-  closeModal(): void{
+  close_modal(): void{
     this.flag_response.emit(false);
   }
 }

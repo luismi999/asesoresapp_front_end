@@ -5,7 +5,7 @@
 <p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
 
 <!-- Modal  -->
-<p-dialog asesoría="Nueva asesoría" [(visible)]="flag" [modal]="true" [style]="{ width: '50vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
+<p-dialog asesoría="Nueva asesoría" [(visible)]="flag" [modal]="true" [style]="{ width: '50vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="close_modal()">
     <div class="row">
 
         <!-- Detalles -->
@@ -50,7 +50,7 @@
 
                         <!-- Inicia -->
                         <div class="form-floating mb-3">
-                            <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="start" (change)="getEndHours($event)">
+                            <select class="form-select text-table-font" aria-label="Floating label select example" formControlName="start" (change)="get_end_hours($event)">
                               <option *ngFor="let hour of hours" [value]="hour">{{hour}}:00</option>
                             </select>
                             <label for="floatingSelect" class="text-table-font">Hora de inicio</label>
@@ -102,7 +102,7 @@
     <!-- Botón para crear la asesoría -->
     <div class="row">
         <div class="col">
-            <button class="btn btn-success float-end" (click)="createConsultation()" [disabled]="form.invalid">
+            <button class="btn btn-success float-end" (click)="create_consultation()" [disabled]="form.invalid">
                 <h6 class="my-2">
                     <!-- Icono de creación  -->
                     <span class="text-light">
