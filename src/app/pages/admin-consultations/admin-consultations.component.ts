@@ -4,17 +4,17 @@ import { Subscription } from 'rxjs';
 
 // Modelos 
 import { Consultation } from 'src/app/model/consultation.model';
+// import { Subject } from 'src/app/model/subject.model';
 import { User } from 'src/app/model/user.model';
 
 // Servicios 
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/services/auth.service';
 import { ConsultationsService } from 'src/app/services/consultations.service';
 import { SubjectsService } from 'src/app/services/subjects.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 // Componentes hijos 
 import { ViewConsultationComponent } from '../../components/view-consultation/view-consultation.component';
-import { Subject } from 'src/app/model/subject.model';
 import { UpdateConsultationResponse } from 'src/app/model/updateConsultationResponse.interface';
 import { deleteConsultationResponse } from 'src/app/model/deleteConsultationResponse.interface';
 import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
@@ -32,13 +32,10 @@ export class AdminConsultationsComponent {
 
   // Propiedades 
   my_user           ?: User;
-  subjects          ?: any[];
-  saved_consultation?: Consultation;
   form1             !: FormGroup;
 
   // Propiedades de la tabla de asesorías 
   all_consultations           : Consultation[] = [];
-  all_consultations_by_subject: Consultation[] = [];
 
   // Banderas de los modales
   flag_show_view_consultation: boolean = false;
@@ -61,9 +58,8 @@ export class AdminConsultationsComponent {
   // Inicializado
   ngOnInit(): void {
     this.my_user = this.authService.getUser();
-    this.getSubjects();
-    this.initForms();
-    this.findAllConsultations();
+    this.start_forms();
+    this.find_all_consultations();
   }
 
   // Destructor
@@ -73,7 +69,7 @@ export class AdminConsultationsComponent {
   }
 
   // Inicializar formulario 
-  initForms(): void{
+  start_forms(): void{
     // Formulario para cambiar el role de un asesor 
     this.form1 = this.fb.group({
       status: ['']
@@ -82,93 +78,29 @@ export class AdminConsultationsComponent {
 
   //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones de la tabla de asesoramientos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-  // Obtener cátedras 
-  getSubjects(): void{
-    // Reiniciamos nuestra variable 
-    this.subjects = [];
-    // Consultamos al servicio de SUBJECTS 
-    this.sub_subject_find_all = this.subjectsService.findAll().subscribe({
-      next: (resp: Subject[]) => {
-        // Guardamos la respuesta en la variable de cátedras 
-        this.subjects = resp;
-      },
-      error: (error) => {
-        // Retornamos 
-        console.log(error.error.message);
-      }
-    });
-  }
-
   // buscamos todas las asesorías
-  findAllConsultations(): void{
-    // Bandera 
+  find_all_consultations(): void{
+    // Cargando 
     this.flag_loading = true;
     // Reiniciamos la variable 
-    this.all_consultations_by_subject = [];
+    this.all_consultations = [];
+    // this.all_consultations_by_subject = [];
     // consultamos al servicio de CONSULTATIONS
     this.sub_consultation_find_all = this.consultationsService.findAll().subscribe({
       next: (resp: Consultation[]) => {
         // Guardamos las asesorías recibidas en nuestras variables 
         this.all_consultations = resp;
-        this.all_consultations_by_subject = resp;
-        // Bandera 
+        // this.all_consultations_by_subject = resp;
+        // Cargando 
         this.flag_loading = false;
       },
       error: (error) => {
         // Respuesta
         console.log(error.error.message);
-        // Bandera 
+        // Cargando 
         this.flag_loading = false;
       }
     });
-  }
-
-  // Buscamos las asesorías por cátedra
-  filterConsultationsBySubject(event: any): void{
-    // Bandera 
-    this.flag_loading = true;
-    // Obtenemos el valor del selector 
-    const subject = event.target.value.toLowerCase();
-    // Reiniciamos la variable de consultations 
-    this.all_consultations = [];
-    if(subject != 'novalue'){
-      this.sub_consultation_find_all = this.consultationsService.findAll().subscribe({
-        next: (resp: Consultation[]) => {
-          // Mapeamos la respuesta del backend 
-          resp.map((con: Consultation) => {
-            // Si la asesoría coincide con la materia 
-            if(con.subject.name == subject)
-              this.all_consultations.push(con); 
-          });
-          // Bandera 
-          this.flag_loading = false;
-        },
-        error: (error) => {
-          // Respuesta del back 
-          console.log(error.error.message);
-          // Bandera 
-          this.flag_loading = false;
-        }
-      });
-    }
-    else if(subject == 'novalue'){
-      this.sub_consultation_find_all = this.consultationsService.findAll().subscribe({
-        next: (resp: Consultation[]) => {
-          // Mapeamos la respuesta 
-          resp.map((con: Consultation) => {
-            this.all_consultations.push(con);
-          });
-          // Bandera 
-          this.flag_loading = false;
-        },
-        error: (error) => {
-          // Respuesta del back 
-          console.log(error.error.message);
-          // Bandera 
-          this.flag_loading = false;
-        }
-      });
-    }
   }
 
   // Buscamos las asesorías por código de usuario 
@@ -222,7 +154,7 @@ export class AdminConsultationsComponent {
   // - - - - - - - - --  - - - - - - - - - -   - - - - - - - - --  -- - - - - Funciones para mostrar la asesoría - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   // Funciones para mostrar una asesoría 
-  showModalViewConsultation(consultation: Consultation): void{
+  show_modal_view_consultation(consultation: Consultation): void{
     // Bandera 
     this.flag_show_view_consultation = true;
     // Inicializamos el componente hijo 
@@ -231,7 +163,7 @@ export class AdminConsultationsComponent {
 
   // - - - - - - - - --  - - - - - - - - - -   - - - - - - - - --  -- - - - - Funciones para mostrar AL ASESOR - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  showModalViewUser(user: User): void{
+  show_modal_view_user(user: User): void{
     // Bandera 
     this.flag_show_view_user_advisor = true;
     this.viewUserAdvisorComponent.findUser(user.uuid);
@@ -240,7 +172,7 @@ export class AdminConsultationsComponent {
   //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para eliminar una asesoría - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   // Mostrar modal de confirmación de eliminación 
-  showConfirmation(consultation: Consultation): void{
+  show_confirmation(consultation: Consultation): void{
     // Creamos el contenido de la confirmación 
     this.confirmationService.confirm({
       message: `Estás a punto de eliminar la asesoría sobre ${consultation.subject.name.toUpperCase()} del asesor ${consultation.user.first_name.toUpperCase()} 
@@ -250,14 +182,14 @@ export class AdminConsultationsComponent {
       acceptLabel: 'Si',
       accept: () => {
         // Actualizamos la asesoría 
-        this.deleteConsultation(consultation);
+        this.delete_consultation(consultation);
       },
       reject: (type: any) => {}
     });
   }
 
   // Eliminar asesoría 
-  deleteConsultation(consultation: Consultation): void{
+  delete_consultation(consultation: Consultation): void{
     // Bandera
     this.flag_loading = true; 
     // Consultamos el servicio de CONSULTATIONS 
@@ -266,7 +198,7 @@ export class AdminConsultationsComponent {
         //Respuesta
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
         // Reiniciamos las asesorías 
-        this.findAllConsultations();
+        this.find_all_consultations();
         // loading 
         this.flag_loading = false;
       },

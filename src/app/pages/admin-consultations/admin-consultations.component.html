@@ -31,13 +31,7 @@
             <div class="card shadow">
                 <div class="card-header">
                     <!-- Selector  -->
-                    <div class="form-floating float-start selector-width">
-                        <select class="form-select text-table-font cursor-pointer" aria-label="Floating label select example" (change)="filterConsultationsBySubject($event)">
-                            <option selected class="text-table-font" value="noValue">Todas</option>
-                            <option *ngFor="let subject of subjects" (value)="subject.name">{{subject.name | titlecase}}</option>
-                        </select>
-                        <label for="floatingSelect" class="text-table-font">Filtrar por cátedra</label>
-                    </div>
+                    <app-consultation-selector (set_consultations)="all_consultations = $event" (set_reload_consultations)="find_all_consultations()"></app-consultation-selector>
                     <!-- Buscador por usuario  -->
                     <div class="form-floating float-end selector-width" (change)="findConsultationsByUserCode($event)">
                         <input type="text" class="form-control" id="code">
@@ -77,17 +71,17 @@
                                         <ul class="dropdown-menu dropdown-menu-dark">
                                             <!-- Detalles  -->
                                             <li>
-                                                <a class="dropdown-item cursor-pointer" (click)="showModalViewConsultation(consultation)">Detalles</a>
+                                                <a class="dropdown-item cursor-pointer" (click)="show_modal_view_consultation(consultation)">Detalles</a>
                                             </li>
                                             <!-- Asesor  -->
                                             <li>
-                                                <a class="dropdown-item cursor-pointer" (click)="showModalViewUser(consultation.user)">Asesor</a>
+                                                <a class="dropdown-item cursor-pointer" (click)="show_modal_view_user(consultation.user)">Asesor</a>
                                             </li>
                                             <!-- Divisor  -->
                                             <li><hr class="dropdown-divider"></li>
                                             <!-- Eliminar  -->
                                             <li>
-                                                <a class="dropdown-item cursor-pointer" (click)="showConfirmation(consultation)">Eliminar</a>
+                                                <a class="dropdown-item cursor-pointer" (click)="show_confirmation(consultation)">Eliminar</a>
                                             </li>
                                         </ul>
                                     </div>

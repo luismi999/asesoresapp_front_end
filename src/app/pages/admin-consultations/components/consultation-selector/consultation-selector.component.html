@@ -1,0 +1,10 @@
+<!-- Pantalla de carga  -->
+<app-loading *ngIf="loading_flag"></app-loading>
+
+<div class="form-floating float-start selector-width">
+    <select class="form-select text-table-font cursor-pointer" aria-label="Floating label select example" (change)="find_consultations_by_subject($event)">
+        <option selected class="text-table-font" value="noValue">Todas</option>
+        <option *ngFor="let subject of subjects" (value)="subject.name">{{subject.name | titlecase}}</option>
+    </select>
+    <label for="floatingSelect" class="text-table-font">Filtrar por cátedra</label>
+</div>
