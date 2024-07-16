@@ -33,13 +33,15 @@ import { UserInputComponent } from './admin-users/components/user-input/user-inp
 import { DeleteUserComponent } from './admin-users/components/delete-user/delete-user.component';
 import { ConsultationSelectorComponent } from './admin-consultations/components/consultation-selector/consultation-selector.component';
 import { ConsultationInputComponent } from './admin-consultations/components/consultation-input/consultation-input.component';
-import { DeleteConsultationComponent } from './admin-consultations/components/delete-consultation/delete-consultation.component';
 import { AdvisorJoinsComponent } from './advisor-joins/advisor-joins.component';
+import { DeleteConsultationComponent } from './admin-consultations/components/delete-consultation/delete-consultation.component';
+import { DeleteMyConsultationComponent } from './my-consultations/components/delete-my-consultation/delete-my-consultation.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
     HomeComponent,
+    AdvisorJoinsComponent,
     ProfileComponent,
     MyConsultationsComponent,
     ConsultationsComponent,
@@ -64,7 +66,7 @@ import { AdvisorJoinsComponent } from './advisor-joins/advisor-joins.component';
     ConsultationSelectorComponent,
     ConsultationInputComponent,
     DeleteConsultationComponent,
-    AdvisorJoinsComponent
+    DeleteMyConsultationComponent
   ],
   imports: [
     CommonModule,

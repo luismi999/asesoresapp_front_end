@@ -26,7 +26,7 @@
         <div class="card shadow">
             <div class="card-header">
                 <!-- Botón -->
-                <button class="btn btn-dark m-2" (click)="show_modal_create_consultation()" [disabled]="ActiveConsultationsCount >= 5">Crear</button>
+                <button class="btn btn-dark m-2" (click)="show_modal_create_consultation()" [disabled]="consultations.length >= 5">Crear</button>
             </div>
             <div class="card-body card-body-height table-responsive table-responsive-height">
                 <table class="table table-hover table-striped table-centered">
@@ -75,7 +75,7 @@
                                         <li><hr class="dropdown-divider"></li>
                                         <!-- Eliminar  -->
                                         <li>
-                                            <!-- <a class="dropdown-item cursor-pointer" (click)="show_modal_delete_consultation(consultation)">Eliminar</a> -->
+                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_delete_consultation(consultation)">Eliminar</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -106,7 +106,9 @@
 <app-view-joins [flag]="flag_view_joins" (flag_response)="flag_view_joins = $event"></app-view-joins>
 
 <!-- Confirmación de eliminación de asesoría  -->
-<p-confirmDialog [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw', '640px': '95vw'}"></p-confirmDialog>
+<app-delete-my-consultation 
+    (set_reload_consultations)="find_all_consultations_by_user()" 
+    (set_reload_progress_bar)="this.progressBarConsultationsComponent.refresh()"></app-delete-my-consultation>
 
 <!-- Modal para ver un usuario  -->
 <app-view-user-advisor [flag]="flag_view_user" [user_who_wants_to_see]="user" (flag_response)="flag_view_user = $event"></app-view-user-advisor>

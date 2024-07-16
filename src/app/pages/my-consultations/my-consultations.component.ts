@@ -16,6 +16,7 @@ import { ViewConsultationComponent } from 'src/app/components/view-consultation/
 import { ProgressBarConsultationsComponent } from 'src/app/components/progress-bar-consultations/progress-bar-consultations.component';
 import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
 import { UpdateConsultationResponse } from 'src/app/model/updateConsultationResponse.interface';
+import { DeleteMyConsultationComponent } from './components/delete-my-consultation/delete-my-consultation.component';
 
 @Component({
   selector: 'app-my-consultations',
@@ -30,7 +31,9 @@ export class MyConsultationsComponent {
   @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent                  !: ViewUserAdvisorComponent;
   @ViewChild(ViewConsultationComponent) viewConsultationComponent                !: ViewConsultationComponent;
   @ViewChild(CreateConsultationComponent) createConsultationComponent            !: CreateConsultationComponent;
+  @ViewChild(DeleteMyConsultationComponent) deleteMyConsultationComponent        !: DeleteMyConsultationComponent;
   @ViewChild(ProgressBarConsultationsComponent) progressBarConsultationsComponent!: ProgressBarConsultationsComponent;
+  
 
   // Propiedades generales
   user: User | undefined;
@@ -76,8 +79,6 @@ export class MyConsultationsComponent {
       next: (resp: Consultation[]) => {
         // Guardamos las asesorías obtenidas 
         this.consultations = resp;
-        // Obtenemos la cuenta de las asesorías activas 
-        this.get_active_consultations_count(resp);
         // Refrescamos la barra de progreso 
         this.progressBarConsultationsComponent.refresh();
         // Cargando 
@@ -91,18 +92,6 @@ export class MyConsultationsComponent {
       }
     }); 
   }
-
-  // Obtener el numero de asesorías activas 
-  get_active_consultations_count(consultations: Consultation[]){
-    // Reiniciamos la cuenta 
-    this.ActiveConsultationsCount = 0;
-    // Mapeamos las asesorías 
-    consultations.map((consultation: Consultation) => {
-      if(consultation.isActive)
-        this.ActiveConsultationsCount++;
-    });
-  }
-
   // --------------------------------------------------------------------------- Componente hijo (crear) -------------------------------------------------------------------- 
 
   // Mostrar el modal de creación de asesoría
@@ -132,54 +121,9 @@ export class MyConsultationsComponent {
     // Inicializamos el componente 
     this.viewUserAdvisorComponent.initComponent(user.uuid);
   }
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para ver las joins de un asesoramiento - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
-  // Mostrar el modal de vista de joins 
-  showModalViewJoins(consultation: Consultation): void{
-    // Bandera 
-    this.flag_view_joins = true;
-    // Inicializamos el componente  
-    this.viewJoinsComponent.initComponent(consultation);
-  }
-
-
-  //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para confirmar la eliminación de una asesoría - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  showConfirmationToDelete(consultation: Consultation): void{
-    // creamos el contenido de la confirmación 
-    this.confirmationService.confirm({
-      message: `¿Deseas eliminar tu asesoría de ${consultation.subject.name.toUpperCase()}?`,
-      header: 'Confirmación',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Si',
-      accept: () => {
-        // Actualizamos la asesoría 
-        this.deleteConsultation(consultation);
-      },
-      reject: (type: any) => {}
-    });
-  }
-
-  deleteConsultation(consultation: Consultation): void{
-    // Bandera 
-    this.flag_loading = true;
-    // Consulta al servicio CONSULTATIONS 
-    this.consultationsService.delete(consultation.uuid || '').subscribe({
-      next: (resp: UpdateConsultationResponse) => {
-        // Respuesta
-        this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
-        // Actualizamos las asesorías dentro de nuestra tabla 
-        this.find_all_consultations_by_user();
-        // Refrescamos la barra de progreso 
-        this.progressBarConsultationsComponent.refresh()
-        // Bandera 
-        this.flag_loading = false;
-      },
-      error: (error) => {
-        // Respuesta
-        this.messageService.add({ key: 'serverResponse', severity:'error', summary: 'Error',detail: error.error.message, life: 5000 });
-        // Bandera 
-        this.flag_loading = false;
-      }
-    });
+  // ---------------------------------------------------------------------------- Componente hijo (delete user) ------------------------------------------------------------------- 
+  show_modal_delete_consultation(consultation: Consultation) {
+    this.deleteMyConsultationComponent.start_component(consultation);
   }
 } 
