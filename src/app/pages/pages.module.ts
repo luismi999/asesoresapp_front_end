@@ -36,6 +36,7 @@ import { ConsultationInputComponent } from './admin-consultations/components/con
 import { AdvisorJoinsComponent } from './advisor-joins/advisor-joins.component';
 import { DeleteConsultationComponent } from './admin-consultations/components/delete-consultation/delete-consultation.component';
 import { DeleteMyConsultationComponent } from './my-consultations/components/delete-my-consultation/delete-my-consultation.component';
+import { FinishJoinComponent } from './advisor-joins/components/finish-join/finish-join.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { DeleteMyConsultationComponent } from './my-consultations/components/del
     ConsultationSelectorComponent,
     ConsultationInputComponent,
     DeleteConsultationComponent,
-    DeleteMyConsultationComponent
+    DeleteMyConsultationComponent,
+    FinishJoinComponent
   ],
   imports: [
     CommonModule,

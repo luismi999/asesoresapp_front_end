@@ -121,6 +121,10 @@
                                                 <li>
                                                     <a class="dropdown-item cursor-pointer" (click)="show_modal_view_join(join, consultation)">Detalles</a>
                                                 </li>
+                                                <!-- Avanzar  -->
+                                                <li *ngIf="join.step == 'inProgress'">
+                                                    <a class="dropdown-item cursor-pointer" (click)="show_finish_join_component(join, consultation)">Avanzar</a>
+                                                </li>
                                                 <!-- Divisor  -->
                                                 <li><hr class="dropdown-divider"></li>
                                                 <!-- Eliminar  -->
@@ -142,3 +146,6 @@
 
 <!-- Componente para ver el join -->
 <app-view-join></app-view-join>
+
+<!-- Componente para dar avance al join -->
+ <app-finish-join (set_reload_joins)="find_consultation()"></app-finish-join>

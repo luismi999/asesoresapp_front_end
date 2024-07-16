@@ -7,16 +7,20 @@ import { Consultation } from 'src/app/model/consultation.model';
 import { ConsultationsService } from '../../services/consultations.service';
 import { Join } from 'src/app/model/join.model';
 import { ViewJoinComponent } from 'src/app/components/view-join/view-join.component';
+import { FinishJoinComponent } from './components/finish-join/finish-join.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-advisor-joins',
   templateUrl: './advisor-joins.component.html',
-  styleUrls: ['./advisor-joins.component.css']
+  styleUrls: ['./advisor-joins.component.css'],
+  providers: [ MessageService, ConfirmationService ]
 })
 export class AdvisorJoinsComponent implements OnInit {
 
   // Componentes hijos 
   @ViewChild(ViewJoinComponent) viewJoinComponent?: ViewJoinComponent;
+  @ViewChild(FinishJoinComponent) finishJoinComponent?: FinishJoinComponent;
 
   // Propiedades 
   consultation!: Consultation;
@@ -89,5 +93,10 @@ export class AdvisorJoinsComponent implements OnInit {
   // Inicializamos el componente 
   show_modal_view_join(join: Join, consultation: Consultation){
     this.viewJoinComponent?.start_component(join, consultation);
+  } 
+
+  // -------------------------------------------------------------------- Componente hijo (finish join) -----------------------------------------------------
+  show_finish_join_component(join: Join, consultation: Consultation){
+    this.finishJoinComponent?.start_component(join, consultation);
   } 
 }
