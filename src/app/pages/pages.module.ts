@@ -14,7 +14,6 @@ import { MyConsultationsComponent } from './my-consultations/my-consultations.co
 import { PrimengModule } from '../primeng/primeng.module';
 import { ConsultationsComponent } from './consultations/consultations.component';
 import { MyJoinsComponent } from './my-joins/my-joins.component';
-import { ConsultationsMapComponent } from './consultations-map/consultations-map.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { ComponentsModule } from '../components/components.module';
@@ -47,7 +46,6 @@ import { FinishJoinComponent } from './advisor-joins/components/finish-join/fini
     MyConsultationsComponent,
     ConsultationsComponent,
     MyJoinsComponent,
-    ConsultationsMapComponent,
     StatisticsComponent,
     AdminUsersComponent,
     AdminConsultationsComponent,

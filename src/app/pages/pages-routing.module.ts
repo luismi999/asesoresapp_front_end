@@ -12,7 +12,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { MyConsultationsComponent } from './my-consultations/my-consultations.component';
 import { ConsultationsComponent } from './consultations/consultations.component';
 import { MyJoinsComponent } from './my-joins/my-joins.component';
-import { ConsultationsMapComponent } from './consultations-map/consultations-map.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminConsultationsComponent } from './admin-consultations/admin-consultations.component';
@@ -26,7 +25,6 @@ const routes: Routes = [
     // Todos 
     { path: "", canActivate:[AuthGuard], component: HomeComponent },
     { path: "profile", canActivate:[AuthGuard], component: ProfileComponent},
-    { path: "consultationsMap", canActivate:[AuthGuard], component: ConsultationsMapComponent},
     // Asesor 
     { path: "advisor-consultations", canActivate:[AuthGuard, AdvisorGuard], component: MyConsultationsComponent},
     { path: "statistics", canActivate:[AuthGuard, AdvisorGuard], component: StatisticsComponent},
