@@ -4,7 +4,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Consultation } from 'src/app/model/consultation.model';
 import { User } from 'src/app/model/user.model';
 import { Join } from 'src/app/model/join.model';
-import { Subject } from 'src/app/model/subject.model';
 
 // Interfaces 
 import { CreateJoin } from 'src/app/model/createJoin.interface';
@@ -14,7 +13,6 @@ import { CreateJoinResponse } from 'src/app/model/createJoinResponse.interface';
 import { AuthService } from '../../services/auth.service';
 import { JoinsService } from '../../services/joins.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { SubjectsService } from '../../services/subjects.service';
 import { ConsultationsService } from '../../services/consultations.service';
 
 // Componentes hijos 
@@ -34,11 +32,8 @@ export class ConsultationsComponent {
   @ViewChild(ViewUserAdvisorComponent) ViewUserAdvisorComponent!: ViewUserAdvisorComponent;
 
   // Propiedades generales
-  user    ?: User;
-  subjects?: Subject[] = [];
-  joins   ?: Join[]    = []; 
-
-  // Propiedades de la tabla de asesorías 
+  user         ?: User;
+  joins        : Join[] = []; 
   consultations: Consultation[] = [];
 
   // Banderas de los modales
@@ -49,7 +44,6 @@ export class ConsultationsComponent {
   // Constructor
   constructor(
     private authService         : AuthService,
-    private subjectsService     : SubjectsService,
     private confirmationService : ConfirmationService,
     private consultationsService: ConsultationsService,
     private messageService      : MessageService,
@@ -58,32 +52,13 @@ export class ConsultationsComponent {
   // Inicializado
   ngOnInit(): void {
     this.user = this.authService.getUser();
-    this.getSubjects();
-    this.findAllMyJoins();
+    this.find_all_my_joins();
   }
 
   //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones de la tabla de asesoramientos - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-  // Obtener cátedras 
-  getSubjects(): void{
-    // Reiniciamos nuestra variable 
-    this.subjects = [];
-    // Consultamos al servicio de SUBJECTS 
-    this.subjectsService.findAll()
-    .subscribe({
-      next: (resp: Subject[]) => {
-        // Guardamos la respuesta en la variable de cátedras 
-        this.subjects = resp;
-      },
-      error: (error) => {
-        // Retornamos 
-        console.log(error.error.message);
-      }
-    });
-  }
-
   // Buscar todos mis joins para poder filtrarlos en las asesorías a mostrar 
-  findAllMyJoins(): void{
+  find_all_my_joins(): void{
     // Bandera 
     this.flag_loading = true;
     // Consultar el servicio JOINS
@@ -93,7 +68,7 @@ export class ConsultationsComponent {
         // Guardamos nuestros joins en una variable 
         this.joins = resp;
         // Obtenemos las asesorías 
-        this.findAllConsultations();
+        this.find_all_consultations();
         // Bandera 
         this.flag_loading = false;
       },
@@ -107,7 +82,7 @@ export class ConsultationsComponent {
   }
 
   // buscamos todas las asesorías
-  findAllConsultations(): void{
+  find_all_consultations(): void{
     // Bandera 
     this.flag_loading = true;
     // Reiniciamos la variable de todas las asesorías
@@ -118,10 +93,7 @@ export class ConsultationsComponent {
       next: (resp: Consultation[]) => {
         // Mapeamos la respuesta 
         resp.map((con: Consultation) => {
-          // Obtenemos solo las asesorías activas 
-          if(con.isActive){
-            this.consultations.push(con);
-          }
+          this.consultations.push(con);
         });
         // Bandera 
         this.flag_loading = false;
@@ -137,7 +109,6 @@ export class ConsultationsComponent {
 
   // Observamos si ya contamos con un join creado y lo señalamos como JOINED
   check(consultation: Consultation): boolean{
-
     // Si la asesoría ya tiene un join de nosotros retornamos un false 
     const alreadyJoined = this.joins?.some(join => join.consultation?.uuid == consultation.uuid);
     if(alreadyJoined)
@@ -145,64 +116,28 @@ export class ConsultationsComponent {
     return false; 
   }
 
-  // Buscamos las asesorías por cátedra
-  filterConsultationsBySubject(event: any): void{
-    // Bandera 
-    this.flag_loading = true;
-    // Obtenemos el valor del selector 
-    const uuid_subject = event.target.value.toLowerCase();
-    // Reiniciamos la variable de consultations 
-    this.consultations = [];
-    // Sí recibimos un "noValue" Significa que el usuario quiere buscar todas las asesorías disponibles 
-    if(uuid_subject == 'novalue'){
-      // Consultamos el servicio de CONSULTATIONS 
-      this.consultationsService.findAll()
-      .subscribe({
-        next: (resp: Consultation[]) => {
-          // Guardamos las asesorías 
-          this.consultations = resp;
-          // Bandera 
-          this.flag_loading = false;
-        },
-        error: (error) =>{
-          // Respuesta
-          console.log(error.error.message);
-          // Bandera 
-          this.flag_loading = false;
-        }
-      });
-    } else {
-      // Consultamos el servicio de CONSULTATIONS 
-      this.consultationsService.findAllBySubject(uuid_subject)
-      .subscribe({
-        next: (resp: Consultation[]) => {
-          // Guardamos las asesorías 
-          this.consultations = resp;
-          // Bandera 
-          this.flag_loading = false;
-        },
-        error: (error) =>{
-          // Respuesta
-          console.log(error.error.message);
-          // Bandera 
-          this.flag_loading = false;
-        }
-      })
-    }
-  }
-
-  //  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para visualizar una asesoría - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+  
+  // -------------------------------------------------------------------- componente hijo (view consultation) ---------------------------------------------------
+  
   // Mostrar el modal de la vista de la asesoría 
-  showModalViewConsultation(consultation: Consultation): void{
+  show_modal_view_consultation(consultation: Consultation): void{
     // Bandera 
     this.flag_view_consultation = true;
     // Inicializamos el componente 
     this.viewConsultationComponent.initComponent(consultation.uuid || '');
   }
+  // --------------------------------------------------------------------- componente hijo (view user) -----------------------------------------------------------
+  
+  // Mostrar el modal para visualizar los datos del usuario seleccionado 
+  show_modal_view_user(user: User): void{
+    // Bandera 
+    this.flag_show_user = true;
+    // Inicializamos el componente hijo 
+    this.ViewUserAdvisorComponent.findUser(user.uuid || '');
+  }
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para crear un join - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+  
   // Confirmación para la creación del join en una asesoría seleccionada
   showConfirmation(consultation: Consultation): void{
     // Creamos el mensaje de la confirmación 
@@ -232,7 +167,7 @@ export class ConsultationsComponent {
         // Respuesta del backend
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
         // Reiniciamos la tabla 
-        this.findAllMyJoins();
+        this.find_all_my_joins();
         // Bandera 
         this.flag_loading = false;
       },
@@ -245,13 +180,4 @@ export class ConsultationsComponent {
     })
   }
 
-  // - - - - - - - - - - - - - - - - - - - Funciones para mostrar detalles del asesor - - - - - - - - - - - - - -
-  
-  // Mostrar el modal para visualizar los datos del usuario seleccionado 
-  showUser(consultation: Consultation): void{
-    // Bandera 
-    this.flag_show_user = true;
-    // Inicializamos el componente hijo 
-    this.ViewUserAdvisorComponent.findUser(consultation.user?.uuid || '');
-  }
 }

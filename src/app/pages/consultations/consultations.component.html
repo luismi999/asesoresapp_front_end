@@ -2,257 +2,97 @@
 <app-loading *ngIf="flag_loading"></app-loading>
 
 <!-- Notificación -->
-<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
+<p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}"></p-toast>
 
 <div class="row">
     <div class="col">
         <!-- Titulo  -->
-        <h6 class="text-muted">
+        <h6 class="">
             <!-- Icono -->
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe-europe-africa" viewBox="0 0 16 18">
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M3.668 2.501l-.288.646a.847.847 0 0 0 1.479.815l.245-.368a.81.81 0 0 1 1.034-.275.81.81 0 0 0 .724 0l.261-.13a1 1 0 0 1 .775-.05l.984.34q.118.04.243.054c.784.093.855.377.694.801-.155.41-.616.617-1.035.487l-.01-.003C8.274 4.663 7.748 4.5 6 4.5 4.8 4.5 3.5 5.62 3.5 7c0 1.96.826 2.166 1.696 2.382.46.115.935.233 1.304.618.449.467.393 1.181.339 1.877C6.755 12.96 6.674 14 8.5 14c1.75 0 3-3.5 3-4.5 0-.262.208-.468.444-.7.396-.392.87-.86.556-1.8-.097-.291-.396-.568-.641-.756-.174-.133-.207-.396-.052-.551a.33.33 0 0 1 .42-.042l1.085.724c.11.072.255.058.348-.035.15-.15.415-.083.489.117.16.43.445 1.05.849 1.357L15 8A7 7 0 1 1 3.668 2.501"/>
             </svg>
-            Asesorías publicadas</h6>
+            Asesorías
+        </h6>
         <!-- Linea horizontal  -->
         <hr>
-        <!-- Card  -->
-        <div class="card shadow">
-            <!-- Card header  -->
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <!-- Titulo  -->
-                <h6 class="header-title"></h6>
-                <!-- Selector  -->
-                <div class="form-floating" style="width: 200px;">
-                    <select class="form-select text-table-font cursor-pointer" aria-label="Floating label select example" (change)="filterConsultationsBySubject($event)">
-                    <option selected class="text-table-font" value="noValue">Todas las cátedras</option>
-                    <option *ngFor="let subject of subjects" [value]="subject.uuid">{{subject.name | titlecase}}</option>
-                    </select>
-                    <label for="floatingSelect" class="text-table-font">Filtrar por cátedra</label>
-                </div> 
-            </div>
-            <!-- Card body  -->
-            <div class="card-body">
-                <!-- Contenedor para la tabla de asesorías -->
-                <div class="table-responsive table-responsive-height">
-                    <!-- Tabla de asesorías -->
-                    <table *ngIf="consultations?.length != 0" class="table table-centered table-nowrap table-hover mb-0">
-                        <!-- Cabecera de tabla -->
-                        <thead>
-                            <tr>
-                                <!-- Imagen -->
-                                <th scope="col"></th>
-                                <!-- Fecha de creación -->
-                                <th scope="col">
-                                    <!-- Icono -->
-                                    <span class="text-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25   " fill="currentColor" class="bi bi-brightness-alt-high-fill" viewBox="0 0 16 18">
-                                            <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3m8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5m-13.5.5a.5.5 0 0 0 0-1h-2a.5.5 0 0 0 0 1zm11.157-6.157a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m-9.9 2.121a.5.5 0 0 0 .707-.707L3.05 5.343a.5.5 0 1 0-.707.707zM8 7a4 4 0 0 0-4 4 .5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5 4 4 0 0 0-4-4"/>
-                                        </svg>
-                                    </span>
-                                    Creado
-                                </th>
-                                <!-- Cátedra -->
-                                <th scope="col">
-                                    <!-- Icono -->
-                                    <span class="text-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 18">
-                                            <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864z"/>
-                                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
-                                        </svg>
-                                    </span>
-                                    Cátedra
-                                </th>
-                                <!-- Asesor -->
-                                <th scope="col">
-                                    <!-- Icono -->
-                                    <span class="text-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 18">
-                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                                        </svg>
-                                    </span>
-                                    Asesor
-                                </th>
-                                <!-- Asesorados -->
-                                <th scope="col">
-                                    <!-- Icono -->
-                                    <span class="text-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 18">
-                                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                                        </svg>
-                                    </span>
-                                    No. Asesorados
-                                </th>
-                                <!-- Botón -->
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <!-- Cuerpo de la tabla -->
-                        <tbody>
-                            <!-- Registro  -->
-                            <tr *ngFor="let consultation of consultations">
-                                <!-- imagen del usuario que publico el asesoramiento-->
-                                <td class="">   
-                                    <figure class="my-1" style="width: 50px; height: 50px; border-radius: 100%; margin-bottom: 0px; background-image: url(../../../assets/images/logo_consultation.png); background-repeat: no-repeat; background-size: cover;"></figure>
-                                </td>
-                                <!-- Fecha de creación de la asesoría -->
-                                <td class="">
-                                    <p class="text-muted my-3">{{consultation.date_creation}}</p>
-                                </td>
-                                <!-- Tema de la asesoría-->
-                                <td class="">
-                                    <p class="text-muted my-3">{{consultation.subject.name | titlecase}}</p>
-                                </td>
-                                <!-- Nombre del asesor -->
-                                <td class="">
-                                    <p class="text-muted my-3">{{consultation.user.first_name | titlecase}} {{consultation.user.last_name | titlecase}}</p>
-                                </td>
-                                <!-- Numero de asesorados  -->
-                                <td>
-                                    <p class="text-muted my-3">{{consultation.joins.length}}</p>
-                                </td>
-                                <!-- Botón de detalles-->
-                                <td [ngClass]="{'d-none': check(consultation)}">
-                                    <div class="dropdown my-2 float-end">
-                                        <a class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <!-- Icono de detalles  -->
-                                            <span class="text-light">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details" width="20" height="20" viewBox="0 0 30 30" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M13 5h8" />
-                                                    <path d="M13 9h5" />
-                                                    <path d="M13 15h8" />
-                                                    <path d="M13 19h5" />
-                                                    <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                                    <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                                </svg>
-                                            </span>
-                                            Detalles
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-dark">
-                                            <!-- Botón de detalles de la asesoría  -->
-                                            <li (click)="showModalViewConsultation(consultation)">
-                                                <a class="dropdown-item cursor-pointer">
-                                                    <h6 class="mt-2">
-                                                        <span class="text-light">
-                                                            <!-- Icono -->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 18">
-                                                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
-                                                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
-                                                            </svg>
-                                                        </span>
-                                                        Asesoría
-                                                    </h6>
-                                                </a>
-                                            </li>
-                                            <!-- Botón para el asesor -->
-                                            <li (click)="showUser(consultation)">
-                                                <a class="dropdown-item cursor-pointer">
-                                                    <h6 class="mt-2">
-                                                        <span class="text-light">
-                                                            <!-- Icono -->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 18">
-                                                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                                                            </svg>
-                                                            Asesor
-                                                        </span>
-                                                    </h6>
-                                                </a>
-                                            </li>
-                                            <!-- Divisor  -->
-                                            <li><hr class="dropdown-divider"></li>
-                                            <!-- Botón para unirse a la asesoría  -->
-                                            <li>
-                                                <a class="dropdown-item cursor-pointer" (click)="showConfirmation(consultation)">    
-                                                    <h6 class="mt-2">
-                                                        <span class="text-light">
-                                                            <!-- Icono -->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 18">
-                                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                                                            </svg>
-                                                            Unirme
-                                                        </span>
-                                                    </h6>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <!-- Por si el alumno ya se inscribió  -->
-                                <td [ngClass]="{'d-none': !check(consultation)}">
-                                    <p class="text-muted float-end my-3">Inscrito</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- No hay registros  -->
-                    <h6 *ngIf="consultations?.length == 0" class="text-center text-table-font" style="margin-top: 260px;">
-                        <p>No hay registros</p>
-                    </h6>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
-<!-- Instrucciones -->
-<div class="row mt-3">
+<div class="row">
     <div class="col">
-        <!-- Card -->
         <div class="card shadow">
-            <!-- Card-header -->
             <div class="card-header">
-                <!-- Titulo -->
+                <!-- Selector  -->
+                 <app-consultation-selector-student (set_consultations)="consultations = $event" (set_reload_consultations)="find_all_my_joins()"></app-consultation-selector-student>
+            </div>
+            <div *ngIf="consultations?.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
+                <table class="table table-hover table-striped table-centered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha de creación</th>
+                            <th scope="col">Cátedra</th>
+                            <th scope="col">Nombre(s) del asesor</th>
+                            <th scope="col">Apellidos(s) del asesor</th>
+                            <th scope="col">Joins creados</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let consultation of consultations">
+                            <!-- Fecha de creación -->
+                            <td><p class="my-3">{{consultation.date_creation}}</p></td>
+                            <!-- Cátedra -->
+                            <td><p class="my-3">{{consultation.subject.name | titlecase}}</p></td>
+                            <!-- Nombre del asesor -->
+                            <td><p class="my-3">{{consultation.user.first_name | titlecase}}</p></td>
+                            <!-- Apellido del asesor -->
+                            <td><p class="my-3">{{consultation.user.last_name | titlecase}}</p></td>
+                            <!-- Joins creados -->
+                            <td><p class="my-3">{{consultation.joins.length}}</p></td>
+                            <!-- Botón -->
+                            <td [ngClass]="{'d-none': check(consultation)}">
+                                <div class="dropdown my-2 float-end">
+                                    <a class="btn btn-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                       Investigar
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <!-- Detalles  -->
+                                        <li>
+                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_view_consultation(consultation)">Detalles</a>
+                                        </li>
+                                        <!-- Asesor  -->
+                                        <li>
+                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_view_user(consultation.user)">Asesor</a>
+                                        </li>
+                                        <!-- Divisor  -->
+                                        <li><hr class="dropdown-divider"></li>
+                                        <!-- Eliminar  -->
+                                        <li>
+                                            <!-- <a class="dropdown-item cursor-pointer" (click)="show_modal_delete_consultation(consultation)">Eliminar</a> -->
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <!-- Por si el alumno ya se inscribió  -->
+                            <td [ngClass]="{'d-none': !check(consultation)}">
+                                <p class="text-muted float-end my-3">Join creado</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- No hay registros  -->
+            <div *ngIf="consultations?.length == 0" class="card-body card-body-height table-responsive table-responsive-height">
                 <h6 class="text-center">
-                    <!-- Icono -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 18">
-                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
-                    </svg>
-                    Descripción del componente
+                    <p>No hay registros</p>
                 </h6>
             </div>
-            <!-- Card body -->
-            <div class="card-body">
-                <!-- Descripción -->
-                <p>
-                    El componente ASESORAMIENTOS PUBLICADOS es una pieza esencial de la experiencia en AsesoresApp. 
-                    Su funcionalidad se centra en proporcionar a los usuarios acceso instantáneo a todas las asesorías creadas por los expertos académicos en la plataforma.
-                </p>
-                <h6>Características principales</h6>
-                <ul>
-                    <li>
-                        <h6>Exploración integral:</h6>
-                        <p>
-                            El componente ofrece una vista completa de todos los asesoramientos disponibles, facilitando
-                            a los usuarios la búsqueda y selección de asesorías específicas que se alineen con sus necesidades académicas.
-                        </p>
-                    </li>
-                    <li>
-                        <h6>Información detallada:</h6>
-                        <p>
-                            Con solo un clic, los usuarios pueden acceder a información detallada sobre cada asesoría. Desde detalles 
-                            específicos del contenido hasta datos relevantes sobre el asesor que la creó, proporcionando una visión completa de lo que pueden esperar.
-                        </p>
-                    </li>
-                    <li>
-                        <h6>Perfil del asesor:</h6>
-                        <p>
-                            Además de la información de la asesoría, el componente muestra el perfil del asesor responsable. 
-                            Esta característica permite a los usuarios conocer mejor a los expertos académicos y su experiencia.
-                        </p>
-                    </li>
-                    <li>
-                        <h6>Unión sencilla:</h6>
-                        <p>
-                            La interacción con las asesorías es tan fácil como pulsar un botón. Los usuarios pueden unirse 
-                            rápidamente a las asesorías que encuentren interesantes, mejorando la accesibilidad y participación en la comunidad educativa.
-                        </p>
-                    </li>
-                </ul>
-
-            </div>
         </div>
     </div>
 </div>
+
+<!------------------------------------------------------------------------------- Update  ------------------------------------------------------------------->
 
 <!-- Modal para ver la asesoría  -->
 <app-view-consultation [flag]="flag_view_consultation" (flag_response)="flag_view_consultation = $event"></app-view-consultation>
