@@ -15,7 +15,6 @@ import { CreateConsultationComponent } from './components/create-consultation/cr
 import { ViewConsultationComponent } from 'src/app/components/view-consultation/view-consultation.component';
 import { ProgressBarConsultationsComponent } from 'src/app/components/progress-bar-consultations/progress-bar-consultations.component';
 import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
-import { UpdateConsultationResponse } from 'src/app/model/updateConsultationResponse.interface';
 import { DeleteMyConsultationComponent } from './components/delete-my-consultation/delete-my-consultation.component';
 
 @Component({
