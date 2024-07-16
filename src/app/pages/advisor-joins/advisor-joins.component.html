@@ -119,7 +119,7 @@
                                             <ul class="dropdown-menu dropdown-menu-dark">
                                                 <!-- Detalles  -->
                                                 <li>
-                                                    <a class="dropdown-item cursor-pointer">Detalles</a>
+                                                    <a class="dropdown-item cursor-pointer" (click)="show_modal_view_join(join, consultation)">Detalles</a>
                                                 </li>
                                                 <!-- Divisor  -->
                                                 <li><hr class="dropdown-divider"></li>
@@ -139,3 +139,6 @@
         </div>
     </div>
 </div>
+
+<!-- Componente para ver el join -->
+<app-view-join></app-view-join>

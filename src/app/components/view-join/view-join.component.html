@@ -1,0 +1,99 @@
+<!-- Nuevo modal de confirmación de actualización de asesoría (restructured) -->
+<p-dialog asesoría="Usuario" [(visible)]="show_flag" [modal]="true"  [style]="{ width: '30vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="close_modal()">
+
+    <div class="row">
+        <div class="col">
+            <!-- Linea horizontal  -->
+            <hr>
+        </div>
+    </div>
+
+    <!-- Detalles -->
+    <div class="row">
+        <div class="col">
+            <!-- Card  -->
+            <div class="card shadow">
+                <!-- Card header  -->
+                <div class="card-header">
+                    <p class="text-center my-2">Join</p>
+                </div>
+                <!-- Card body  -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <!-- Fecha de creación -->
+                            <p class="mb-1"><strong>Fecha de creación</strong></p>
+                            <p *ngIf="join">{{join.date_creation}}</p>
+                            <!-- Linea horizontal  -->
+                            <hr>
+                            <!-- Detalles -->
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <!-- Escrito  -->
+                                    <p *ngIf="join" class="mb-1">
+                                        El estudiante <span><strong>{{join.user.last_name | uppercase}} {{join.user.first_name | uppercase}}</strong></span> 
+                                        se ha inscrito a la asesoría de <span><strong>{{consultation.user.last_name | uppercase}} {{consultation.user.first_name | uppercase}}</strong></span> 
+                                        sobre <span><strong>{{consultation.subject.name | uppercase}}</strong></span> que se llevará acabo los días 
+                                        <span><strong>{{consultation.day | uppercase}}</strong></span> con un horario de <span><strong>{{consultation.start}}:00</strong></span> a 
+                                        <span><strong>{{consultation.end}}:00.</strong></span>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <!-- Paso  -->
+                                    <p *ngIf="join" class="mb-1"><strong>Paso</strong></p>
+                                    <!-- En proceso -->
+                                    <p *ngIf="join && join.step == 'inProgress'" class="mb-1 text-truncate">
+                                        <span class="text-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+                                        En proceso
+                                    </p>
+                                    <!-- Retroalimentación  -->
+                                    <p *ngIf="join && join.step == 'inLimbo'" class="mb-1 text-truncate">
+                                        <span class="text-warning">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+                                        Retroalimentación
+                                    </p>
+                                    <!-- Finalizado  -->
+                                    <p *ngIf="join && join.step == 'finished'" class="mb-1 text-truncate">
+                                        <span class="text-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+                                        Finalizado
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <!-- Paso  -->
+                                    <p *ngIf="join" class="mb-1"><strong>Comentario</strong></p>
+                                    <!-- Finalizado  -->
+                                    <p *ngIf="join" class="mb-1 text-truncate">{{join.comment | titlecase}}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <!-- Calificación  -->
+                                    <p *ngIf="join" class="mb-1"><strong>Calificación</strong></p>
+                                    <!-- Finalizado  -->
+                                    <p *ngIf="join" class="mb-1 text-truncate">{{join.grade}}.00</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Linea horizontal  -->
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+    
+</p-dialog>

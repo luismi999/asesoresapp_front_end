@@ -10,6 +10,7 @@ import { RankComponent } from './rank/rank.component';
 import { ReadExcelComponent } from './read-excel/read-excel.component';
 import { MapComponent } from './map/map.component';
 import { ViewUserStudentComponent } from './view-user-student/view-user-student.component';
+import { ViewJoinComponent } from './view-join/view-join.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ViewUserStudentComponent } from './view-user-student/view-user-student.
     RankComponent,
     ReadExcelComponent,
     MapComponent,
-    ViewUserStudentComponent
+    ViewUserStudentComponent,
+    ViewJoinComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { ViewUserStudentComponent } from './view-user-student/view-user-student.
     RankComponent,
     ReadExcelComponent,
     MapComponent,
-    ViewUserStudentComponent
+    ViewUserStudentComponent,
+    ViewJoinComponent
   ]
 })
 export class ComponentsModule { }

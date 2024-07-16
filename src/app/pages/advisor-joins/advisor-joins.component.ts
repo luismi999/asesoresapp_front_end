@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Consultation } from 'src/app/model/consultation.model';
 import { ConsultationsService } from '../../services/consultations.service';
 import { Join } from 'src/app/model/join.model';
+import { ViewJoinComponent } from 'src/app/components/view-join/view-join.component';
 
 @Component({
   selector: 'app-advisor-joins',
@@ -13,6 +14,9 @@ import { Join } from 'src/app/model/join.model';
   styleUrls: ['./advisor-joins.component.css']
 })
 export class AdvisorJoinsComponent implements OnInit {
+
+  // Componentes hijos 
+  @ViewChild(ViewJoinComponent) viewJoinComponent?: ViewJoinComponent;
 
   // Propiedades 
   consultation!: Consultation;
@@ -80,4 +84,10 @@ export class AdvisorJoinsComponent implements OnInit {
     // Cargando 
     this.loading_flag = false;
   }
+
+  // --------------------------------------------------------------------- Componente hijo (view join) -------------------------------------------------------
+  // Inicializamos el componente 
+  show_modal_view_join(join: Join, consultation: Consultation){
+    this.viewJoinComponent?.start_component(join, consultation);
+  } 
 }
