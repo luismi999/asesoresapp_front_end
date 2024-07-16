@@ -4,85 +4,95 @@
 <!-- Notificación -->
 <p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
 
-<div class="row">
+<div class="row animate__animated animate__fadeIn">
     <div class="col">
-        <!-- Titulo  -->
-        <h6 class="">
-            <!-- Icono -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 18">
-                <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
-                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
-                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
-            </svg>
-            Mis asesorías creadas
-        </h6>
-        <!-- Linea horizontal  -->
-        <hr>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col">
-        <div class="card shadow">
-            <div class="card-header">
-                <!-- Botón -->
-                <button class="btn btn-dark m-2" (click)="show_modal_create_consultation()" [disabled]="consultations.length >= 5">Crear</button>
+        <div class="row">
+            <div class="col">
+                <!-- Titulo  -->
+                <h6 class="">
+                    <!-- Icono -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 18">
+                        <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
+                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                    </svg>
+                    Mis asesorías creadas
+                </h6>
+                <!-- Linea horizontal  -->
+                <hr>
             </div>
-            <div class="card-body card-body-height table-responsive table-responsive-height">
-                <table class="table table-hover table-striped table-centered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Fecha de creación</th>
-                            <th scope="col">Cátedra</th>
-                            <th scope="col">Nombre(s) del asesor</th>
-                            <th scope="col">Apellidos(s) del asesor</th>
-                            <th scope="col">Joins creados</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let consultation of consultations">
-                            <!-- Fecha de creación -->
-                            <td><p class="my-3">{{consultation.date_creation}}</p></td>
-                            <!-- Cátedra -->
-                            <td><p class="my-3">{{consultation.subject.name | titlecase}}</p></td>
-                            <!-- Nombre del asesor -->
-                            <td><p class="my-3">{{consultation.user.first_name | titlecase}}</p></td>
-                            <!-- Apellido del asesor -->
-                            <td><p class="my-3">{{consultation.user.last_name | titlecase}}</p></td>
-                            <!-- Joins creados -->
-                            <td><p class="my-3">{{consultation.joins.length}}</p></td>
-                            <!-- Botón -->
-                            <td>
-                                <div class="dropdown my-2 float-end">
-                                    <a class="btn btn-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                       Investigar
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
-                                        <!-- Detalles  -->
-                                        <li>
-                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_view_consultation(consultation)">Detalles</a>
-                                        </li>
-                                        <!-- Asesor  -->
-                                        <li>
-                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_view_user(consultation.user)">Asesor</a>
-                                        </li>
-                                        <!-- Joins  -->
-                                        <li>
-                                            <a class="dropdown-item cursor-pointer" [routerLink]="['/home/joins',consultation.uuid]">Joins</a>
-                                        </li>
-                                        <!-- Divisor  -->
-                                        <li><hr class="dropdown-divider"></li>
-                                        <!-- Eliminar  -->
-                                        <li>
-                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_delete_consultation(consultation)">Eliminar</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <!-- Botón -->
+                        <button class="btn btn-dark m-2" (click)="show_modal_create_consultation()" [disabled]="consultations.length >= 5">Crear</button>
+                    </div>
+                    <div *ngIf="consultations?.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
+                        <table class="table table-hover table-striped table-centered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha de creación</th>
+                                    <th scope="col">Cátedra</th>
+                                    <th scope="col">Nombre(s) del asesor</th>
+                                    <th scope="col">Apellidos(s) del asesor</th>
+                                    <th scope="col">Joins creados</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let consultation of consultations">
+                                    <!-- Fecha de creación -->
+                                    <td><p class="my-3">{{consultation.date_creation}}</p></td>
+                                    <!-- Cátedra -->
+                                    <td><p class="my-3">{{consultation.subject.name | titlecase}}</p></td>
+                                    <!-- Nombre del asesor -->
+                                    <td><p class="my-3">{{consultation.user.first_name | titlecase}}</p></td>
+                                    <!-- Apellido del asesor -->
+                                    <td><p class="my-3">{{consultation.user.last_name | titlecase}}</p></td>
+                                    <!-- Joins creados -->
+                                    <td><p class="my-3">{{consultation.joins.length}}</p></td>
+                                    <!-- Botón -->
+                                    <td>
+                                        <div class="dropdown my-2 float-end">
+                                            <a class="btn btn-dark dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                               Investigar
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-dark">
+                                                <!-- Detalles  -->
+                                                <li>
+                                                    <a class="dropdown-item cursor-pointer" (click)="show_modal_view_consultation(consultation)">Detalles</a>
+                                                </li>
+                                                <!-- Asesor  -->
+                                                <li>
+                                                    <a class="dropdown-item cursor-pointer" (click)="show_modal_view_user(consultation.user)">Asesor</a>
+                                                </li>
+                                                <!-- Joins  -->
+                                                <li>
+                                                    <a class="dropdown-item cursor-pointer" [routerLink]="['/home/joins',consultation.uuid]">Joins</a>
+                                                </li>
+                                                <!-- Divisor  -->
+                                                <li><hr class="dropdown-divider"></li>
+                                                <!-- Eliminar  -->
+                                                <li>
+                                                    <a class="dropdown-item cursor-pointer" (click)="show_modal_delete_consultation(consultation)">Eliminar</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="consultations?.length == 0" class="card-body card-body-height table-responsive table-responsive-height">
+                        <h6 class="text-center text-table-font">
+                            <p>No hay registros</p>
+                        </h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
