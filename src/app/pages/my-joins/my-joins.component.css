@@ -1,13 +1,15 @@
-.cursor-pointer { 
+.cursor-pointer {
     cursor: pointer;
 }
 
-.rocket {
-    animation: upDown 10s ease-in-out infinite;
+.selector-width {
+    width: 150px;
 }
 
-/* Definición de la animación del planeta */
-@keyframes upDown {
-    0%, 100% { transform: translateY(-5px); }
-    50% { transform: translateY(5px); }
+.card-body-height {
+    height: 500px;
+}
+
+.table-responsive-height {
+    height: 500px;
 }

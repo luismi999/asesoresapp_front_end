@@ -31,7 +31,7 @@ const routes: Routes = [
     { path: "advisor-consultations/joins/:uuid", canActivate:[AuthGuard, AdvisorGuard], component: AdvisorJoinsComponent},
     // Estudiante 
     { path: "consultations", canActivate:[AuthGuard, StudentGuard], component: ConsultationsComponent},
-    { path: "myJoins", canActivate:[AuthGuard, StudentGuard], component: MyJoinsComponent},
+    { path: "joins", canActivate:[AuthGuard, StudentGuard], component: MyJoinsComponent},
     // Administrador 
     { path: "adminUsers", canActivate:[AuthGuard, AdminGuard], component: AdminUsersComponent },
     { path: "adminConsultations", canActivate:[AuthGuard, AdminGuard], component: AdminConsultationsComponent },

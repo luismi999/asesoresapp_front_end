@@ -30,8 +30,6 @@ export class MyJoinsComponent {
 
   // Propiedades
   user              ?: User;
-  saved_join        ?: Join;
-  found_consultation?: Consultation;
   found_join        ?: Join;
   
   // Propiedades para la tabla de joins
