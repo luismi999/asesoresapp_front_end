@@ -151,21 +151,21 @@ export class ChartAdvisorComponent {
       labels: ['Enero','Febrero','Marzo','Abril','Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre', 'Noviembre', 'Diciembre'],
       datasets: [
         {
-            label: 'Joins Inprogress',
+            label: 'Joins en proceso',
             data: [this.months_inProgress_joins[0], this.months_inProgress_joins[1], this.months_inProgress_joins[2], this.months_inProgress_joins[3], this.months_inProgress_joins[4], this.months_inProgress_joins[5], this.months_inProgress_joins[6], this.months_inProgress_joins[7], this.months_inProgress_joins[8], this.months_inProgress_joins[9], this.months_inProgress_joins[10], this.months_inProgress_joins[11]],
             fill: false,
             borderColor: documentStyle.getPropertyValue('--green-500'),
             tension: 0.4
         },
         {
-          label: 'Joins InLimbo',
+          label: 'Joins en retroalimentación',
           data: [this.months_inLimbo_joins[0], this.months_inLimbo_joins[1], this.months_inLimbo_joins[2], this.months_inLimbo_joins[3], this.months_inLimbo_joins[4], this.months_inLimbo_joins[5], this.months_inLimbo_joins[6], this.months_inLimbo_joins[7], this.months_inLimbo_joins[8], this.months_inLimbo_joins[9], this.months_inLimbo_joins[10], this.months_inLimbo_joins[11]],
           fill: false,
           borderColor: documentStyle.getPropertyValue('--yellow-500'),
           tension: 0.4
         },
         {
-          label: 'Joins finished',
+          label: 'Joins finalizados',
           data: [this.months_finished_joins[0], this.months_finished_joins[1], this.months_finished_joins[2], this.months_finished_joins[3], this.months_finished_joins[4], this.months_finished_joins[5], this.months_finished_joins[6], this.months_finished_joins[7], this.months_finished_joins[8], this.months_finished_joins[9], this.months_finished_joins[10], this.months_finished_joins[11]],
           fill: false,
           borderColor: documentStyle.getPropertyValue('--red-500'),

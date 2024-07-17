@@ -5,10 +5,6 @@ import { Consultation } from 'src/app/model/consultation.model';
 import { User } from 'src/app/model/user.model';
 import { Join } from 'src/app/model/join.model';
 
-// Interfaces 
-import { CreateJoin } from 'src/app/model/createJoin.interface';
-import { CreateJoinResponse } from 'src/app/model/createJoinResponse.interface';
-
 // Servicios
 import { AuthService } from '../../services/auth.service';
 import { JoinsService } from '../../services/joins.service';
@@ -18,6 +14,7 @@ import { ConsultationsService } from '../../services/consultations.service';
 // Componentes hijos 
 import { ViewConsultationComponent } from 'src/app/components/view-consultation/view-consultation.component';
 import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
+import { CreateJoinComponent } from './components/create-join/create-join.component';
 
 
 @Component({
@@ -28,8 +25,10 @@ import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/v
 })
 export class ConsultationsComponent {
 
+  // Componentes hijos 
   @ViewChild(ViewConsultationComponent) viewConsultationComponent!: ViewConsultationComponent;
-  @ViewChild(ViewUserAdvisorComponent) ViewUserAdvisorComponent!: ViewUserAdvisorComponent;
+  @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent!: ViewUserAdvisorComponent;
+  @ViewChild(CreateJoinComponent) createJoinComponent!: CreateJoinComponent ;
 
   // Propiedades generales
   user         ?: User;
@@ -44,9 +43,7 @@ export class ConsultationsComponent {
   // Constructor
   constructor(
     private authService         : AuthService,
-    private confirmationService : ConfirmationService,
     private consultationsService: ConsultationsService,
-    private messageService      : MessageService,
     private joinsService        : JoinsService){}
     
   // Inicializado
@@ -133,51 +130,11 @@ export class ConsultationsComponent {
     // Bandera 
     this.flag_show_user = true;
     // Inicializamos el componente hijo 
-    this.ViewUserAdvisorComponent.findUser(user.uuid || '');
+    this.viewUserAdvisorComponent.findUser(user.uuid || '');
   }
 
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para crear un join - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  
-  // Confirmación para la creación del join en una asesoría seleccionada
-  showConfirmation(consultation: Consultation): void{
-    // Creamos el mensaje de la confirmación 
-    this.confirmationService.confirm({
-      message: `¿Deseas unirte al asesoramiento sobre ${consultation.subject.name.toUpperCase()}?`,
-      header: 'Confirmación',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Si',
-      accept: () => {
-        // Actualizamos la asesoría 
-        this.createJoin(consultation);
-      },
-      reject: (type: any) => {}
-    });
+  // --------------------------------------------------------------------- componente hijo (create join) -----------------------------------------------------------
+  show_confirmation_create_join(consultation: Consultation){
+    this.createJoinComponent.start_component(consultation);
   }
-
-  // Creamos el join para la asesoría seleccionada una vez confirmada
-  createJoin(consultation: Consultation): void{
-    // Bandera 
-    this.flag_loading = true;
-    // Creamos el modelo para crear el join 
-    const newJoin: CreateJoin = {uuid_user: this.user?.uuid || '', uuid_consultation: consultation?.uuid};
-    // consultamos el servicio de JOINS
-    this.joinsService.create(newJoin)
-    .subscribe({
-      next: (resp: CreateJoinResponse) => {
-        // Respuesta del backend
-        this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
-        // Reiniciamos la tabla 
-        this.find_all_my_joins();
-        // Bandera 
-        this.flag_loading = false;
-      },
-      error: (error) => {
-        // Respuesta del backend
-        this.messageService.add({key: 'serverResponse', severity:'error', summary: 'Error', detail: error.error.message, life: 5000 });
-        // Bandera 
-        this.flag_loading = false;
-      }
-    })
-  }
-
 }
