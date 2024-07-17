@@ -94,6 +94,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <!-- Linea horizontal -->
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <!-- Componente de la gráfica de asesorías  -->
+                <app-chart-consultations-student></app-chart-consultations-student>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -102,7 +116,7 @@
 <app-view-consultation [flag]="flag_view_consultation" (flag_response)="flag_view_consultation = $event"></app-view-consultation>
 
 <!-- Componente de crear join -->
-<app-create-join [user]="user" (set_reload_consultations)="find_all_my_joins()"></app-create-join>
+<app-create-join [user]="user" (set_reload_consultations)="find_all_my_joins()" (set_reload_chart)="chartConsultationsStudentComponent.get_all_consultations()"></app-create-join>
 
 <!-- Modal sobre el asesor  -->
 <app-view-user-advisor [flag]="flag_show_user" [user_who_wants_to_see]="user" (flag_response)="flag_show_user = $event"></app-view-user-advisor>

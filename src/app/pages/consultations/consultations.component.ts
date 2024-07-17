@@ -15,6 +15,7 @@ import { ConsultationsService } from '../../services/consultations.service';
 import { ViewConsultationComponent } from 'src/app/components/view-consultation/view-consultation.component';
 import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
 import { CreateJoinComponent } from './components/create-join/create-join.component';
+import { ChartConsultationsStudentComponent } from './components/chart-consultations-student/chart-consultations-student.component';
 
 
 @Component({
@@ -26,9 +27,10 @@ import { CreateJoinComponent } from './components/create-join/create-join.compon
 export class ConsultationsComponent {
 
   // Componentes hijos 
+  @ViewChild(ChartConsultationsStudentComponent) chartConsultationsStudentComponent!: ChartConsultationsStudentComponent;
   @ViewChild(ViewConsultationComponent) viewConsultationComponent!: ViewConsultationComponent;
   @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent!: ViewUserAdvisorComponent;
-  @ViewChild(CreateJoinComponent) createJoinComponent!: CreateJoinComponent ;
+  @ViewChild(CreateJoinComponent) createJoinComponent!: CreateJoinComponent;
 
   // Propiedades generales
   user         ?: User;

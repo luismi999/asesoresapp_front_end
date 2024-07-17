@@ -22,6 +22,7 @@ export class CreateJoinComponent {
 
   // Salidas 
   @Output() set_reload_consultations = new EventEmitter<void>();
+  @Output() set_reload_chart         = new EventEmitter<void>();
 
   // Banderas 
   loading_flag: boolean = false;
@@ -69,6 +70,8 @@ export class CreateJoinComponent {
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success', detail: resp.msg, life: 5000 });
         // Reiniciamos la tabla 
         this.set_reload_consultations.emit();
+        // Reiniciamos la gráfica 
+        this.set_reload_chart.emit();
         // Cargando 
         this.loading_flag = false;
       },

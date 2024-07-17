@@ -1,21 +1,19 @@
-import { Component, OnDestroy } from '@angular/core';
-
-// Servicios 
-import { ConsultationsService } from '../../../../services/consultations.service';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 // Modelos 
 import { Consultation } from 'src/app/model/consultation.model';
-import { Subscription } from 'rxjs';
 
+// Servicios 
+import { ConsultationsService } from 'src/app/services/consultations.service';
 
 @Component({
-  selector: 'app-chart-consultations',
-  templateUrl: './chart-consultations.component.html',
-  styleUrls: ['./chart-consultations.component.css']
+  selector: 'app-chart-consultations-student',
+  templateUrl: './chart-consultations-student.component.html',
+  styleUrls: ['./chart-consultations-student.component.css']
 })
-export class ChartConsultationsComponent implements OnDestroy {
-
-// Propiedades
+export class ChartConsultationsStudentComponent {
+  // Propiedades
 data         : any;
 options      : any;
 consultations: Consultation[] = [];
