@@ -119,7 +119,7 @@
                                             <ul class="dropdown-menu dropdown-menu-dark">
                                                 <!-- Detalles  -->
                                                 <li>
-                                                    <a class="dropdown-item cursor-pointer" (click)="show_modal_view_join(join, consultation)">Detalles</a>
+                                                    <a class="dropdown-item cursor-pointer" (click)="show_modal_view_join(join, consultation.uuid)">Detalles</a>
                                                 </li>
                                                 <!-- Avanzar  -->
                                                 <li *ngIf="join.step == 'inProgress'">
@@ -142,4 +142,4 @@
 <app-view-join></app-view-join>
 
 <!-- Componente para dar avance al join -->
- <app-finish-join (set_reload_joins)="find_consultation()"></app-finish-join>
+<app-finish-join (set_reload_joins)="find_consultation()"></app-finish-join>

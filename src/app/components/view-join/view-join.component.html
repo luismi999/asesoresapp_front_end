@@ -32,10 +32,10 @@
                                     <!-- Escrito  -->
                                     <p *ngIf="join" class="mb-1">
                                         El estudiante <span><strong>{{join.user.last_name | uppercase}} {{join.user.first_name | uppercase}}</strong></span> 
-                                        se ha inscrito a la asesoría de <span><strong>{{consultation.user.last_name | uppercase}} {{consultation.user.first_name | uppercase}}</strong></span> 
-                                        sobre <span><strong>{{consultation.subject.name | uppercase}}</strong></span> que se llevará acabo los días 
-                                        <span><strong>{{consultation.day | uppercase}}</strong></span> con un horario de <span><strong>{{consultation.start}}:00</strong></span> a 
-                                        <span><strong>{{consultation.end}}:00.</strong></span>
+                                        se ha inscrito a la asesoría de <span><strong>{{consultation?.user?.last_name | uppercase}} {{consultation?.user?.first_name | uppercase}}</strong></span> 
+                                        sobre <span><strong>{{consultation?.subject?.name | uppercase}}</strong></span> que se llevará acabo los días 
+                                        <span><strong>{{consultation?.day | uppercase}}</strong></span> con un horario de <span><strong>{{consultation?.start}}:00</strong></span> a 
+                                        <span><strong>{{consultation?.end}}:00.</strong></span>
                                     </p>
                                 </li>
                                 <li class="list-group-item">

@@ -15,6 +15,7 @@ import { ConsultationsService } from '../../services/consultations.service';
 import { ViewConsultationComponent } from '../../components/view-consultation/view-consultation.component';
 import { GradeJoinComponent } from './components/grade-join/grade-join.component';
 import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
+import { ViewJoinComponent } from 'src/app/components/view-join/view-join.component';
 
 @Component({
   selector: 'app-my-joins',
@@ -24,13 +25,14 @@ import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/v
 })
 export class MyJoinsComponent {
 
+  // Componentes hijos 
   @ViewChild(ViewConsultationComponent) viewConsultationComponent!: ViewConsultationComponent;
   @ViewChild(ViewUserAdvisorComponent) viewUserAdvisorComponent!: ViewUserAdvisorComponent;
   @ViewChild(GradeJoinComponent) gradeJoinComponent !: GradeJoinComponent;
+  @ViewChild(ViewJoinComponent) viewJoinComponent?: ViewJoinComponent;
 
   // Propiedades
   user              ?: User;
-  found_join        ?: Join;
   
   // Propiedades para la tabla de joins
   joins: Join[] = [];
@@ -79,10 +81,16 @@ export class MyJoinsComponent {
     });
   }
 
+  // ----------------------------------------------------------------------- Componente hijo (view join) ---------------------------------------------------------
+  // Inicializamos el componente 
+  show_modal_view_join(join: Join, uuid_consultation: string){
+    this.viewJoinComponent?.start_component(join, uuid_consultation);
+  } 
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones del modal para ver los detalles de un join - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   // Mostrar el modal para mostrar el join 
-  showModalViewConsultation(join: Join): void{
+  show_modal_view_consultation(join: Join): void{
     // Bandera 
     this.flag_show_consultation = true;
     // Inicializamos el componente 
@@ -92,15 +100,13 @@ export class MyJoinsComponent {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones para el modal de calificar el join - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   
   // Mostrar el modal para calificar el join 
-  showModalGradeJoin(join: Join): void{
-    // Guardamos el join seleccionado 
-    this.found_join = join;
+  show_modal_grade_join(join: Join): void{
     // Inicializamos el componente para calificar el join 
-    this.gradeJoinComponent.findConsultation(join);
-    // Bandera 
-    setTimeout(() => {
-      this.flag_show_update_join = true;
-    }, 500);
+    this.gradeJoinComponent.start_component(join);
+    // // Bandera 
+    // setTimeout(() => {
+    //   this.flag_show_update_join = true;
+    // }, 500);
   }
 
    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Funciones para mostrar detalles del asesor - - -- - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -91,8 +91,8 @@ export class AdvisorJoinsComponent implements OnInit {
 
   // --------------------------------------------------------------------- Componente hijo (view join) -------------------------------------------------------
   // Inicializamos el componente 
-  show_modal_view_join(join: Join, consultation: Consultation){
-    this.viewJoinComponent?.start_component(join, consultation);
+  show_modal_view_join(join: Join, uuid_consultation: string){
+    this.viewJoinComponent?.start_component(join, uuid_consultation);
   } 
 
   // -------------------------------------------------------------------- Componente hijo (finish join) -----------------------------------------------------

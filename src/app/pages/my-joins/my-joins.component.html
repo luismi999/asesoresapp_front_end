@@ -113,11 +113,15 @@
                                     <ul class="dropdown-menu dropdown-menu-dark">
                                         <!-- Detalles  -->
                                         <li>
-                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_view_join(join, consultation)">Detalles</a>
+                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_view_join(join, join.consultation.uuid)">Detalles</a>
+                                        </li>
+                                        <!-- Asesoría  -->
+                                        <li>
+                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_view_consultation(join)">Asesoría</a>
                                         </li>
                                         <!-- Avanzar  -->
-                                        <li *ngIf="join.step == 'inProgress'">
-                                            <!-- <a class="dropdown-item cursor-pointer" (click)="show_finish_join_component(join, consultation)">Avanzar</a> -->
+                                        <li *ngIf="join.step == 'inLimbo'">
+                                            <a class="dropdown-item cursor-pointer" (click)="show_modal_grade_join(join)">Dar retroalimentación</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -130,11 +134,14 @@
     </div>
 </div>
 
+<!-- Componente de ver join  -->
+ <app-view-join></app-view-join>
+
 <!-- Modal para mostrar la asesoría  -->
 <app-view-consultation [flag]="flag_show_consultation" (flag_response)="flag_show_consultation = $event"></app-view-consultation>
 
 <!-- Modal para calificar la asesoría  -->
-<app-grade-join [flag]="flag_show_update_join" [join]="found_join" (flag_response)="flag_show_update_join = $event" (refresh_joins)="findAllJoins()"></app-grade-join>
+<app-grade-join (refresh_joins)="findAllJoins()"></app-grade-join>
 
 <!-- Modal sobre el asesor  -->
 <app-view-user-advisor [flag]="flag_show_user" [user_who_wants_to_see]="user" (flag_response)="flag_show_user = $event"></app-view-user-advisor>

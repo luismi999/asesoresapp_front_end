@@ -23,17 +23,14 @@ import { UpdateJoinResponse } from 'src/app/model/updateJoinResponse.interface';
 })
 export class GradeJoinComponent {
 
-  // Inputs y outputs de componente 
-  @Input() flag!: boolean;
-  @Input() join!: any;
-
-  @Output() flag_response = new EventEmitter<boolean>();
   @Output() refresh_joins = new EventEmitter<void>();
 
   // Propiedades 
   consultation!: any;
   form        !: FormGroup;
   grades      ?: number[];
+  join        ?: Join;
+  flag        : boolean = false;
 
   // Banderas 
   flag_loading: boolean = false;
@@ -51,7 +48,7 @@ export class GradeJoinComponent {
   // Inicializado 
   ngOnInit(): void {
     this.grades = this.joinsService.getGrades();
-    this.initForm();
+    this.init_form();
   }
 
   // Destructor
@@ -59,16 +56,23 @@ export class GradeJoinComponent {
     this.sub_consultation_find_one?.unsubscribe();
   } 
 
+  // Inicializar componente 
+  start_component(join: Join){
+    this.flag = true;
+    this.join = join;
+    this.find_consultation(join);
+  }
+
   // Inicializar el formulario para calificar el join
-  initForm(): void{
+  init_form(): void{
     this.form = this.fb.group({
       grade: [0,[Validators.min(1), Validators.max(10), Validators.required],],
-      comment: ["Ejemplo: 'Vaya asesor, me asesoró mucho en como realizar modelos entidad relación.'",[Validators.minLength(10), Validators.maxLength(200), Validators.required]]
+      comment: ["Ejemplo: 'Vaya asesor, me ayudó mucho en como realizar modelos entidad relación.'",[Validators.minLength(10), Validators.maxLength(200), Validators.required]]
     });
   }
 
   // Buscar la asesoría del join 
-  findConsultation(join: Join): void{
+  find_consultation(join: Join): void{
     // Bandera 
     this.flag_loading = true;
     // Consultamos el servicio de CONSULTATIONS 
@@ -89,18 +93,18 @@ export class GradeJoinComponent {
   }
 
   // Actualizamos el join 
-  updateJoin(): void{
+  update_join(): void{
     // Bandera 
     this.flag_loading = true;
     // Consultamos el servicio de JOINS 
-    this.joinsService.updateJoinGrade(this.join.uuid, this.form.value).subscribe({
+    this.joinsService.updateJoinGrade(this.join!.uuid, this.form.value).subscribe({
       next: (resp: UpdateJoinResponse) => {
         // Respuesta del backend
         this.messageService.add({ key: 'serverResponse', severity:'success', summary: 'Success',detail: resp.msg, life: 5000 });
         // Reiniciamos el formulario 
         this.form.reset();
         // Bandera del modal 
-        this.closeModal();
+        this.close_modal();
         // Bandera 
         this.flag_loading = false;
         // Actualizamos los joins 
@@ -118,7 +122,8 @@ export class GradeJoinComponent {
   }
 
   // Cerrar modal 
-  closeModal(){
-    this.flag_response.emit(false);
+  close_modal(){
+    // this.flag_response.emit(false);
+    this.flag = false;
   }
 }

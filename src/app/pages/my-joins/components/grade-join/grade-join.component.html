@@ -5,7 +5,7 @@
 <p-toast key="serverResponse" position="bottom-center" [breakpoints]="{'920px': {width: '90%', right: '5', left: '5'}}">></p-toast>
 
 <!-- Nuevo modal para calificar un join -->
-<p-dialog asesoría="Calificar join" [(visible)]="flag" [modal]="true" [style]="{ width: '40vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="closeModal()">
+<p-dialog asesoría="Calificar join" [(visible)]="flag" [modal]="true" [style]="{ width: '40vw' }" [breakpoints]="{'960px': '75vw', '640px': '95vw'}" [draggable]="false" (onHide)="close_modal()">
     <div class="row">
         <div class="col p-5">
 
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="col">
                     <!-- Botón para calificar  -->
-                    <button class="btn btn-primary float-end" (click)="updateJoin()" [disabled]="form.invalid">
+                    <button class="btn btn-primary float-end" (click)="update_join()" [disabled]="form.invalid">
                         <h6 class="my-2"> 
                             Calificar
                         </h6>
