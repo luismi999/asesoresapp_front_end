@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as mapboxgl from 'mapbox-gl';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 // Servicios 
 import { ConsultationsService } from 'src/app/services/consultations.service';
@@ -11,8 +10,8 @@ import { MessageService } from 'primeng/api';
 import { User } from 'src/app/model/user.model';
 
 // Interfaces 
-import { CreateConsultation } from 'src/app/model/createConsultation.interface';
 import { CreateConsultationResponse } from 'src/app/model/createConsultationResponse.interface';
+import { CreateConsultation } from 'src/app/model/createConsultation.interface';
 
 @Component({
   selector: 'app-create-consultation',
@@ -63,18 +62,16 @@ export class CreateConsultationComponent {
 
   // Inicializar el formulario para crear una asesoría
   start_form(): void{
-    this.form = this.fb.group({
-      uuid_subject: ['',[Validators.required]],
-      day         : ['',[Validators.required]],
-      start       : ['',[Validators.required]],
-      end         : ['',[Validators.required]],
-      map_longitud: [''],
-      map_latitud : ['']
+    this.form = new FormGroup({
+      uuid_subject: new FormControl('',[Validators.required]),
+      day         : new FormControl('',[Validators.required]),
+      start       : new FormControl('',[Validators.required]),
+      end         : new FormControl('',[Validators.required])
     });
   }
 
   // Obtener cátedras 
-  get_subjects(): void{
+  get_subjects(): void{ 
     // Bandera 
     this.flag_loading = true;
     // Reiniciamos nuestra variable 
@@ -117,9 +114,6 @@ export class CreateConsultationComponent {
   create_consultation(): void{
     // Bandera 
     this.flag_loading = true;
-    // Guardamos la longitud y latitud obtenidos del mapa en el formulario
-    this.form.get('map_longitud')?.setValue(1000);
-    this.form.get('map_latitud')?.setValue(1000);
     // Creamos una variable "asesoría" con los valores del formulario
     const newConsultation: CreateConsultation = this.form.value;
     newConsultation.uuid_user = this.user?.uuid;

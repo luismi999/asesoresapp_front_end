@@ -40,9 +40,9 @@
                         <thead>
                             <tr>
                                 <th scope="col">Fecha de creación</th>
+                                <th scope="col">Asesor</th>
                                 <th scope="col">Cátedra</th>
-                                <th scope="col">Nombre(s) del asesor</th>
-                                <th scope="col">Apellidos(s) del asesor</th>
+                                <th scope="col">Horario</th>
                                 <th scope="col">Joins creados</th>
                                 <th scope="col"></th>
                             </tr>
@@ -51,12 +51,12 @@
                             <tr *ngFor="let consultation of all_consultations">
                                 <!-- Fecha de creación -->
                                 <td><p class="my-3">{{consultation.date_creation}}</p></td>
+                                <!-- Asesor -->
+                                <td><p class="my-3">{{consultation.user.last_name | titlecase}} {{consultation.user.first_name | titlecase}}</p></td>
                                 <!-- Cátedra -->
                                 <td><p class="my-3">{{consultation.subject.name | titlecase}}</p></td>
-                                <!-- Nombre del asesor -->
-                                <td><p class="my-3">{{consultation.user.first_name | titlecase}}</p></td>
-                                <!-- Apellido del asesor -->
-                                <td><p class="my-3">{{consultation.user.last_name | titlecase}}</p></td>
+                                <!-- Horario -->
+                                <td><p class="my-3">{{consultation.day | titlecase}} de {{consultation.start}}:00 a {{consultation.end}}:00</p></td>
                                 <!-- Joins creados -->
                                 <td><p class="my-3">{{consultation.joins.length}}</p></td>
                                 <!-- Botón -->

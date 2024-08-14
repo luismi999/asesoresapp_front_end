@@ -9,8 +9,6 @@ export class Consultation {
         public day          : string,
         public start        : string,
         public end          : string,
-        public map_longitud : string,
-        public map_latitud  : string,
         public isActive     : boolean,
         public subject      : Subject,
         public user         : User,
