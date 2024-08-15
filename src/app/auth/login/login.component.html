@@ -22,7 +22,7 @@
             <div class="w-75">
                 <h4 class="text-table-font mb-3 text-center">Inicio de sesión</h4>
                 <!-- Formulario -->
-                <form [formGroup]="form">
+                <form [formGroup]="form" (ngSubmit)="signIn()">
                     <!-- Código -->
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingEmail" placeholder="212121212" formControlName="institutional_code" autocomplete="off">
@@ -33,16 +33,16 @@
                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
                         <label for="floatingPassword">Contraseña</label>
                     </div>
-                </form>
-                <!-- Botones -->
-                <div class="row">
-                    <div class="col">
-                        <!-- Acceder -->
-                        <button type="button" class="btn btn-dark float-end" (click)="signIn()">Acceder</button>
-                        <!-- Crear -->
-                        <button type="button" class="btn btn-dark float-start" (click)="flag_show_create_user = true">Nueva cuenta</button>
+                    <!-- Botones -->
+                    <div class="row">
+                        <div class="col">
+                            <!-- Acceder -->
+                            <button type="submit" class="btn btn-dark float-end">Acceder</button>
+                            <!-- Crear -->
+                            <button type="button" class="btn btn-dark float-start" (click)="flag_show_create_user = true">Nueva cuenta</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
