@@ -30,6 +30,10 @@
                     <div class="card-header">
                         <!-- Botón -->
                         <button class="btn btn-dark m-2" (click)="show_modal_create_consultation()" [disabled]="consultations.length >= 5">Crear</button>
+                        <!-- Estados de los joins  -->
+                        <span class="badge mt-3 float-end text-bg-danger me-4">{{red_joins}}</span>
+                        <span class="badge mt-3 float-end text-bg-warning me-2">{{yellow_joins}}</span>
+                        <span class="badge mt-3 float-end text-bg-success me-2">{{green_joins}}</span>
                     </div>
                     <div *ngIf="consultations?.length != 0" class="card-body card-body-height table-responsive table-responsive-height">
                         <table class="table table-hover table-striped table-centered">

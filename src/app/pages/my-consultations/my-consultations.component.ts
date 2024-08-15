@@ -16,6 +16,7 @@ import { ViewConsultationComponent } from 'src/app/components/view-consultation/
 import { ProgressBarConsultationsComponent } from 'src/app/components/progress-bar-consultations/progress-bar-consultations.component';
 import { ViewUserAdvisorComponent } from 'src/app/components/view-user-advisor/view-user-advisor.component';
 import { DeleteMyConsultationComponent } from './components/delete-my-consultation/delete-my-consultation.component';
+import { Join } from 'src/app/model/join.model';
 
 @Component({
   selector: 'app-my-consultations',
@@ -40,6 +41,10 @@ export class MyConsultationsComponent {
   // Propiedades para la tabla de asesorías
   consultations           : Consultation[] = [];
   ActiveConsultationsCount: number = 0;
+
+  green_joins : number = 0;
+  yellow_joins: number = 0;
+  red_joins   : number = 0;
 
   // Banderas de los componentes hijos
   flag_create_consultation: boolean = false;
@@ -80,6 +85,8 @@ export class MyConsultationsComponent {
         this.consultations = resp;
         // Refrescamos la barra de progreso 
         this.progressBarConsultationsComponent.refresh();
+        // Separar joins 
+        this.split_joins();
         // Cargando 
         this.flag_loading = false;
       },
@@ -91,6 +98,21 @@ export class MyConsultationsComponent {
       }
     }); 
   }
+
+  // Separar los joins de las asesorías
+  split_joins(){
+    this.consultations.map((consultation: Consultation) => {
+      consultation.joins.map((join: Join) => {
+        if(join.step === 'inProgress')
+          this.green_joins += 1;
+        else if(join.step === 'inLimbo')
+          this.yellow_joins += 1;
+        else if(join.step === 'finished')
+          this.red_joins += 1;
+      });
+    });
+  } 
+
   // --------------------------------------------------------------------------- Componente hijo (crear) -------------------------------------------------------------------- 
 
   // Mostrar el modal de creación de asesoría
